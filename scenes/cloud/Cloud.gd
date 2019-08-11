@@ -3,9 +3,11 @@ extends RigidBody2D
 class_name Cloud
 
 var wind_direction = Vector2(-1,0)
-export var WATER_AMOUNT := 4
+export var WATER_AMOUNT := 5
 var water_left 
 var near_clouds = 0 setget change_near_clouds
+
+signal rained
 
 #Flags
 var over_surface = false setget change_over_surface #Is true if the cloud is over the cloud border
@@ -31,6 +33,7 @@ func change_near_clouds(value):
 
 func _on_WaterDurationTimer_timeout() -> void:
 	if water_left > 0:
+		emit_signal("rained")
 		water_left -= 1
 		if water_left < 2:
 			#Change sprite
@@ -63,3 +66,12 @@ func stop_rain():
 	$WaterDurationTimer.stop()
 	$CPUParticles2D.emitting = false
 
+
+func _on_PlantsDetection_body_entered(body: PhysicsBody2D) -> void:
+	if body.is_in_group("corn_plant"):
+		connect("rained", body, "add_water")
+
+
+func _on_PlantsDetection_body_exited(body: PhysicsBody2D) -> void:
+	if body.is_in_group("corn_plant"):
+		disconnect("rained", body, "add_water")

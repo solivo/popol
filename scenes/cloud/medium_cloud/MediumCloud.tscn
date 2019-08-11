@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/cloud/Cloud.gd" type="Script" id=1]
 [ext_resource path="res://scenes/cloud/medium_cloud/normal_cloud_medium.png" type="Texture" id=2]
@@ -32,6 +32,9 @@ extents = Vector2( 74.7692, 32.7008 )
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 79.372, 33.405 )
 
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 75.025, 93.958 )
+
 [node name="MediumCloud" type="RigidBody2D" groups=[
 "cloud",
 ]]
@@ -58,11 +61,20 @@ texture = ExtResource( 7 )
 [node name="WaterDurationTimer" type="Timer" parent="."]
 
 [node name="CloudsDetection" type="Area2D" parent="."]
+editor/display_folded = true
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CloudsDetection"]
 shape = SubResource( 3 )
+
+[node name="PlantsDetection" type="Area2D" parent="."]
+position = Vector2( 0, 126.45 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlantsDetection"]
+shape = SubResource( 4 )
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="timeout" from="WaterDurationTimer" to="." method="_on_WaterDurationTimer_timeout"]
 [connection signal="body_entered" from="CloudsDetection" to="." method="_on_CloudsDetection_body_entered"]
 [connection signal="body_exited" from="CloudsDetection" to="." method="_on_CloudsDetection_body_exited"]
+[connection signal="body_entered" from="PlantsDetection" to="." method="_on_PlantsDetection_body_entered"]
+[connection signal="body_exited" from="PlantsDetection" to="." method="_on_PlantsDetection_body_exited"]

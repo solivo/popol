@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://world/World.gd" type="Script" id=1]
 [ext_resource path="res://world/Cloud_border.gd" type="Script" id=2]
 [ext_resource path="res://world/ground.png" type="Texture" id=3]
 [ext_resource path="res://scenes/cloud/medium_cloud/MediumCloud.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/corn_plant/CornPlant.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 480, 240 )
@@ -54,10 +55,25 @@ shape = SubResource( 4 )
 texture = ExtResource( 3 )
 
 [node name="Cloud" parent="." instance=ExtResource( 4 )]
-position = Vector2( 648.386, 215.71 )
+position = Vector2( 736.266, 263.527 )
 
 [node name="Cloud2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 668.029, 108.897 )
+
+[node name="Cloud3" parent="." instance=ExtResource( 4 )]
+position = Vector2( 310.036, 50.1859 )
+
+[node name="Cloud4" parent="." instance=ExtResource( 4 )]
+position = Vector2( 844.162, 64.5056 )
+
+[node name="Cloud5" parent="." instance=ExtResource( 4 )]
+position = Vector2( 481.01, 143.339 )
+
+[node name="CornPlant" parent="." instance=ExtResource( 5 )]
+position = Vector2( 349.456, 404.78 )
+
+[node name="CornPlant2" parent="." instance=ExtResource( 5 )]
+position = Vector2( 417.876, 404.78 )
 [connection signal="input_event" from="PlayerArea" to="." method="_on_PlayerArea_input_event"]
 [connection signal="body_entered" from="CloudBorder/RainArea" to="CloudBorder" method="_on_RainArea_body_entered"]
 [connection signal="body_exited" from="CloudBorder/RainArea" to="CloudBorder" method="_on_RainArea_body_exited"]
