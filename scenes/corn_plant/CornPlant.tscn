@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://scenes/corn_plant/CornPlant.gd" type="Script" id=1]
 [ext_resource path="res://scenes/corn_plant/assets/water_indicator_off.png" type="Texture" id=2]
@@ -51,6 +51,9 @@ animations = [ {
 "speed": 0.0
 } ]
 
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 22.2388, 56.2887 )
+
 [node name="CornPlant" type="StaticBody2D" groups=[
 "corn_plant",
 ]]
@@ -73,5 +76,13 @@ animation = "growing_plant"
 [node name="GrowTimer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
+
+[node name="FarnerDetection" type="Area2D" parent="."]
+collision_layer = 10
+collision_mask = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FarnerDetection"]
+shape = SubResource( 4 )
+[connection signal="tree_exited" from="." to="." method="_on_CornPlant_tree_exited"]
 [connection signal="frame_changed" from="AnimatedSpritePlant" to="." method="_on_AnimatedSprite_frame_changed"]
 [connection signal="timeout" from="GrowTimer" to="." method="_on_GrowTimer_timeout"]

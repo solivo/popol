@@ -4,6 +4,8 @@ extends StaticBody2D
 var Farmer = preload("res://scenes/human/farmer/Farmer.tscn")
 
 signal farmer_created(farmer)
+signal corn_stored
+
 #Units on the building
 export var farmers_avaliable : int = 2
 #flags
@@ -30,11 +32,6 @@ func send_farmer():
 		unit_queue.append("farmer")
 		farmers_avaliable -= 1
 
-func _on_SpawningTimer_timeout() -> void:
-	if unit_queue.size() > 0:
-		var unit_name = unit_queue.pop_back()
-		spawn_unit(unit_name) 
-		print(unit_queue)
 
 func spawn_unit(unit_name):
 	if unit_name == "farmer":
@@ -42,3 +39,18 @@ func spawn_unit(unit_name):
 		farmer.position = $SpawningPoint.position
 		add_child(farmer)
 		emit_signal("farmer_created", farmer)
+
+
+func _on_FarmerSpawningTimer_timeout() -> void:
+	if unit_queue.size() > 0:
+		var unit_name = unit_queue.pop_back()
+		spawn_unit(unit_name) 
+		print(unit_queue)
+
+
+func _on_BuildingDoorArea_body_entered(body: PhysicsBody2D) -> void:
+	if body.is_in_group("farmer"):
+		if body.plant_collected:
+			emit_signal("corn_stored")
+			body.queue_free() # Play an animation before quit
+			farmers_avaliable += 1 #A farmer is avaliable for the comming tasks

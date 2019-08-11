@@ -4,19 +4,23 @@
 [ext_resource path="res://world/Cloud_border.gd" type="Script" id=2]
 [ext_resource path="res://world/ground.png" type="Texture" id=3]
 [ext_resource path="res://scenes/building/Building.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/cloud/medium_cloud/MediumCloud.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 480, 240 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 480, 20 )
+extents = Vector2( 703.279, 20 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 478.954, 22.3399 )
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 480, 80 )
+
+[sub_resource type="Curve2D" id=5]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 1039.8, 304.022, 0, 0, 0, 0, 1039.8, 34.6679 )
+}
 
 [node name="World" type="Node2D"]
 script = ExtResource( 1 )
@@ -31,7 +35,6 @@ collision_mask = 3
 shape = SubResource( 1 )
 
 [node name="CloudBorder" type="StaticBody2D" parent="."]
-editor/display_folded = true
 position = Vector2( 480, 350 )
 collision_layer = 2
 collision_mask = 2
@@ -60,26 +63,24 @@ texture = ExtResource( 3 )
 [node name="Building" parent="." instance=ExtResource( 4 )]
 position = Vector2( 119.553, 411.182 )
 
-[node name="MediumCloud" parent="." instance=ExtResource( 5 )]
-position = Vector2( 564.926, 144.154 )
-
-[node name="MediumCloud2" parent="." instance=ExtResource( 5 )]
-position = Vector2( 748.04, 151.946 )
-
-[node name="MediumCloud3" parent="." instance=ExtResource( 5 )]
-position = Vector2( 406.904, 71.0255 )
-
-[node name="MediumCloud4" parent="." instance=ExtResource( 5 )]
-position = Vector2( 594.296, 50.3478 )
-
-[node name="MediumCloud5" parent="." instance=ExtResource( 5 )]
-position = Vector2( 776.519, 52.9325 )
-
 [node name="SpawningPlantPosition1" type="Position2D" parent="."]
 position = Vector2( 350, 420 )
 
 [node name="SpawningPlantPosition2" type="Position2D" parent="."]
-position = Vector2( 400, 420 )
+position = Vector2( 400.95, 420 )
+
+[node name="CloudsSpawnPath" type="Path2D" parent="."]
+editor/display_folded = true
+curve = SubResource( 5 )
+
+[node name="SpawnLocation" type="PathFollow2D" parent="CloudsSpawnPath"]
+position = Vector2( 1076.53, 302.662 )
+rotation = -1.57626
+
+[node name="CloudSpawnTimer" type="Timer" parent="."]
+wait_time = 2.5
 [connection signal="input_event" from="PlayerArea" to="." method="_on_PlayerArea_input_event"]
 [connection signal="body_entered" from="CloudBorder/RainArea" to="CloudBorder" method="_on_RainArea_body_entered"]
 [connection signal="body_exited" from="CloudBorder/RainArea" to="CloudBorder" method="_on_RainArea_body_exited"]
+[connection signal="corn_stored" from="Building" to="." method="_on_Building_corn_stored"]
+[connection signal="timeout" from="CloudSpawnTimer" to="." method="_on_CloudSpawnTimer_timeout"]

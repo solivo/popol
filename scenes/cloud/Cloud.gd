@@ -4,6 +4,7 @@ class_name Cloud
 
 var wind_direction = Vector2(-1,0)
 export var WATER_AMOUNT := 5
+export var cloud_speed :float =  1
 var water_left 
 var near_clouds = 0 setget change_near_clouds
 
@@ -17,7 +18,7 @@ func _ready() -> void:
 
 func _integrate_forces(state: Physics2DDirectBodyState) -> void:
 	#Wind direction
-	apply_central_impulse(wind_direction)
+	apply_central_impulse(wind_direction * cloud_speed)
 
 func change_over_surface(value):
 	over_surface = value

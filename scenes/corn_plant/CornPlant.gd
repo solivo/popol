@@ -1,8 +1,13 @@
 extends StaticBody2D
 
 var water_amount := 0 
+var number_position := 0
 
 signal ready_for_harvest
+signal plant_collected(number_position)
+
+#Flags
+var mature_plant = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -36,6 +41,7 @@ func ready_to_harvest():
 	emit_signal("ready_for_harvest")
 	print("ready for haverst!")
 	$AnimatedSpritePlant.play("mature_plant")
+	mature_plant = true
 
 
 
@@ -45,3 +51,7 @@ func _on_GrowTimer_timeout() -> void:
 		$AnimatedSpriteIndicator.play("indicator_on")
 	else:
 		$AnimatedSpriteIndicator.play("indicator_off")
+
+
+func _on_CornPlant_tree_exited() -> void:
+	emit_signal("plant_collected", number_position)

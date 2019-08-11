@@ -20,6 +20,7 @@ extents = Vector2( 23.9044, 43.9819 )
 
 [node name="Building" type="StaticBody2D"]
 script = ExtResource( 1 )
+farmers_avaliable = 1
 
 [node name="SpriteBuilding" type="Sprite" parent="."]
 texture = ExtResource( 2 )
@@ -35,13 +36,15 @@ shape = SubResource( 2 )
 [node name="SpawningPoint" type="Position2D" parent="."]
 position = Vector2( 0, 28 )
 
-[node name="SpawningTimer" type="Timer" parent="."]
+[node name="FarmerSpawningTimer" type="Timer" parent="."]
 wait_time = 2.0
 autostart = true
 
 [node name="BuildingDoorArea" type="Area2D" parent="."]
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BuildingDoorArea"]
 position = Vector2( 0, 19.85 )
 shape = SubResource( 3 )
-[connection signal="timeout" from="SpawningTimer" to="." method="_on_SpawningTimer_timeout"]
+[connection signal="timeout" from="FarmerSpawningTimer" to="." method="_on_FarmerSpawningTimer_timeout"]
+[connection signal="body_entered" from="BuildingDoorArea" to="." method="_on_BuildingDoorArea_body_entered"]
