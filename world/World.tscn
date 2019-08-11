@@ -1,12 +1,10 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://world/World.gd" type="Script" id=1]
 [ext_resource path="res://world/Cloud_border.gd" type="Script" id=2]
 [ext_resource path="res://world/ground.png" type="Texture" id=3]
-[ext_resource path="res://scenes/corn_plant/CornPlant.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/building/Building.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/human/farmer/Farmer.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/cloud/medium_cloud/MediumCloud.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/building/Building.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/cloud/medium_cloud/MediumCloud.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 480, 240 )
@@ -24,6 +22,7 @@ extents = Vector2( 480, 80 )
 script = ExtResource( 1 )
 
 [node name="PlayerArea" type="Area2D" parent="."]
+editor/display_folded = true
 position = Vector2( 480, 240 )
 collision_layer = 3
 collision_mask = 3
@@ -32,6 +31,7 @@ collision_mask = 3
 shape = SubResource( 1 )
 
 [node name="CloudBorder" type="StaticBody2D" parent="."]
+editor/display_folded = true
 position = Vector2( 480, 350 )
 collision_layer = 2
 collision_mask = 2
@@ -47,6 +47,7 @@ collision_mask = 2
 shape = SubResource( 3 )
 
 [node name="Ground" type="StaticBody2D" parent="."]
+editor/display_folded = true
 position = Vector2( 480, 560 )
 collision_layer = 2
 
@@ -56,23 +57,29 @@ shape = SubResource( 4 )
 [node name="Sprite" type="Sprite" parent="Ground"]
 texture = ExtResource( 3 )
 
-[node name="CornPlant" parent="." instance=ExtResource( 4 )]
-position = Vector2( 349.456, 404.78 )
-
-[node name="Building" parent="." instance=ExtResource( 5 )]
+[node name="Building" parent="." instance=ExtResource( 4 )]
 position = Vector2( 119.553, 411.182 )
 
-[node name="CornPlant2" parent="." instance=ExtResource( 4 )]
-position = Vector2( 417.876, 404.78 )
-
-[node name="Farmer" parent="." instance=ExtResource( 6 )]
-position = Vector2( 256.83, 434.86 )
-
-[node name="MediumCloud" parent="." instance=ExtResource( 7 )]
+[node name="MediumCloud" parent="." instance=ExtResource( 5 )]
 position = Vector2( 564.926, 144.154 )
 
-[node name="MediumCloud2" parent="." instance=ExtResource( 7 )]
+[node name="MediumCloud2" parent="." instance=ExtResource( 5 )]
 position = Vector2( 748.04, 151.946 )
+
+[node name="MediumCloud3" parent="." instance=ExtResource( 5 )]
+position = Vector2( 406.904, 71.0255 )
+
+[node name="MediumCloud4" parent="." instance=ExtResource( 5 )]
+position = Vector2( 594.296, 50.3478 )
+
+[node name="MediumCloud5" parent="." instance=ExtResource( 5 )]
+position = Vector2( 776.519, 52.9325 )
+
+[node name="SpawningPlantPosition1" type="Position2D" parent="."]
+position = Vector2( 350, 420 )
+
+[node name="SpawningPlantPosition2" type="Position2D" parent="."]
+position = Vector2( 400, 420 )
 [connection signal="input_event" from="PlayerArea" to="." method="_on_PlayerArea_input_event"]
 [connection signal="body_entered" from="CloudBorder/RainArea" to="CloudBorder" method="_on_RainArea_body_entered"]
 [connection signal="body_exited" from="CloudBorder/RainArea" to="CloudBorder" method="_on_RainArea_body_exited"]

@@ -2,6 +2,8 @@ extends StaticBody2D
 
 var water_amount := 0 
 
+signal ready_for_harvest
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	water_amount = 0
@@ -31,7 +33,8 @@ func _on_AnimatedSprite_frame_changed() -> void:
 			ready_to_harvest()
 
 func ready_to_harvest():
-	print("ready to harvest!")
+	emit_signal("ready_for_harvest")
+	print("ready for haverst!")
 	$AnimatedSpritePlant.play("mature_plant")
 
 
