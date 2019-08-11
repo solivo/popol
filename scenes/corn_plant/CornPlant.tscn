@@ -54,6 +54,8 @@ animations = [ {
 [node name="CornPlant" type="StaticBody2D" groups=[
 "corn_plant",
 ]]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

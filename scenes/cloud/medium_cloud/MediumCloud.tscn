@@ -39,6 +39,7 @@ extents = Vector2( 75.025, 93.958 )
 "cloud",
 ]]
 collision_layer = 2
+collision_mask = 4
 mass = 5.0
 gravity_scale = 0.0
 script = ExtResource( 1 )
@@ -48,7 +49,6 @@ frames = SubResource( 2 )
 animation = "empty_cloud"
 
 [node name="CollisionShapeCloud" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource( 1 )
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
@@ -61,14 +61,16 @@ texture = ExtResource( 7 )
 [node name="WaterDurationTimer" type="Timer" parent="."]
 
 [node name="CloudsDetection" type="Area2D" parent="."]
-editor/display_folded = true
 monitorable = false
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CloudsDetection"]
 shape = SubResource( 3 )
 
 [node name="PlantsDetection" type="Area2D" parent="."]
 position = Vector2( 0, 126.45 )
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlantsDetection"]
 shape = SubResource( 4 )
