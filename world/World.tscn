@@ -33,6 +33,7 @@ centered = false
 
 [node name="PlayerArea" type="Area2D" parent="."]
 editor/display_folded = true
+visible = false
 position = Vector2( 480, 240 )
 collision_layer = 3
 collision_mask = 3
@@ -88,7 +89,6 @@ rotation = -1.57024
 
 [node name="CloudSpawnTimer" type="Timer" parent="."]
 wait_time = 2.5
-[connection signal="input_event" from="PlayerArea" to="." method="_on_PlayerArea_input_event"]
 [connection signal="body_entered" from="CloudBorder/RainArea" to="CloudBorder" method="_on_RainArea_body_entered"]
 [connection signal="body_exited" from="CloudBorder/RainArea" to="CloudBorder" method="_on_RainArea_body_exited"]
 [connection signal="corn_stored" from="Building" to="." method="_on_Building_corn_stored"]

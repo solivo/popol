@@ -1,10 +1,55 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://world/World.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/gui/GUI.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/gui/GUI.gd" type="Script" id=2]
+[ext_resource path="res://scenes/gui/assets/corn_amount_panel/corn_amount_panel.png" type="Texture" id=3]
+[ext_resource path="res://scenes/gui/assets/fonts/font_panel.tres" type="DynamicFont" id=4]
 
 [node name="Node" type="Node"]
 
 [node name="World" parent="." instance=ExtResource( 1 )]
+z_index = -10
 
-[node name="GUI" parent="." instance=ExtResource( 2 )]
+[node name="GUI" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="MarginContainer" type="MarginContainer" parent="GUI"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -131.0
+margin_right = 104.0
+custom_constants/margin_left = 15
+custom_constants/margin_bottom = 15
+
+[node name="MainPanel" type="HBoxContainer" parent="GUI/MarginContainer"]
+margin_left = 15.0
+margin_right = 104.0
+margin_bottom = 116.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="CornAmountPanel" type="TextureRect" parent="GUI/MarginContainer/MainPanel"]
+margin_right = 89.0
+margin_bottom = 116.0
+texture = ExtResource( 3 )
+
+[node name="CornAmountLabel" type="Label" parent="GUI/MarginContainer/MainPanel/CornAmountPanel"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 12.0
+margin_top = -49.0
+margin_right = 45.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0.278431, 0.0156863, 0.0156863, 1 )
+text = "0"
+
+[node name="CloudsController" type="Control" parent="GUI"]
+margin_right = 959.0
+margin_bottom = 341.0
+[connection signal="corn_amount_changed" from="World" to="GUI" method="_on_World_corn_amount_changed"]
+[connection signal="cloud_area_clicked" from="GUI" to="World" method="_on_GUI_cloud_area_clicked"]
+[connection signal="gui_input" from="GUI/CloudsController" to="GUI" method="_on_CloudsController_gui_input"]
+
+[editable path="World"]

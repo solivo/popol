@@ -8,11 +8,13 @@ var ExpulsionEffect = preload("res://world/ExpulsionEffect.tscn")
 
 export var corns_harvested := 6 #Corn amount added by each farmer 
 
-var corn_amount := 0 #Initial corn amount
+var corn_amount := 0  #Initial corn amount
 
 #Flags
 var plant_1_created = false
 var plant_2_created = false
+
+signal corn_amount_changed(corn_amount)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -29,13 +31,7 @@ func _process(delta: float) -> void:
 		create_new_plant(2)
 		plant_2_created = true
 
-func _on_PlayerArea_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	if event.is_action_pressed("mouse_click"):
-		#Instantiate a expulsion effect
-		var expulsion_effect = ExpulsionEffect.instance()
-		expulsion_effect.position = get_global_mouse_position()
-		add_child(expulsion_effect)
-		
+
 func create_new_plant( number_plant_pos ) -> void:
 		var corn_plant = CornPlant.instance()
 		corn_plant.connect("ready_for_harvest", $Building, "add_task", ["harvest"])
@@ -50,7 +46,8 @@ func create_new_plant( number_plant_pos ) -> void:
 
 func _on_Building_corn_stored() -> void:
 	corn_amount += corns_harvested
-	print("Corns: " + str(corn_amount))
+	#Update GUI
+	emit_signal("corn_amount_changed", corn_amount)
 
 
 func _on_CloudSpawnTimer_timeout() -> void:
@@ -60,3 +57,10 @@ func _on_CloudSpawnTimer_timeout() -> void:
 	cloud.position = spawn_location.position
 	cloud.cloud_speed = round(rand_range(1, 6))
 	add_child(cloud)
+
+
+func _on_GUI_cloud_area_clicked(mouse_position) -> void:
+	#Instantiate a expulsion effect
+	var expulsion_effect = ExpulsionEffect.instance()
+	expulsion_effect.position = mouse_position
+	add_child(expulsion_effect)
