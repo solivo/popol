@@ -74,10 +74,10 @@ texture = ExtResource( 4 )
 position = Vector2( 109.223, 389.312 )
 
 [node name="SpawningPlantPosition1" type="Position2D" parent="."]
-position = Vector2( 350, 410 )
+position = Vector2( 350, 400 )
 
 [node name="SpawningPlantPosition2" type="Position2D" parent="."]
-position = Vector2( 400.95, 410 )
+position = Vector2( 400.95, 400 )
 
 [node name="CloudsSpawnPath" type="Path2D" parent="."]
 editor/display_folded = true
@@ -88,8 +88,11 @@ position = Vector2( 1038.88, 256.74 )
 rotation = -1.57024
 
 [node name="CloudSpawnTimer" type="Timer" parent="."]
-wait_time = 2.5
+
+[node name="UnitCreationTimer" type="Timer" parent="."]
+[connection signal="unit_created" from="." to="Building" method="_on_World_unit_created"]
 [connection signal="body_entered" from="CloudBorder/RainArea" to="CloudBorder" method="_on_RainArea_body_entered"]
 [connection signal="body_exited" from="CloudBorder/RainArea" to="CloudBorder" method="_on_RainArea_body_exited"]
 [connection signal="corn_stored" from="Building" to="." method="_on_Building_corn_stored"]
 [connection signal="timeout" from="CloudSpawnTimer" to="." method="_on_CloudSpawnTimer_timeout"]
+[connection signal="timeout" from="UnitCreationTimer" to="." method="_on_UnitCreationTimer_timeout"]

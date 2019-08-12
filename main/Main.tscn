@@ -1,9 +1,18 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://world/World.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/gui/GUI.gd" type="Script" id=2]
-[ext_resource path="res://scenes/gui/assets/corn_amount_panel/corn_amount_panel.png" type="Texture" id=3]
-[ext_resource path="res://scenes/gui/assets/fonts/font_panel.tres" type="DynamicFont" id=4]
+[ext_resource path="res://scenes/gui/assets/units_panel/units_panel.png" type="Texture" id=3]
+[ext_resource path="res://scenes/gui/assets/units_panel/progress_bar_empty.png" type="Texture" id=4]
+[ext_resource path="res://scenes/gui/assets/units_panel/progress_bar_inner.png" type="Texture" id=5]
+[ext_resource path="res://scenes/gui/assets/fonts/font_panel.tres" type="DynamicFont" id=6]
+[ext_resource path="res://scenes/gui/assets/fonts/Flavors-Regular.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://scenes/gui/assets/corn_amount_panel/corn_amount_panel.png" type="Texture" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+size = 30
+use_filter = true
+font_data = ExtResource( 7 )
 
 [node name="Node" type="Node"]
 
@@ -15,41 +24,104 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
 
-[node name="MarginContainer" type="MarginContainer" parent="GUI"]
+[node name="MainPanel" type="HBoxContainer" parent="GUI"]
+anchor_left = 0.5
 anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-margin_top = -131.0
-margin_right = 104.0
-custom_constants/margin_left = 15
-custom_constants/margin_bottom = 15
-
-[node name="MainPanel" type="HBoxContainer" parent="GUI/MarginContainer"]
-margin_left = 15.0
-margin_right = 104.0
-margin_bottom = 116.0
+margin_left = -53.0
+margin_top = -116.0
+margin_right = 53.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
+custom_constants/separation = 36
 
-[node name="CornAmountPanel" type="TextureRect" parent="GUI/MarginContainer/MainPanel"]
-margin_right = 89.0
+[node name="MarginContainer" type="MarginContainer" parent="GUI/MainPanel"]
+margin_right = 110.0
+margin_bottom = 116.0
+
+[node name="UnitsPanel" type="TextureRect" parent="GUI/MainPanel/MarginContainer"]
+margin_right = 110.0
 margin_bottom = 116.0
 texture = ExtResource( 3 )
 
-[node name="CornAmountLabel" type="Label" parent="GUI/MarginContainer/MainPanel/CornAmountPanel"]
+[node name="TextureProgress" type="TextureProgress" parent="GUI/MainPanel/MarginContainer/UnitsPanel"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -37.6562
+margin_top = -16.0
+margin_right = 25.8438
+margin_bottom = 40.0
+texture_under = ExtResource( 4 )
+texture_progress = ExtResource( 5 )
+
+[node name="UnitsAmountLabel" type="Label" parent="GUI/MainPanel/MarginContainer/UnitsPanel"]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 12.0
-margin_top = -49.0
-margin_right = 45.0
-custom_fonts/font = ExtResource( 4 )
+margin_left = 8.0
+margin_top = -65.0
+margin_right = 37.0
+margin_bottom = -16.0
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color = Color( 0.278431, 0.0156863, 0.0156863, 1 )
+text = "1"
+align = 1
+
+[node name="UnitsCostLabel" type="Label" parent="GUI/MainPanel/MarginContainer/UnitsPanel"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -44.9868
+margin_top = -68.2453
+margin_right = -18.9868
+margin_bottom = -29.2453
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.278431, 0.0156863, 0.0156863, 1 )
+text = "6"
+align = 1
+
+[node name="ResourcesPanel" type="HBoxContainer" parent="GUI"]
+editor/display_folded = true
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -121.0
+margin_right = 99.0
+
+[node name="MarginContainer" type="MarginContainer" parent="GUI/ResourcesPanel"]
+margin_right = 99.0
+margin_bottom = 121.0
+custom_constants/margin_top = -10
+custom_constants/margin_left = 10
+
+[node name="CornAmountPanel" type="TextureRect" parent="GUI/ResourcesPanel/MarginContainer"]
+margin_left = 10.0
+margin_top = -10.0
+margin_right = 99.0
+margin_bottom = 121.0
+texture = ExtResource( 8 )
+
+[node name="CornAmountLabel" type="Label" parent="GUI/ResourcesPanel/MarginContainer/CornAmountPanel"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 11.2909
+margin_top = -64.015
+margin_right = 44.2909
+margin_bottom = -15.015
+custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color = Color( 0.278431, 0.0156863, 0.0156863, 1 )
 text = "0"
+align = 1
 
 [node name="CloudsController" type="Control" parent="GUI"]
 margin_right = 959.0
 margin_bottom = 341.0
 [connection signal="corn_amount_changed" from="World" to="GUI" method="_on_World_corn_amount_changed"]
+[connection signal="progress_unit_creation_changed" from="World" to="GUI" method="_on_World_progress_unit_creation_changed"]
+[connection signal="units_amount_changed" from="World" to="GUI" method="_on_World_units_amount_changed"]
 [connection signal="cloud_area_clicked" from="GUI" to="World" method="_on_GUI_cloud_area_clicked"]
+[connection signal="unit_panel_pressed" from="GUI" to="World" method="_on_GUI_unit_panel_pressed"]
+[connection signal="gui_input" from="GUI/MainPanel/MarginContainer/UnitsPanel" to="GUI" method="_on_UnitsPanel_gui_input"]
 [connection signal="gui_input" from="GUI/CloudsController" to="GUI" method="_on_CloudsController_gui_input"]
 
 [editable path="World"]

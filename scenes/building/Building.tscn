@@ -73,7 +73,6 @@ extents = Vector2( 23.9044, 64.5243 )
 
 [node name="Building" type="StaticBody2D"]
 script = ExtResource( 1 )
-gatherers_avaliable = 1
 
 [node name="SpriteBuilding" type="Sprite" parent="."]
 texture = ExtResource( 2 )
