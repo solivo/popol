@@ -28,7 +28,10 @@ func collect_plant():
 	plant_collected = true
 	current_action = "collecting_plant"
 	$AnimationPlayer.play("farmer_harvesting")
-	
+
+func enter_to_building():
+	$AnimationPlayer.play("farmer_leaving")
+
 func _on_PlantDectectionArea_body_entered(body: PhysicsBody2D) -> void:
 	if body.is_in_group("corn_plant"):
 		if body.mature_plant:

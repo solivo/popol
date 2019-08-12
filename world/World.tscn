@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://world/World.gd" type="Script" id=1]
-[ext_resource path="res://world/Cloud_border.gd" type="Script" id=2]
-[ext_resource path="res://world/ground.png" type="Texture" id=3]
-[ext_resource path="res://scenes/building/Building.tscn" type="PackedScene" id=4]
+[ext_resource path="res://world/assets/background.png" type="Texture" id=2]
+[ext_resource path="res://world/Cloud_border.gd" type="Script" id=3]
+[ext_resource path="res://world/ground.png" type="Texture" id=4]
+[ext_resource path="res://scenes/building/Building.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 480, 240 )
@@ -19,11 +20,16 @@ extents = Vector2( 480, 80 )
 
 [sub_resource type="Curve2D" id=5]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 1039.8, 304.022, 0, 0, 0, 0, 1039.8, 34.6679 )
+"points": PoolVector2Array( 0, 0, 0, 0, 1038.88, 256.74, 0, 0, 0, 0, 1039.01, 16.9003 )
 }
 
 [node name="World" type="Node2D"]
 script = ExtResource( 1 )
+
+[node name="Background" type="Sprite" parent="."]
+z_index = -100
+texture = ExtResource( 2 )
+centered = false
 
 [node name="PlayerArea" type="Area2D" parent="."]
 editor/display_folded = true
@@ -35,12 +41,13 @@ collision_mask = 3
 shape = SubResource( 1 )
 
 [node name="CloudBorder" type="StaticBody2D" parent="."]
-position = Vector2( 480, 350 )
+position = Vector2( 480, 320 )
 collision_layer = 2
 collision_mask = 2
-script = ExtResource( 2 )
+script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CloudBorder"]
+position = Vector2( 1.85071, 1.85065 )
 shape = SubResource( 2 )
 
 [node name="RainArea" type="Area2D" parent="CloudBorder"]
@@ -50,7 +57,6 @@ collision_mask = 2
 shape = SubResource( 3 )
 
 [node name="Ground" type="StaticBody2D" parent="."]
-editor/display_folded = true
 position = Vector2( 480, 560 )
 collision_layer = 2
 
@@ -58,24 +64,26 @@ collision_layer = 2
 shape = SubResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="Ground"]
-texture = ExtResource( 3 )
+position = Vector2( 2.70746, 0 )
+scale = Vector2( 1.0056, 1 )
+texture = ExtResource( 4 )
 
-[node name="Building" parent="." instance=ExtResource( 4 )]
-position = Vector2( 119.553, 411.182 )
+[node name="Building" parent="." instance=ExtResource( 5 )]
+position = Vector2( 109.223, 389.312 )
 
 [node name="SpawningPlantPosition1" type="Position2D" parent="."]
-position = Vector2( 350, 420 )
+position = Vector2( 350, 410 )
 
 [node name="SpawningPlantPosition2" type="Position2D" parent="."]
-position = Vector2( 400.95, 420 )
+position = Vector2( 400.95, 410 )
 
 [node name="CloudsSpawnPath" type="Path2D" parent="."]
 editor/display_folded = true
 curve = SubResource( 5 )
 
 [node name="SpawnLocation" type="PathFollow2D" parent="CloudsSpawnPath"]
-position = Vector2( 1076.53, 302.662 )
-rotation = -1.57626
+position = Vector2( 1038.88, 256.74 )
+rotation = -1.57024
 
 [node name="CloudSpawnTimer" type="Timer" parent="."]
 wait_time = 2.5

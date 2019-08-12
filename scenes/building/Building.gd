@@ -52,5 +52,5 @@ func _on_BuildingDoorArea_body_entered(body: PhysicsBody2D) -> void:
 	if body.is_in_group("farmer"):
 		if body.plant_collected:
 			emit_signal("corn_stored")
-			body.queue_free() # Play an animation before quit
+			body.enter_to_building() # Play an animation before quit
 			farmers_avaliable += 1 #A farmer is avaliable for the comming tasks

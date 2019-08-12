@@ -38,6 +38,7 @@ extents = Vector2( 75.025, 93.958 )
 [node name="MediumCloud" type="RigidBody2D" groups=[
 "cloud",
 ]]
+z_index = -1
 collision_layer = 2
 collision_mask = 4
 mass = 10.0
@@ -54,8 +55,8 @@ shape = SubResource( 2 )
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 position = Vector2( 0, 53 )
 emitting = false
-amount = 1
-lifetime = 1.2
+amount = 2
+lifetime = 1.4
 texture = ExtResource( 7 )
 
 [node name="WaterDurationTimer" type="Timer" parent="."]
