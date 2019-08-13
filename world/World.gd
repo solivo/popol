@@ -24,6 +24,8 @@ export var unit_cost : = 6
 #Flags
 var plant_1_created = false
 var plant_2_created = false
+var plant_3_created = false
+
 var creating_unit = false
 
 #Signals
@@ -52,6 +54,9 @@ func _process(delta: float) -> void:
 	if not plant_2_created:
 		create_new_plant(2)
 		plant_2_created = true
+	if not plant_3_created:
+		create_new_plant(3)
+		plant_3_created = true
 
 
 func create_new_plant( number_plant_pos ) -> void:
@@ -64,6 +69,9 @@ func create_new_plant( number_plant_pos ) -> void:
 		elif number_plant_pos == 2:
 			corn_plant.position = $SpawningPlantPosition2.position
 			corn_plant.number_position = 2
+		elif number_plant_pos == 3:
+			corn_plant.position = $SpawningPlantPosition3.position
+			corn_plant.number_position = 3
 		add_child(corn_plant)  
 
 func create_new_unit():

@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "Cloud",
 "language": "GDScript",
 "path": "res://scenes/cloud/Cloud.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Warrior",
+"language": "GDScript",
+"path": "res://scenes/human/warrior/Warrior.gd"
 } ]
 _global_script_class_icons={
-"Cloud": ""
+"Cloud": "",
+"Warrior": ""
 }
 
 [application]
