@@ -19,8 +19,8 @@
 [ext_resource path="res://scenes/corn_plant/assets/plant_grow_15.png" type="Texture" id=17]
 [ext_resource path="res://scenes/corn_plant/assets/plant_grow_16.png" type="Texture" id=18]
 [ext_resource path="res://scenes/corn_plant/assets/plant_grow_17.png" type="Texture" id=19]
-[ext_resource path="res://scenes/corn_plant/assets/water_indicator_off.png" type="Texture" id=20]
-[ext_resource path="res://scenes/corn_plant/assets/water_indicator_on.png" type="Texture" id=21]
+[ext_resource path="res://scenes/corn_plant/assets/water_indicator_on.png" type="Texture" id=20]
+[ext_resource path="res://scenes/corn_plant/assets/water_indicator_off.png" type="Texture" id=21]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 24.904, 70.3134 )
@@ -38,25 +38,26 @@ animations = [ {
 "speed": 0.0
 } ]
 
-[sub_resource type="SpriteFrames" id=4]
+[sub_resource type="SpriteFrames" id=3]
 animations = [ {
 "frames": [ ExtResource( 20 ) ],
 "loop": false,
-"name": "indicator_off",
-"speed": 1.0
+"name": "indicator_on",
+"speed": 2.0
 }, {
 "frames": [ ExtResource( 21 ) ],
 "loop": false,
-"name": "indicator_on",
-"speed": 2.0
+"name": "indicator_off",
+"speed": 1.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 22.2388, 56.2887 )
 
 [node name="CornPlant" type="StaticBody2D" groups=[
 "corn_plant",
 ]]
+z_index = -10
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 1 )
@@ -74,7 +75,7 @@ autostart = true
 
 [node name="AnimatedSpriteIndicator" type="AnimatedSprite" parent="."]
 position = Vector2( 0, 85 )
-frames = SubResource( 4 )
+frames = SubResource( 3 )
 animation = "indicator_on"
 
 [node name="FarnerDetection" type="Area2D" parent="."]
@@ -82,7 +83,7 @@ collision_layer = 10
 collision_mask = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FarnerDetection"]
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 [connection signal="tree_exited" from="." to="." method="_on_CornPlant_tree_exited"]
 [connection signal="frame_changed" from="AnimatedSpritePlant" to="." method="_on_AnimatedSprite_frame_changed"]
 [connection signal="timeout" from="GrowTimer" to="." method="_on_GrowTimer_timeout"]

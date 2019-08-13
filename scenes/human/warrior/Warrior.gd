@@ -11,6 +11,7 @@ var current_side = "right"
 var winning_factor = [true,false]
 
 var unit_target = "enemy" #Set enemy or warrior
+var unit_type = "ally" #Ally or Enemy
 var default_side = "right"
 
 #Flags
@@ -18,7 +19,7 @@ var attacking = false
 var enemies_on_right = true
 var enemies_on_left = false
 
-signal warrior_killed
+signal unit_killed
 
 signal attack_executed(side) #Emit a signal to the near enemy
 signal fight_result(result) #Give a result form the atacck (win or defeat)
@@ -111,6 +112,7 @@ func receive_attack(side):
 		$AnimationPlayer.play("warrior_attacking_right_1")
 
 func kill_warrior():
+	emit_signal("unit_killed", unit_type)
 	if current_side == "right":
 		$AnimationPlayer.play("warrior_dying_right")
 	else:

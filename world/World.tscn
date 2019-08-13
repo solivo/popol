@@ -25,6 +25,7 @@ _data = {
 
 [node name="World" type="Node2D"]
 script = ExtResource( 1 )
+round_duration = 0
 
 [node name="Background" type="Sprite" parent="."]
 z_index = -100
@@ -42,6 +43,7 @@ collision_mask = 3
 shape = SubResource( 1 )
 
 [node name="CloudBorder" type="StaticBody2D" parent="."]
+editor/display_folded = true
 position = Vector2( 480, 320 )
 collision_layer = 2
 collision_mask = 2
@@ -60,6 +62,7 @@ shape = SubResource( 3 )
 [node name="Ground" type="StaticBody2D" parent="."]
 editor/display_folded = true
 position = Vector2( 480, 560 )
+z_index = -99
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
@@ -82,6 +85,9 @@ position = Vector2( 400.95, 400 )
 [node name="SpawningPlantPosition3" type="Position2D" parent="."]
 position = Vector2( 450, 400 )
 
+[node name="EnemySpawningPosition" type="Position2D" parent="."]
+position = Vector2( 900, 430 )
+
 [node name="CloudsSpawnPath" type="Path2D" parent="."]
 editor/display_folded = true
 curve = SubResource( 5 )
@@ -93,9 +99,17 @@ rotation = -1.57024
 [node name="CloudSpawnTimer" type="Timer" parent="."]
 
 [node name="UnitCreationTimer" type="Timer" parent="."]
+
+[node name="RoundTimer" type="Timer" parent="."]
+
+[node name="EnemySpawningTimer" type="Timer" parent="."]
+[connection signal="battle_started" from="." to="Building" method="_on_World_battle_started"]
 [connection signal="unit_created" from="." to="Building" method="_on_World_unit_created"]
 [connection signal="body_entered" from="CloudBorder/RainArea" to="CloudBorder" method="_on_RainArea_body_entered"]
 [connection signal="body_exited" from="CloudBorder/RainArea" to="CloudBorder" method="_on_RainArea_body_exited"]
 [connection signal="corn_stored" from="Building" to="." method="_on_Building_corn_stored"]
+[connection signal="units_changed" from="Building" to="." method="_on_Building_units_changed"]
 [connection signal="timeout" from="CloudSpawnTimer" to="." method="_on_CloudSpawnTimer_timeout"]
 [connection signal="timeout" from="UnitCreationTimer" to="." method="_on_UnitCreationTimer_timeout"]
+[connection signal="timeout" from="RoundTimer" to="." method="_on_RoundTimer_timeout"]
+[connection signal="timeout" from="EnemySpawningTimer" to="." method="_on_EnemySpawningTimer_timeout"]
