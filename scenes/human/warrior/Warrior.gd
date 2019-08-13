@@ -92,8 +92,9 @@ func _on_FightTimer_timeout() -> void:
 	emit_signal("fight_result", fight_result)
 
 func end_attack(win):
-	print(win)
+	print(win) 
 	if  win:
+		winning_factor.append("false") #Decreases the probabity of win the next fight
 		attacking = false
 		current_action = "searching_enemies"
 		current_side = default_side

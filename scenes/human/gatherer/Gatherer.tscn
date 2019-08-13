@@ -245,13 +245,14 @@ extents = Vector2( 12.8192, 35.3341 )
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 17.0709, 35.0728 )
 
-[node name="Farmer" type="KinematicBody2D" groups=[
+[node name="Gatherer" type="KinematicBody2D" groups=[
 "gatherer",
 "farmer",
 ]]
 collision_layer = 8
 collision_mask = 16
 script = ExtResource( 1 )
+unit_speed = 60
 
 [node name="SpriteFarmer" type="Sprite" parent="."]
 position = Vector2( 0, -10 )

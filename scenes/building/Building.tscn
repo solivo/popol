@@ -103,7 +103,6 @@ shape = SubResource( 3 )
 position = Vector2( 0, 50 )
 
 [node name="UnitSpawningTimer" type="Timer" parent="."]
-wait_time = 2.0
 autostart = true
 
 [node name="BuildingDoorArea" type="Area2D" parent="."]

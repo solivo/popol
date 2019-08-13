@@ -6,9 +6,10 @@ var current_action := "harvesting"
 
 var plant_collected = false
 
-signal plant_collected(number_position)
-
+#signal plant_collected(number_position)
+signal plant_not_collected #Trigger the signal when the farmer disappear before collect the plant
 # Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
 	go_to_harvest()
 	
@@ -34,6 +35,7 @@ func enter_to_building():
 
 func quit_gatherer():
 	if not plant_collected:
+		emit_signal("plant_not_collected")
 		$AnimationPlayer.play("gatherer_leaving")
 	else:
 		$AnimationPlayer.play("gatherer_returning")

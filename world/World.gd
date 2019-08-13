@@ -49,6 +49,8 @@ signal progress_unit_creation_changed(current_time, duration)
 signal round_minutes_changed(current_minutes)
 signal round_seconds_changed(current_seconds)
 signal round_changed(current_round)
+signal unit_panel_disabled
+signal unit_panel_enabled
 
 #Building
 signal unit_created
@@ -115,11 +117,9 @@ func create_new_unit():
 	current_units += 1
 	$Building.current_units = current_units
 	$Building.units_avaliable += 1 #Set units avaliable to made tasks
-	corn_amount -= unit_cost
 	$UnitCreationTimer.stop() #Reset
 	creating_unit = false #Reset
 	#GUI
-	emit_signal("corn_amount_changed", corn_amount)
 	emit_signal("units_amount_changed", current_units)
 
 func create_enemy():
@@ -180,6 +180,9 @@ func _on_GUI_unit_panel_pressed() -> void:
 	if corn_amount >= unit_cost and not creating_unit:
 		creating_unit = true
 		unit_creation_current_time = 0 # Reset
+		corn_amount -= unit_cost
+		emit_signal("corn_amount_changed", corn_amount)
+		emit_signal("unit_panel_disabled")
 		$UnitCreationTimer.start()
 
 
@@ -188,11 +191,12 @@ func _on_UnitCreationTimer_timeout() -> void:
 	emit_signal("progress_unit_creation_changed", unit_creation_current_time, unit_creation_duration)
 	if unit_creation_current_time >= unit_creation_duration:
 		create_new_unit()
+		emit_signal("unit_panel_enabled")
 
 
 func _on_RoundTimer_timeout() -> void:
 	if current_seconds  <= 0:
-		current_seconds = 3
+		current_seconds = 40
 		if current_minutes > 0:
 			current_minutes -= 1
 			emit_signal("round_minutes_changed", current_minutes)

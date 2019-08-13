@@ -33,6 +33,12 @@ func update_round_minutes(current_minutes):
 func update_round_count(current_round):
 	$RoundPanelContainer/RoundPanel/RoundCountLabel.text = str(current_round)
 
+func disable_unit_panel():
+	$MainPanel/MarginContainer/UnitsPanel.disabled = true
+
+func enable_unit_panel():
+	$MainPanel/MarginContainer/UnitsPanel.disabled = false
+
 func _on_CloudsController_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("mouse_click"):
 		emit_signal("cloud_area_clicked", get_global_mouse_position())
@@ -67,3 +73,10 @@ func _on_World_round_seconds_changed(current_seconds) -> void:
 
 func _on_World_round_changed(current_round) -> void:
 	update_round_count(current_round)
+
+
+func _on_World_unit_panel_disabled() -> void:
+	disable_unit_panel()
+
+func _on_World_unit_panel_enabled() -> void:
+	enable_unit_panel()

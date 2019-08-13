@@ -33,6 +33,7 @@ func _process(delta: float) -> void:
 		else:
 			task_name = "battle"
 		process_task(task_name)
+	print(task_queue)
 
 
 func add_task(task_name):
@@ -59,6 +60,7 @@ func spawn_unit(unit_name):
 	if unit_name == "gatherer":
 		var gatherer = Gatherer.instance()
 		gatherer.position = $SpawningPoint.position
+		gatherer.connect("plant_not_collected", self, "restore_harvest_task")
 		connect("gatherer_exited", gatherer, "quit_gatherer")
 		add_child(gatherer)
 		emit_signal("gatherer_created", gatherer)
@@ -72,6 +74,9 @@ func spawn_unit(unit_name):
 
 func unit_killed(unit_type):
 	emit_signal("units_changed", unit_type) #Redirect signal to the world
+
+func restore_harvest_task():
+	task_queue.append("harvest")
 
 func _on_BuildingDoorArea_body_entered(body: PhysicsBody2D) -> void:
 	if body.is_in_group("farmer"):

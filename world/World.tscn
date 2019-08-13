@@ -78,16 +78,16 @@ texture = ExtResource( 4 )
 position = Vector2( 109.223, 389.312 )
 
 [node name="SpawningPlantPosition1" type="Position2D" parent="."]
-position = Vector2( 350, 400 )
+position = Vector2( 350, 410 )
 
 [node name="SpawningPlantPosition2" type="Position2D" parent="."]
-position = Vector2( 400.95, 400 )
+position = Vector2( 400.95, 410 )
 
 [node name="SpawningPlantPosition3" type="Position2D" parent="."]
-position = Vector2( 450, 400 )
+position = Vector2( 450, 410 )
 
 [node name="EnemySpawningPosition" type="Position2D" parent="."]
-position = Vector2( 900, 430 )
+position = Vector2( 1000, 430 )
 
 [node name="CloudsSpawnPath" type="Path2D" parent="."]
 editor/display_folded = true
