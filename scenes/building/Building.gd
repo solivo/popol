@@ -7,6 +7,8 @@ var Warrior = preload("res://scenes/human/warrior/Warrior.tscn")
 signal gatherer_created(gatherer)
 signal corn_stored
 signal units_changed(unit_type)
+signal gatherer_exited #Quit units when there are a battle 
+signal warrior_exited #Quit warrior units when a battle is over
 
 #Units on the building
 export var units_avaliable : int = 1
@@ -57,6 +59,7 @@ func spawn_unit(unit_name):
 	if unit_name == "gatherer":
 		var gatherer = Gatherer.instance()
 		gatherer.position = $SpawningPoint.position
+		connect("gatherer_exited", gatherer, "quit_gatherer")
 		add_child(gatherer)
 		emit_signal("gatherer_created", gatherer)
 
@@ -64,6 +67,7 @@ func spawn_unit(unit_name):
 		var warrior = Warrior.instance()
 		warrior.position = $SpawningPoint.position
 		warrior.connect("unit_killed", self, "unit_killed")
+		connect("warrior_exited", warrior, "quit_warrior")
 		add_child(warrior)
 
 func unit_killed(unit_type):
@@ -71,7 +75,7 @@ func unit_killed(unit_type):
 
 func _on_BuildingDoorArea_body_entered(body: PhysicsBody2D) -> void:
 	if body.is_in_group("farmer"):
-		if body.plant_collected:
+		if body.plant_collected and not on_battle:
 			emit_signal("corn_stored")
 			body.enter_to_building() # Play an animation before quit
 			units_avaliable += 1 #A farmer is avaliable for the comming tasks
@@ -90,5 +94,13 @@ func _on_World_unit_created() -> void:
 
 func _on_World_battle_started() -> void:
 	on_battle = true
+	emit_signal("gatherer_exited")
 	unit_queue = [] #Reset unit_queue for the next spawnings
+	units_avaliable = current_units
+
+
+func _on_World_battle_over() -> void:
+	emit_signal("warrior_exited")
+	on_battle = false
+	unit_queue = []
 	units_avaliable = current_units

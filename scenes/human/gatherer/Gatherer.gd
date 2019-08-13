@@ -30,7 +30,13 @@ func collect_plant():
 	$AnimationPlayer.play("gatherer_harvesting")
 
 func enter_to_building():
-	$AnimationPlayer.play("gatherer_leaving")
+	$AnimationPlayer.play("gatherer_returning")
+
+func quit_gatherer():
+	if not plant_collected:
+		$AnimationPlayer.play("gatherer_leaving")
+	else:
+		$AnimationPlayer.play("gatherer_returning")
 
 func _on_PlantDectectionArea_body_entered(body: PhysicsBody2D) -> void:
 	if body.is_in_group("corn_plant"):

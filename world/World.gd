@@ -26,9 +26,10 @@ var unit_creation_current_time := 0
 var current_units := 1
 
 #Enemies
-var total_enemies = 4 # Total enemies peer round
-var current_enemies
-var enemies_created = 0
+export var total_enemies := 2 # Total enemies peer round
+#var current_enemies : int
+var enemies_created := 0
+
 #Unit cost
 export var unit_cost : = 6
 
@@ -52,6 +53,7 @@ signal round_changed(current_round)
 #Building
 signal unit_created
 signal battle_started
+signal battle_over
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -75,6 +77,21 @@ func _process(delta: float) -> void:
 		create_new_plant(3)
 		plant_3_created = true
 
+func create_new_plant(number_plant_pos) -> void:
+		var corn_plant = CornPlant.instance()
+		corn_plant.connect("ready_for_harvest", $Building, "add_task", ["harvest"])
+		corn_plant.connect("plant_collected", self, "create_new_plant")
+		if number_plant_pos == 1:
+			corn_plant.position = $SpawningPlantPosition1.position
+			corn_plant.number_position = 1
+		elif number_plant_pos == 2:
+			corn_plant.position = $SpawningPlantPosition2.position
+			corn_plant.number_position = 2
+		elif number_plant_pos == 3:
+			corn_plant.position = $SpawningPlantPosition3.position
+			corn_plant.number_position = 3
+		add_child(corn_plant) 
+
 func start_round():
 	#Reset variables
 	current_minutes = round_duration
@@ -89,24 +106,9 @@ func start_round():
 func start_battle():
 	$RoundTimer.stop()
 	emit_signal("battle_started") #Preparing the untis for spawninh warriors
-	current_enemies = total_enemies
+#	current_enemies = total_enemies
 	enemies_created = 0
 	$EnemySpawningTimer.start()
-
-func create_new_plant( number_plant_pos ) -> void:
-		var corn_plant = CornPlant.instance()
-		corn_plant.connect("ready_for_harvest", $Building, "add_task", ["harvest"])
-		corn_plant.connect("plant_collected", self, "create_new_plant")
-		if number_plant_pos == 1:
-			corn_plant.position = $SpawningPlantPosition1.position
-			corn_plant.number_position = 1
-		elif number_plant_pos == 2:
-			corn_plant.position = $SpawningPlantPosition2.position
-			corn_plant.number_position = 2
-		elif number_plant_pos == 3:
-			corn_plant.position = $SpawningPlantPosition3.position
-			corn_plant.number_position = 3
-		add_child(corn_plant)  
 
 func create_new_unit():
 	emit_signal("unit_created")
@@ -133,6 +135,7 @@ func units_changed(unit_type):
 		total_enemies -= 1
 		if total_enemies <= 0:
 			print("Roud Win!!!")
+			end_round()
 	if unit_type == "ally":
 		current_units -= 1
 		$Building.current_units = current_units
@@ -140,6 +143,16 @@ func units_changed(unit_type):
 		emit_signal("units_amount_changed", current_units)
 		if current_units == 0:
 			print("Game Over!!!!")
+
+func end_round():
+	current_round += 1
+	emit_signal("battle_over")
+	$EnemySpawningTimer.stop()
+	increase_dificulty()
+	start_round()
+
+func increase_dificulty():
+	total_enemies += 5 #Increase the enemy numbers
 
 func _on_Building_corn_stored() -> void:
 	corn_amount += corns_harvested
@@ -168,9 +181,8 @@ func _on_GUI_unit_panel_pressed() -> void:
 		creating_unit = true
 		unit_creation_current_time = 0 # Reset
 		$UnitCreationTimer.start()
-		
-	
-	
+
+
 func _on_UnitCreationTimer_timeout() -> void:
 	unit_creation_current_time += 1
 	emit_signal("progress_unit_creation_changed", unit_creation_current_time, unit_creation_duration)
@@ -180,7 +192,7 @@ func _on_UnitCreationTimer_timeout() -> void:
 
 func _on_RoundTimer_timeout() -> void:
 	if current_seconds  <= 0:
-		current_seconds = 2
+		current_seconds = 3
 		if current_minutes > 0:
 			current_minutes -= 1
 			emit_signal("round_minutes_changed", current_minutes)

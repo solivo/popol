@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 class_name Warrior 
 
-export var unit_speed := 40 
+export var unit_speed := 120 
 
 var current_action := "searching_enemies"  #Default action
 var current_side = "right"
@@ -16,6 +16,7 @@ var default_side = "right"
 
 #Flags
 var attacking = false
+var leaving = false
 var enemies_on_right = true
 var enemies_on_left = false
 
@@ -34,7 +35,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	#Handle unit movement
-	if current_action == "searching_enemies":
+	if current_action == "searching_enemies" and not leaving:
 		if $RayCastRight.is_colliding():
 			var enemy = $RayCastRight.get_collider()
 			if enemy.is_in_group(unit_target):
@@ -117,3 +118,10 @@ func kill_warrior():
 		$AnimationPlayer.play("warrior_dying_right")
 	else:
 		$AnimationPlayer.play("warrior_dying_left")
+
+func quit_warrior():
+	leaving = true
+	if current_side == "right":
+		$AnimationPlayer.play("warrior_leaving_right")
+	else:
+		$AnimationPlayer.play("warrior_leaving_left")
