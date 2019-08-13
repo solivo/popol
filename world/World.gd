@@ -40,6 +40,7 @@ var plant_3_created = false
 
 var enemies_defeated = false
 var creating_unit = false
+var on_battle = false
 
 #Signals
 #GUI
@@ -107,7 +108,9 @@ func start_round():
 
 func start_battle():
 	$RoundTimer.stop()
+	on_battle = true
 	emit_signal("battle_started") #Preparing the untis for spawninh warriors
+	emit_signal("unit_panel_disabled")
 #	current_enemies = total_enemies
 	enemies_created = 0
 	$EnemySpawningTimer.start()
@@ -146,8 +149,10 @@ func units_changed(unit_type):
 
 func end_round():
 	current_round += 1
+	on_battle = false
 	emit_signal("battle_over")
 	$EnemySpawningTimer.stop()
+	emit_signal("unit_panel_enabled")
 	increase_dificulty()
 	start_round()
 
@@ -191,7 +196,8 @@ func _on_UnitCreationTimer_timeout() -> void:
 	emit_signal("progress_unit_creation_changed", unit_creation_current_time, unit_creation_duration)
 	if unit_creation_current_time >= unit_creation_duration:
 		create_new_unit()
-		emit_signal("unit_panel_enabled")
+		if not on_battle:
+			emit_signal("unit_panel_enabled")
 
 
 func _on_RoundTimer_timeout() -> void:

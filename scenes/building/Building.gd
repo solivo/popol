@@ -95,7 +95,8 @@ func _on_UnitSpawningTimer_timeout() -> void:
 
 func _on_World_unit_created() -> void:
 	#Create a new unit
-	units_avaliable += 1
+	if not on_battle:
+		units_avaliable += 1
 
 func _on_World_battle_started() -> void:
 	on_battle = true
