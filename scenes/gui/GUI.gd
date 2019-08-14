@@ -4,6 +4,7 @@ extends Control
 
 #Connection to the World Scene
 signal unit_panel_pressed #Attemps to create a new unit 
+signal meteor_panel_pressed #Attemps to create a new meteor power
 signal cloud_area_clicked(mouse_position) 
 signal cloud_area_click_release
 signal meteor_power_clicked
@@ -46,6 +47,15 @@ func enable_meteor_power():
 
 func disable_meteor_power():
 	$PowersPanel/MeteorPowerButton.disabled  = true
+
+func disable_meteor_panel():
+	$MainPanel/PowersPanelContainer/MeteorPanel.disabled = true
+
+func enable_meteor_panel():
+	$MainPanel/PowersPanelContainer/MeteorPanel.disabled = false
+
+func update_meteors_amount(current_meteors):
+	$MainPanel/PowersPanelContainer/MeteorPanel/MeteorsAmountLabel.text = str(current_meteors)
 
 func _on_CloudsController_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("mouse_click"):
@@ -91,6 +101,35 @@ func _on_World_unit_panel_enabled() -> void:
 	enable_unit_panel()
 
 
-
 func _on_MeteorPower_pressed() -> void:
 	emit_signal("meteor_power_clicked")
+
+
+func _on_World_meteor_button_enabled() -> void:
+	enable_meteor_power()
+
+func _on_World_meteor_button_disabled() -> void:
+	disable_meteor_power()
+
+
+func _on_MeteorPanel_pressed() -> void:
+	emit_signal("meteor_panel_pressed")
+
+
+func _on_World_meteor_panel_disabled() -> void:
+	disable_meteor_panel()
+
+
+func _on_World_meteor_panel_enabled() -> void:
+	enable_meteor_panel()
+
+
+func _on_World_progress_meteor_creation_changed(current_time, duration) -> void:
+	$MainPanel/PowersPanelContainer/MeteorPanel/TextureProgress.max_value = duration
+	$MainPanel/PowersPanelContainer/MeteorPanel/TextureProgress.value = current_time
+	if current_time == duration:
+		$MainPanel/PowersPanelContainer/MeteorPanel/TextureProgress.value = 0
+
+
+func _on_World_meteors_amount_changed(current_meteors) -> void:
+	update_meteors_amount(current_meteors)

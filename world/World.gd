@@ -29,6 +29,12 @@ var unit_creation_current_time := 0
 #Units
 var current_units := 1
 
+#Powers - Meteors
+var meteors := 0
+export var meteor_creation_duration := 6
+var meteor_creation_current_time := 0
+export var meteor_cost := 18
+
 #Enemies
 export var total_enemies := 2 # Total enemies peer round
 #var current_enemies : int
@@ -44,6 +50,7 @@ var plant_3_created = false
 
 var enemies_defeated = false
 var creating_unit = false
+var creating_meteor = false
 var on_battle = false
 
 #Signals
@@ -56,6 +63,12 @@ signal round_seconds_changed(current_seconds)
 signal round_changed(current_round)
 signal unit_panel_disabled
 signal unit_panel_enabled
+signal meteor_button_enabled
+signal meteor_button_disabled
+signal meteor_panel_disabled
+signal meteor_panel_enabled
+signal progress_meteor_creation_changed(current_time, duration)
+signal meteors_amount_changed(current_meteors)
 
 #Building
 signal unit_created
@@ -99,6 +112,7 @@ func create_new_plant(number_plant_pos) -> void:
 			corn_plant.number_position = 3
 		add_child(corn_plant) 
 
+
 func start_round():
 	#Reset variables
 	current_minutes = round_duration
@@ -107,6 +121,8 @@ func start_round():
 	emit_signal("round_minutes_changed", current_minutes)
 	emit_signal("round_seconds_changed", current_seconds)
 	emit_signal("round_changed", current_round)
+	emit_signal("meteor_button_disabled")
+	
 	#Start timer
 	$RoundTimer.start()
 
@@ -115,6 +131,7 @@ func start_battle():
 	on_battle = true
 	emit_signal("battle_started") #Preparing the untis for spawninh warriors
 	emit_signal("unit_panel_disabled")
+	emit_signal("meteor_button_enabled")
 #	current_enemies = total_enemies
 	enemies_created = 0
 	$EnemySpawningTimer.start()
@@ -128,6 +145,13 @@ func create_new_unit():
 	creating_unit = false #Reset
 	#GUI
 	emit_signal("units_amount_changed", current_units)
+
+func add_new_meteor():
+	meteors += 1
+	$MeteorCreationTimer.stop()
+	creating_meteor = false
+	#GUI
+	emit_signal("meteors_amount_changed", meteors)
 
 func create_enemy():
 	if enemies_created < total_enemies:
@@ -156,7 +180,7 @@ func end_round():
 	on_battle = false
 	emit_signal("battle_over")
 	$EnemySpawningTimer.stop()
-	emit_signal("unit_panel_enabled")
+#	emit_signal("unit_panel_enabled")
 	increase_dificulty()
 	start_round()
 
@@ -208,13 +232,13 @@ func _on_UnitCreationTimer_timeout() -> void:
 	emit_signal("progress_unit_creation_changed", unit_creation_current_time, unit_creation_duration)
 	if unit_creation_current_time >= unit_creation_duration:
 		create_new_unit()
-		if not on_battle:
-			emit_signal("unit_panel_enabled")
+#		if not on_battle:
+#			emit_signal("unit_panel_enabled")
 
 
 func _on_RoundTimer_timeout() -> void:
 	if current_seconds  <= 0:
-		current_seconds = 4
+		current_seconds = 45
 		if current_minutes > 0:
 			current_minutes -= 1
 			emit_signal("round_minutes_changed", current_minutes)
@@ -243,7 +267,7 @@ func _on_BattleField_body_exited(body: PhysicsBody2D) -> void:
 			body.current_side = "left"
 		else:
 			body.current_side = "right"
-	pass # Replace with function body.
+
 
 
 func _on_SpawningExpulsionTimer_timeout() -> void:
@@ -258,8 +282,42 @@ func _on_GUI_cloud_area_click_release() -> void:
 
 
 func _on_GUI_meteor_power_clicked() -> void:
-	#Create a new power cursor
-	var power_cursor = PowerCursor.instance()
-	connect("battle_over", power_cursor, "quit_power_cursor") #Quit the power cursor if the battle is over
-	power_cursor.connect("power_executed", self, "execute_power") 
-	add_child(power_cursor)
+	if meteors > 0 and on_battle:
+		meteors -= 1
+		#Create a new power cursor
+		var power_cursor = PowerCursor.instance()
+		connect("battle_over", power_cursor, "quit_power_cursor") #Quit the power cursor if the battle is over
+		power_cursor.connect("power_executed", self, "execute_power") 
+		add_child(power_cursor)
+
+
+func _on_GUI_meteor_panel_pressed() -> void:
+	if corn_amount >= meteor_cost and not creating_meteor:
+		creating_meteor = true
+		meteor_creation_current_time = 0 # Reset
+		corn_amount -= meteor_cost
+		emit_signal("corn_amount_changed", corn_amount)
+		emit_signal("meteor_panel_disabled")
+		$MeteorCreationTimer.start()
+
+func _on_MeteorCreationTimer_timeout() -> void:
+	meteor_creation_current_time += 1
+	emit_signal("progress_meteor_creation_changed", meteor_creation_current_time, meteor_creation_duration)
+	if meteor_creation_current_time >= meteor_creation_duration:
+		add_new_meteor()
+#		if not on_battle:
+#			emit_signal("meteor_panel_enabled")
+
+
+func _on_World_corn_amount_changed(corn_amount) -> void:
+	if corn_amount >= unit_cost and not on_battle and not creating_unit:
+		emit_signal("unit_panel_enabled")
+
+	if corn_amount >= meteor_cost and not on_battle and not creating_meteor:
+		emit_signal("meteor_panel_enabled")
+	
+	if corn_amount < unit_cost and not on_battle and not creating_unit:
+		emit_signal("unit_panel_disabled")
+	
+	if corn_amount < meteor_cost and not on_battle and not creating_meteor:
+		emit_signal("meteor_panel_disabled")
