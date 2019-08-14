@@ -226,6 +226,7 @@ align = 1
 [connection signal="unit_panel_disabled" from="World" to="GUI" method="_on_World_unit_panel_disabled"]
 [connection signal="unit_panel_enabled" from="World" to="GUI" method="_on_World_unit_panel_enabled"]
 [connection signal="units_amount_changed" from="World" to="GUI" method="_on_World_units_amount_changed"]
+[connection signal="cloud_area_click_release" from="GUI" to="World" method="_on_GUI_cloud_area_click_release"]
 [connection signal="cloud_area_clicked" from="GUI" to="World" method="_on_GUI_cloud_area_clicked"]
 [connection signal="unit_panel_pressed" from="GUI" to="World" method="_on_GUI_unit_panel_pressed"]
 [connection signal="gui_input" from="GUI/CloudsController" to="GUI" method="_on_CloudsController_gui_input"]

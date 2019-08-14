@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://world/World.gd" type="Script" id=1]
 [ext_resource path="res://world/assets/background.png" type="Texture" id=2]
@@ -23,10 +23,13 @@ _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, 1038.88, 256.74, 0, 0, 0, 0, 1039.01, 16.9003 )
 }
 
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 471.548, 131.492 )
+
 [node name="World" type="Node2D"]
 script = ExtResource( 1 )
-round_duration = 0
-total_enemies = 1
+round_duration = 1
+total_enemies = 5
 
 [node name="Background" type="Sprite" parent="."]
 z_index = -100
@@ -104,6 +107,17 @@ rotation = -1.57024
 [node name="RoundTimer" type="Timer" parent="."]
 
 [node name="EnemySpawningTimer" type="Timer" parent="."]
+
+[node name="BattleField" type="Area2D" parent="."]
+position = Vector2( 480, 500 )
+monitorable = false
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BattleField"]
+shape = SubResource( 6 )
+
+[node name="SpawningExpulsionTimer" type="Timer" parent="."]
+wait_time = 0.2
 [connection signal="battle_over" from="." to="Building" method="_on_World_battle_over"]
 [connection signal="battle_started" from="." to="Building" method="_on_World_battle_started"]
 [connection signal="unit_created" from="." to="Building" method="_on_World_unit_created"]
@@ -115,3 +129,5 @@ rotation = -1.57024
 [connection signal="timeout" from="UnitCreationTimer" to="." method="_on_UnitCreationTimer_timeout"]
 [connection signal="timeout" from="RoundTimer" to="." method="_on_RoundTimer_timeout"]
 [connection signal="timeout" from="EnemySpawningTimer" to="." method="_on_EnemySpawningTimer_timeout"]
+[connection signal="body_exited" from="BattleField" to="." method="_on_BattleField_body_exited"]
+[connection signal="timeout" from="SpawningExpulsionTimer" to="." method="_on_SpawningExpulsionTimer_timeout"]

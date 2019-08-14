@@ -28,6 +28,7 @@ func go_to_harvest():
 func collect_plant():
 	plant_collected = true
 	current_action = "collecting_plant"
+	$PlantDectectionArea.monitoring = false
 	$AnimationPlayer.play("gatherer_harvesting")
 
 func enter_to_building():

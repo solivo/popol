@@ -179,6 +179,7 @@ func _on_GUI_cloud_area_clicked(mouse_position) -> void:
 	var expulsion_effect = ExpulsionEffect.instance()
 	expulsion_effect.position = mouse_position
 	add_child(expulsion_effect)
+	$SpawningExpulsionTimer.start()
 
 
 func _on_GUI_unit_panel_pressed() -> void:
@@ -202,7 +203,7 @@ func _on_UnitCreationTimer_timeout() -> void:
 
 func _on_RoundTimer_timeout() -> void:
 	if current_seconds  <= 0:
-		current_seconds = 40
+		current_seconds = 59
 		if current_minutes > 0:
 			current_minutes -= 1
 			emit_signal("round_minutes_changed", current_minutes)
@@ -222,3 +223,24 @@ func _on_EnemySpawningTimer_timeout() -> void:
 
 func _on_Building_units_changed(unit_type) -> void:
 	units_changed(unit_type)
+
+
+func _on_BattleField_body_exited(body: PhysicsBody2D) -> void:
+	#Keep the units on the battlefield
+	if body is Warrior:
+		if body.current_side == "right":
+			body.current_side = "left"
+		else:
+			body.current_side = "right"
+	pass # Replace with function body.
+
+
+func _on_SpawningExpulsionTimer_timeout() -> void:
+	#Instantiate a expulsion effect
+	var expulsion_effect = ExpulsionEffect.instance()
+	expulsion_effect.position = get_global_mouse_position()
+	add_child(expulsion_effect)
+
+
+func _on_GUI_cloud_area_click_release() -> void:
+	$SpawningExpulsionTimer.stop()

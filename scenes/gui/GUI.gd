@@ -5,6 +5,7 @@ extends Control
 #Connection to the World Scene
 signal unit_panel_pressed #Attemps to create a new unit 
 signal cloud_area_clicked(mouse_position) 
+signal cloud_area_click_release
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -42,7 +43,8 @@ func enable_unit_panel():
 func _on_CloudsController_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("mouse_click"):
 		emit_signal("cloud_area_clicked", get_global_mouse_position())
-
+	elif event.is_action_released("mouse_click"):
+		emit_signal("cloud_area_click_release")
 
 func _on_World_corn_amount_changed(corn_amount) -> void:
 	update_corn_amount_panel(corn_amount)
@@ -80,3 +82,4 @@ func _on_World_unit_panel_disabled() -> void:
 
 func _on_World_unit_panel_enabled() -> void:
 	enable_unit_panel()
+
