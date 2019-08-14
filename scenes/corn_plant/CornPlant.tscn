@@ -19,8 +19,8 @@
 [ext_resource path="res://scenes/corn_plant/assets/plant_grow_15.png" type="Texture" id=17]
 [ext_resource path="res://scenes/corn_plant/assets/plant_grow_16.png" type="Texture" id=18]
 [ext_resource path="res://scenes/corn_plant/assets/plant_grow_17.png" type="Texture" id=19]
-[ext_resource path="res://scenes/corn_plant/assets/water_indicator_on.png" type="Texture" id=20]
-[ext_resource path="res://scenes/corn_plant/assets/water_indicator_off.png" type="Texture" id=21]
+[ext_resource path="res://scenes/corn_plant/assets/water_indicator_off.png" type="Texture" id=20]
+[ext_resource path="res://scenes/corn_plant/assets/water_indicator_on.png" type="Texture" id=21]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 34.7801, 70.3134 )
@@ -42,13 +42,13 @@ animations = [ {
 animations = [ {
 "frames": [ ExtResource( 20 ) ],
 "loop": false,
-"name": "indicator_on",
-"speed": 2.0
+"name": "indicator_off",
+"speed": 1.0
 }, {
 "frames": [ ExtResource( 21 ) ],
 "loop": false,
-"name": "indicator_off",
-"speed": 1.0
+"name": "indicator_on",
+"speed": 2.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=4]

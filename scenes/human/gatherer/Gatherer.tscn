@@ -1,26 +1,26 @@
 [gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://scenes/human/gatherer/Gatherer.gd" type="Script" id=1]
-[ext_resource path="res://scenes/human/gatherer/assets/farmer_idle.png" type="Texture" id=2]
-[ext_resource path="res://scenes/human/gatherer/assets/farmer_harvesting_1.png" type="Texture" id=3]
-[ext_resource path="res://scenes/human/gatherer/assets/farmer_harvesting_2.png" type="Texture" id=4]
-[ext_resource path="res://scenes/human/gatherer/assets/farmer_harvesting_3.png" type="Texture" id=5]
-[ext_resource path="res://scenes/human/gatherer/assets/corn_plant_harvested_exited_1.png" type="Texture" id=6]
+[ext_resource path="res://scenes/human/gatherer/assets/farmer_walking_1.png" type="Texture" id=2]
+[ext_resource path="res://scenes/human/gatherer/assets/corn_plant_harvested_exited_1.png" type="Texture" id=3]
+[ext_resource path="res://scenes/human/gatherer/assets/farmer_harvesting_1.png" type="Texture" id=4]
+[ext_resource path="res://scenes/human/gatherer/assets/farmer_harvesting_2.png" type="Texture" id=5]
+[ext_resource path="res://scenes/human/gatherer/assets/farmer_harvesting_3.png" type="Texture" id=6]
 [ext_resource path="res://scenes/human/gatherer/assets/corn_plant_harvested.png" type="Texture" id=7]
-[ext_resource path="res://scenes/human/gatherer/assets/farmer_walking_exiting_1.png" type="Texture" id=8]
-[ext_resource path="res://scenes/human/gatherer/assets/farmer_walking_exiting_2.png" type="Texture" id=9]
-[ext_resource path="res://scenes/human/gatherer/assets/farmer_walking_exiting_3.png" type="Texture" id=10]
-[ext_resource path="res://scenes/human/gatherer/assets/farmer_exiting_1.png" type="Texture" id=11]
-[ext_resource path="res://scenes/human/gatherer/assets/farmer_exiting_2.png" type="Texture" id=12]
-[ext_resource path="res://scenes/human/gatherer/assets/farmer_exiting_3.png" type="Texture" id=13]
-[ext_resource path="res://scenes/human/gatherer/assets/farmer_exiting_4.png" type="Texture" id=14]
-[ext_resource path="res://scenes/human/gatherer/assets/farmer_exiting_5.png" type="Texture" id=15]
-[ext_resource path="res://scenes/human/gatherer/assets/corn_plant_harvested_exited_2.png" type="Texture" id=16]
-[ext_resource path="res://scenes/human/gatherer/assets/corn_plant_harvested_exited_3.png" type="Texture" id=17]
-[ext_resource path="res://scenes/human/gatherer/assets/corn_plant_harvested_exited_4.png" type="Texture" id=18]
-[ext_resource path="res://scenes/human/gatherer/assets/corn_plant_harvested_exited_5.png" type="Texture" id=19]
-[ext_resource path="res://scenes/human/gatherer/assets/farmer_walking_2.png" type="Texture" id=20]
-[ext_resource path="res://scenes/human/gatherer/assets/farmer_walking_1.png" type="Texture" id=21]
+[ext_resource path="res://scenes/human/gatherer/assets/farmer_idle.png" type="Texture" id=8]
+[ext_resource path="res://scenes/human/gatherer/assets/farmer_walking_exiting_1.png" type="Texture" id=9]
+[ext_resource path="res://scenes/human/gatherer/assets/farmer_walking_exiting_2.png" type="Texture" id=10]
+[ext_resource path="res://scenes/human/gatherer/assets/farmer_walking_exiting_3.png" type="Texture" id=11]
+[ext_resource path="res://scenes/human/gatherer/assets/farmer_exiting_1.png" type="Texture" id=12]
+[ext_resource path="res://scenes/human/gatherer/assets/farmer_exiting_2.png" type="Texture" id=13]
+[ext_resource path="res://scenes/human/gatherer/assets/farmer_exiting_3.png" type="Texture" id=14]
+[ext_resource path="res://scenes/human/gatherer/assets/farmer_exiting_4.png" type="Texture" id=15]
+[ext_resource path="res://scenes/human/gatherer/assets/farmer_exiting_5.png" type="Texture" id=16]
+[ext_resource path="res://scenes/human/gatherer/assets/corn_plant_harvested_exited_2.png" type="Texture" id=17]
+[ext_resource path="res://scenes/human/gatherer/assets/corn_plant_harvested_exited_3.png" type="Texture" id=18]
+[ext_resource path="res://scenes/human/gatherer/assets/corn_plant_harvested_exited_4.png" type="Texture" id=19]
+[ext_resource path="res://scenes/human/gatherer/assets/corn_plant_harvested_exited_5.png" type="Texture" id=20]
+[ext_resource path="res://scenes/human/gatherer/assets/farmer_walking_2.png" type="Texture" id=21]
 [ext_resource path="res://scenes/human/gatherer/assets/farmer_walking_3.png" type="Texture" id=22]
 
 [sub_resource type="Animation" id=1]
@@ -37,7 +37,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1, 1.03526 ),
 "update": 1,
-"values": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 3 ) ]
+"values": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 4 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("SpriteCornPlant:texture")
@@ -49,7 +49,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 7 ), ExtResource( 7 ) ]
+"values": [ ExtResource( 3 ), ExtResource( 7 ), ExtResource( 7 ), ExtResource( 7 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("SpriteFarmer:position")
@@ -82,10 +82,10 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( -0.1, 0.6 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( -0.1, 0.1, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ true, true ]
+"values": [ true, true, true, true ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -101,7 +101,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 2 ) ]
+"values": [ ExtResource( 8 ) ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -117,7 +117,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.3, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ]
+"values": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("SpriteCornPlant:visible")
@@ -158,7 +158,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
 "transitions": PoolRealArray( 1, 40.7859, 115.36, 12.996, 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 15 ) ]
+"values": [ ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 16 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("SpriteCornPlant:texture")
@@ -170,7 +170,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 6 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ) ]
+"values": [ ExtResource( 3 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("SpriteFarmer:visible")
@@ -191,7 +191,7 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.4 ),
+"times": PoolRealArray( -0.1, 0.4 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, true ]
@@ -224,7 +224,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
 "transitions": PoolRealArray( 1, 1.7411, 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 20 ) ]
+"values": [ ExtResource( 21 ), ExtResource( 2 ), ExtResource( 22 ), ExtResource( 21 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("SpriteFarmer:position")
@@ -239,28 +239,28 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, -10 ), Vector2( 0, 0 ), Vector2( 0, -10 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("SpriteCornPlant:texture")
+tracks/2/path = NodePath("SpriteCornPlant:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"times": PoolRealArray( -0.1, 0.1, 0.3, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ null, null, null, null ]
+"update": 0,
+"values": [ false, false, false, false ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("SpriteCornPlant:visible")
+tracks/3/path = NodePath("SpriteFarmer:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.5 ),
+"times": PoolRealArray( -0.1, 0.6 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ false, false ]
+"values": [ true, true ]
 }
 
 [sub_resource type="RectangleShape2D" id=6]
@@ -283,9 +283,12 @@ position = Vector2( 0, -10 )
 texture = ExtResource( 2 )
 
 [node name="SpriteCornPlant" type="Sprite" parent="."]
-position = Vector2( 0, -46 )
+visible = false
+position = Vector2( 0, -48 )
+texture = ExtResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "gatherer_walking"
 anims/gatherer_harvesting = SubResource( 1 )
 anims/gatherer_idle = SubResource( 2 )
 anims/gatherer_leaving = SubResource( 3 )
