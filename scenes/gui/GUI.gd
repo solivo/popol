@@ -6,6 +6,7 @@ extends Control
 signal unit_panel_pressed #Attemps to create a new unit 
 signal cloud_area_clicked(mouse_position) 
 signal cloud_area_click_release
+signal meteor_power_clicked
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -39,6 +40,12 @@ func disable_unit_panel():
 
 func enable_unit_panel():
 	$MainPanel/MarginContainer/UnitsPanel.disabled = false
+
+func enable_meteor_power():
+	$PowersPanel/MeteorPowerButton.disabled = false
+
+func disable_meteor_power():
+	$PowersPanel/MeteorPowerButton.disabled  = true
 
 func _on_CloudsController_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("mouse_click"):
@@ -83,3 +90,7 @@ func _on_World_unit_panel_disabled() -> void:
 func _on_World_unit_panel_enabled() -> void:
 	enable_unit_panel()
 
+
+
+func _on_MeteorPower_pressed() -> void:
+	emit_signal("meteor_power_clicked")

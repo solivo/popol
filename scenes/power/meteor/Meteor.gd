@@ -24,4 +24,5 @@ func _on_GroundDetector_body_entered(body: PhysicsBody2D) -> void:
 
 func _on_ImpactArea_body_entered(body: PhysicsBody2D) -> void:
 	if body is Warrior:
-		body.receive_impact()
+		body.kill_warrior()
+		pass

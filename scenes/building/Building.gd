@@ -33,8 +33,6 @@ func _process(delta: float) -> void:
 		else:
 			task_name = "battle"
 		process_task(task_name)
-	print(task_queue)
-
 
 func add_task(task_name):
 	task_queue.append(task_name)
@@ -89,7 +87,6 @@ func _on_BuildingDoorArea_body_entered(body: PhysicsBody2D) -> void:
 func _on_UnitSpawningTimer_timeout() -> void:
 	if unit_queue.size() > 0:
 		var unit_name = unit_queue.pop_back()
-		print(unit_name)
 		spawn_unit(unit_name) 
 
 

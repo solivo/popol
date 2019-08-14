@@ -3,6 +3,10 @@ extends Node2D
 #Scenes
 var MediumCloud = preload("res://scenes/cloud/medium_cloud/MediumCloud.tscn")
 var CornPlant = preload("res://scenes/corn_plant/CornPlant.tscn")
+#Powers
+var Meteor = preload("res://scenes/power/meteor/Meteor.tscn")
+#Player
+var PowerCursor = preload("res://scenes/player/PowerCursor.tscn")
 
 var EnemyWarrior = preload("res://scenes/human/enemy/warrior/WarriorEnemy.tscn")
 var ExpulsionEffect = preload("res://world/ExpulsionEffect.tscn")
@@ -159,6 +163,13 @@ func end_round():
 func increase_dificulty():
 	total_enemies += 5 #Increase the enemy numbers
 
+func execute_power(cursor_position):
+	#Instance a meteor on the cursor position
+	var meteor = Meteor.instance()
+	meteor.position = cursor_position
+	meteor.position.y = 0
+	add_child(meteor)
+
 func _on_Building_corn_stored() -> void:
 	corn_amount += corns_harvested
 	#Update GUI
@@ -203,7 +214,7 @@ func _on_UnitCreationTimer_timeout() -> void:
 
 func _on_RoundTimer_timeout() -> void:
 	if current_seconds  <= 0:
-		current_seconds = 59
+		current_seconds = 4
 		if current_minutes > 0:
 			current_minutes -= 1
 			emit_signal("round_minutes_changed", current_minutes)
@@ -244,3 +255,11 @@ func _on_SpawningExpulsionTimer_timeout() -> void:
 
 func _on_GUI_cloud_area_click_release() -> void:
 	$SpawningExpulsionTimer.stop()
+
+
+func _on_GUI_meteor_power_clicked() -> void:
+	#Create a new power cursor
+	var power_cursor = PowerCursor.instance()
+	connect("battle_over", power_cursor, "quit_power_cursor") #Quit the power cursor if the battle is over
+	power_cursor.connect("power_executed", self, "execute_power") 
+	add_child(power_cursor)
