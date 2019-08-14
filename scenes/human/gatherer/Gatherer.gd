@@ -39,6 +39,7 @@ func quit_gatherer():
 		emit_signal("plant_not_collected")
 		$AnimationPlayer.play("gatherer_leaving")
 	else:
+		print("QUITANDO RECOLECTORRR")
 		$AnimationPlayer.play("gatherer_returning")
 
 func _on_PlantDectectionArea_body_entered(body: PhysicsBody2D) -> void:

@@ -22,13 +22,11 @@ func _ready() -> void:
 
 func add_water():
 	self.water_amount += 1
-	print("water added!")
 
 func consume_water():
 	if $AnimatedSpritePlant.animation == "growing_plant" and $AnimatedSpritePlant.is_playing():
 		$AnimatedSpritePlant.frame += 1
 	water_amount -= 1
-	print($AnimatedSpritePlant.frame)
 	$AnimatedSpriteIndicator.play("indicator_off")
 
 
@@ -39,7 +37,6 @@ func _on_AnimatedSprite_frame_changed() -> void:
 
 func ready_to_harvest():
 	emit_signal("ready_for_harvest")
-	print("ready for haverst!")
 	$AnimatedSpritePlant.play("mature_plant")
 	mature_plant = true
 

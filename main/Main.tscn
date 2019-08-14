@@ -32,6 +32,7 @@ font_data = ExtResource( 4 )
 
 [node name="World" parent="." instance=ExtResource( 1 )]
 z_index = -10
+meteor_cost = 18
 
 [node name="GUI" type="Control" parent="."]
 anchor_right = 1.0
@@ -202,7 +203,6 @@ margin_bottom = 116.0
 custom_constants/margin_top = 10
 
 [node name="MeteorPanel" type="TextureButton" parent="GUI/MainPanel/PowersPanelContainer"]
-editor/display_folded = true
 margin_top = 10.0
 margin_right = 110.0
 margin_bottom = 116.0
@@ -244,7 +244,7 @@ margin_right = -19.4501
 margin_bottom = -17.663
 custom_fonts/font = ExtResource( 12 )
 custom_colors/font_color = Color( 0.278431, 0.0156863, 0.0156863, 1 )
-text = "20"
+text = "18"
 align = 1
 
 [node name="ResourcesPanel" type="HBoxContainer" parent="GUI"]

@@ -36,7 +36,8 @@ var meteor_creation_current_time := 0
 export var meteor_cost := 18
 
 #Enemies
-export var total_enemies := 2 # Total enemies peer round
+export var enemies_peer_round := 3
+var total_enemies = enemies_peer_round # Total enemies peer round
 #var current_enemies : int
 var enemies_created := 0
 
@@ -145,6 +146,8 @@ func create_new_unit():
 	creating_unit = false #Reset
 	#GUI
 	emit_signal("units_amount_changed", current_units)
+	if corn_amount >= unit_cost and not on_battle:
+		emit_signal("unit_panel_enabled")
 
 func add_new_meteor():
 	meteors += 1
@@ -152,9 +155,11 @@ func add_new_meteor():
 	creating_meteor = false
 	#GUI
 	emit_signal("meteors_amount_changed", meteors)
+	if corn_amount >= meteor_cost and not on_battle:
+		emit_signal("meteor_panel_enabled")
 
 func create_enemy():
-	if enemies_created < total_enemies:
+	if enemies_created < enemies_peer_round:
 		enemies_created += 1
 		var enemy = EnemyWarrior.instance()
 		enemy.connect("unit_killed", self, "units_changed")
@@ -180,12 +185,14 @@ func end_round():
 	on_battle = false
 	emit_signal("battle_over")
 	$EnemySpawningTimer.stop()
+	enemies_created = 0
 #	emit_signal("unit_panel_enabled")
 	increase_dificulty()
 	start_round()
 
 func increase_dificulty():
-	total_enemies += 5 #Increase the enemy numbers
+	enemies_peer_round += 4
+	total_enemies = enemies_peer_round #Increase the enemy numbers
 
 func execute_power(cursor_position):
 	#Instance a meteor on the cursor position
@@ -238,7 +245,7 @@ func _on_UnitCreationTimer_timeout() -> void:
 
 func _on_RoundTimer_timeout() -> void:
 	if current_seconds  <= 0:
-		current_seconds = 45
+		current_seconds = 30
 		if current_minutes > 0:
 			current_minutes -= 1
 			emit_signal("round_minutes_changed", current_minutes)
