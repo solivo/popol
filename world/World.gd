@@ -70,6 +70,7 @@ signal meteor_panel_disabled
 signal meteor_panel_enabled
 signal progress_meteor_creation_changed(current_time, duration)
 signal meteors_amount_changed(current_meteors)
+signal game_over(current_round)
 
 #Building
 signal unit_created
@@ -123,7 +124,6 @@ func start_round():
 	emit_signal("round_seconds_changed", current_seconds)
 	emit_signal("round_changed", current_round)
 	emit_signal("meteor_button_disabled")
-	
 	#Start timer
 	$RoundTimer.start()
 
@@ -179,6 +179,7 @@ func units_changed(unit_type):
 		emit_signal("units_amount_changed", current_units)
 		if current_units == 0:
 			print("Game Over!!!!")
+			game_over()
 
 func end_round():
 	current_round += 1
@@ -193,6 +194,9 @@ func end_round():
 func increase_dificulty():
 	enemies_peer_round += 4
 	total_enemies = enemies_peer_round #Increase the enemy numbers
+
+func game_over():
+	emit_signal("game_over", current_round)
 
 func execute_power(cursor_position):
 	#Instance a meteor on the cursor position

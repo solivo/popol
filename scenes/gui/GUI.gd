@@ -1,6 +1,7 @@
 extends Control
 
 
+var end_round = 0 #Store the end round 
 
 #Connection to the World Scene
 signal unit_panel_pressed #Attemps to create a new unit 
@@ -57,6 +58,20 @@ func enable_meteor_panel():
 func update_meteors_amount(current_meteors):
 	$MainPanel/PowersPanelContainer/MeteorPanel/MeteorsAmountLabel.text = str(current_meteors)
 
+func announce_round(current_round):
+	$RoundAnnouncerContainer/RoundAnnouncerLabel.text = "Round " + str(current_round)
+	$RoundAnnouncerContainer/AnimationPlayer.play("round_announcing")
+
+func announce_game_over():
+	$GameOverAnnouncer/AnimationPlayer.play("game_over_announcing")
+
+func show_game_over_panel():
+	$GameOverPanel/Background/RoundsSurvivedLabel.text = "Rounds survived: " + str(end_round)
+	$GameOverPanel.visible = true
+
+func hide_game_over_panel():
+	$GameOverPanel.visible = false
+
 func _on_CloudsController_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("mouse_click"):
 		emit_signal("cloud_area_clicked", get_global_mouse_position()) 
@@ -92,7 +107,7 @@ func _on_World_round_seconds_changed(current_seconds) -> void:
 
 func _on_World_round_changed(current_round) -> void:
 	update_round_count(current_round)
-
+	announce_round(current_round)
 
 func _on_World_unit_panel_disabled() -> void:
 	disable_unit_panel()
@@ -133,3 +148,13 @@ func _on_World_progress_meteor_creation_changed(current_time, duration) -> void:
 
 func _on_World_meteors_amount_changed(current_meteors) -> void:
 	update_meteors_amount(current_meteors)
+
+
+func _on_World_game_over(current_round) -> void:
+	end_round = current_round
+	announce_game_over()
+
+
+func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
+	if anim_name == "game_over_announcing":
+		show_game_over_panel()
