@@ -9,7 +9,7 @@ var Meteor = preload("res://scenes/power/meteor/Meteor.tscn")
 var PowerCursor = preload("res://scenes/player/PowerCursor.tscn")
 
 var EnemyWarrior = preload("res://scenes/human/enemy/warrior/WarriorEnemy.tscn")
-var ExpulsionEffect = preload("res://world/ExpulsionEffect.tscn")
+var ExpulsionEffect = preload("res://scenes/player/expulsion_effect/ExpulsionEffect.tscn")
 
 export var corns_harvested := 6 #Corn amount added by each farmer 
 

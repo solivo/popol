@@ -3,11 +3,7 @@ extends Area2D
 export var EXPULSION_FORCE :int = 5
 
 func _ready() -> void:
-	#Start life timer
-	$LifeTimer.start()
-
-func _on_LifeTimer_timeout() -> void:
-	queue_free()
+	$AnimationPlayer.play("clicking")
 
 
 func _on_ExpulsionEffect_body_entered(body: PhysicsBody2D) -> void:

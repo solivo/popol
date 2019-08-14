@@ -10,7 +10,7 @@
 extents = Vector2( 480, 240 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 703.279, 20 )
+extents = Vector2( 1003.98, 20 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 478.954, 22.3399 )
@@ -48,7 +48,6 @@ collision_mask = 3
 shape = SubResource( 1 )
 
 [node name="CloudBorder" type="StaticBody2D" parent="."]
-editor/display_folded = true
 position = Vector2( 480, 320 )
 collision_layer = 2
 collision_mask = 2

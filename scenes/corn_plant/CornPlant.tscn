@@ -23,7 +23,7 @@
 [ext_resource path="res://scenes/corn_plant/assets/water_indicator_off.png" type="Texture" id=21]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 24.904, 70.3134 )
+extents = Vector2( 34.7801, 70.3134 )
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
