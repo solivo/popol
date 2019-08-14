@@ -1,8 +1,8 @@
 [gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/cloud/Cloud.gd" type="Script" id=1]
-[ext_resource path="res://scenes/cloud/medium_cloud/normal_cloud_medium.png" type="Texture" id=2]
-[ext_resource path="res://scenes/cloud/medium_cloud/fill_cloud_medium.png" type="Texture" id=3]
+[ext_resource path="res://scenes/cloud/medium_cloud/fill_cloud_medium.png" type="Texture" id=2]
+[ext_resource path="res://scenes/cloud/medium_cloud/normal_cloud_medium.png" type="Texture" id=3]
 [ext_resource path="res://scenes/cloud/medium_cloud/empty_cloud_medium_1.png" type="Texture" id=4]
 [ext_resource path="res://scenes/cloud/medium_cloud/empty_cloud_medium_2.png" type="Texture" id=5]
 [ext_resource path="res://scenes/cloud/medium_cloud/empty_cloud_medium_3.png" type="Texture" id=6]
@@ -12,18 +12,18 @@
 animations = [ {
 "frames": [ ExtResource( 2 ) ],
 "loop": false,
-"name": "normal_cloud",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 3 ) ],
-"loop": false,
 "name": "fill_cloud",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 2 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
 "loop": true,
 "name": "empty_cloud",
 "speed": 4.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": false,
+"name": "normal_cloud",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -41,7 +41,7 @@ extents = Vector2( 82.3807, 93.958 )
 z_index = -20
 collision_layer = 2
 collision_mask = 4
-mass = 5.0
+mass = 7.0
 gravity_scale = 0.0
 script = ExtResource( 1 )
 cloud_speed = 1.5
@@ -61,6 +61,7 @@ lifetime = 1.4
 texture = ExtResource( 7 )
 
 [node name="WaterDurationTimer" type="Timer" parent="."]
+wait_time = 0.6
 
 [node name="CloudsDetection" type="Area2D" parent="."]
 monitorable = false
@@ -76,9 +77,14 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlantsDetection"]
 shape = SubResource( 4 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( 0.463295, 0.694936 )
+scale = Vector2( 7.2081, 2.87633 )
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="timeout" from="WaterDurationTimer" to="." method="_on_WaterDurationTimer_timeout"]
 [connection signal="body_entered" from="CloudsDetection" to="." method="_on_CloudsDetection_body_entered"]
 [connection signal="body_exited" from="CloudsDetection" to="." method="_on_CloudsDetection_body_exited"]
 [connection signal="body_entered" from="PlantsDetection" to="." method="_on_PlantsDetection_body_entered"]
 [connection signal="body_exited" from="PlantsDetection" to="." method="_on_PlantsDetection_body_exited"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

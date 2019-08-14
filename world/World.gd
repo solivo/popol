@@ -36,7 +36,7 @@ var meteor_creation_current_time := 0
 export var meteor_cost := 18
 
 #Enemies
-export var enemies_peer_round := 3
+export var enemies_peer_round := 5
 var total_enemies = enemies_peer_round # Total enemies peer round
 #var current_enemies : int
 var enemies_created := 0
@@ -245,7 +245,7 @@ func _on_UnitCreationTimer_timeout() -> void:
 
 func _on_RoundTimer_timeout() -> void:
 	if current_seconds  <= 0:
-		current_seconds = 30
+		current_seconds = 59
 		if current_minutes > 0:
 			current_minutes -= 1
 			emit_signal("round_minutes_changed", current_minutes)

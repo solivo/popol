@@ -9,6 +9,8 @@ var plant_collected = false
 #signal plant_collected(number_position)
 signal plant_not_collected #Trigger the signal when the farmer disappear before collect the plant
 # Called when the node enters the scene tree for the first time.
+#Flags
+var on_battle = false
 
 func _ready() -> void:
 	go_to_harvest()
@@ -35,6 +37,7 @@ func enter_to_building():
 	$AnimationPlayer.play("gatherer_returning")
 
 func quit_gatherer():
+	on_battle = true
 	if not plant_collected:
 		emit_signal("plant_not_collected")
 		$AnimationPlayer.play("gatherer_leaving")
@@ -44,6 +47,12 @@ func quit_gatherer():
 
 func _on_PlantDectectionArea_body_entered(body: PhysicsBody2D) -> void:
 	if body.is_in_group("corn_plant"):
-		if body.mature_plant:
+		if body.mature_plant and not on_battle:
 			collect_plant()
 			body.queue_free() #Quit the plant
+
+
+func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
+	if anim_name == "gatherer_returning":
+		queue_free()
+		print("INTENTANDO ELIMINAR RECOLECTOR")

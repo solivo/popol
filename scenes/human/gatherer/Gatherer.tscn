@@ -147,7 +147,7 @@ tracks/2/keys = {
 }
 
 [sub_resource type="Animation" id=4]
-length = 0.5
+length = 0.6
 tracks/0/type = "value"
 tracks/0/path = NodePath("SpriteFarmer:texture")
 tracks/0/interp = 1
@@ -179,7 +179,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.4 ),
+"times": PoolRealArray( -0.1, 0.4 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ true, false ]
@@ -195,20 +195,6 @@ tracks/3/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, true ]
-}
-tracks/4/type = "method"
-tracks/4/path = NodePath(".")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0.5 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "queue_free"
-} ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -270,8 +256,8 @@ extents = Vector2( 12.8192, 35.3341 )
 extents = Vector2( 17.0709, 35.0728 )
 
 [node name="Gatherer" type="KinematicBody2D" groups=[
-"gatherer",
 "farmer",
+"gatherer",
 ]]
 collision_layer = 8
 collision_mask = 16
@@ -303,4 +289,5 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlantDectectionArea"]
 shape = SubResource( 7 )
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="body_entered" from="PlantDectectionArea" to="." method="_on_PlantDectectionArea_body_entered"]

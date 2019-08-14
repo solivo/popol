@@ -3,7 +3,7 @@ extends RigidBody2D
 class_name Cloud
 
 var wind_direction = Vector2(-1,0)
-export var WATER_AMOUNT := 5
+export var WATER_AMOUNT := 6
 export var cloud_speed :float =  1
 var water_left 
 var near_clouds = 0 setget change_near_clouds
@@ -76,3 +76,7 @@ func _on_PlantsDetection_body_entered(body: PhysicsBody2D) -> void:
 func _on_PlantsDetection_body_exited(body: PhysicsBody2D) -> void:
 	if body.is_in_group("corn_plant"):
 		disconnect("rained", body, "add_water")
+
+
+func _on_VisibilityNotifier2D_screen_exited() -> void:
+	queue_free()

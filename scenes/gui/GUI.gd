@@ -59,7 +59,7 @@ func update_meteors_amount(current_meteors):
 
 func _on_CloudsController_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("mouse_click"):
-		emit_signal("cloud_area_clicked", get_global_mouse_position())
+		emit_signal("cloud_area_clicked", get_global_mouse_position()) 
 	elif event.is_action_released("mouse_click"):
 		emit_signal("cloud_area_click_release")
 
