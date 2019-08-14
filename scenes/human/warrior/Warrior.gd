@@ -113,6 +113,11 @@ func receive_attack(side):
 	else:
 		$AnimationPlayer.play("warrior_attacking_right_1")
 
+func receive_impact():
+	print("Impact hit")
+	#Play animation
+	queue_free()
+
 func kill_warrior():
 	emit_signal("unit_killed", unit_type)
 	if current_side == "right":
