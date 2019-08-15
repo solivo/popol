@@ -18,6 +18,14 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta: float) -> void:
 #	pass
+func _input(event: InputEvent) -> void:
+	if event.is_action("shorcut_unit"):
+		emit_signal("unit_panel_pressed")
+	elif event.is_action_pressed("shorcut_meteor"):
+		emit_signal("meteor_panel_pressed")
+	elif event.is_action_pressed("shorcut_meteor_power"):
+		emit_signal("meteor_power_clicked")
+
 
 func update_corn_amount_panel(corn_amount):
 	$ResourcesPanel/MarginContainer/CornAmountPanel/CornAmountLabel.text = str(corn_amount)

@@ -53,7 +53,7 @@ var enemies_defeated = false
 var creating_unit = false
 var creating_meteor = false
 var on_battle = false
-
+var meteor_power_activated = false
 #Signals
 #GUI
 signal corn_amount_changed(corn_amount)
@@ -222,6 +222,7 @@ func game_over():
 	emit_signal("game_over", current_round)
 
 func execute_power(cursor_position):
+	meteor_power_activated = false
 	#Instance a meteor on the cursor position
 	var meteor = Meteor.instance()
 	meteor.position = cursor_position
@@ -272,7 +273,7 @@ func _on_UnitCreationTimer_timeout() -> void:
 
 func _on_RoundTimer_timeout() -> void:
 	if current_seconds  <= 0:
-		current_seconds = 5
+		current_seconds = 59
 		if current_minutes > 0:
 			current_minutes -= 1
 			emit_signal("round_minutes_changed", current_minutes)
@@ -316,13 +317,16 @@ func _on_GUI_cloud_area_click_release() -> void:
 
 
 func _on_GUI_meteor_power_clicked() -> void:
-	if meteors > 0 and on_battle:
+	if meteors > 0 and on_battle and not meteor_power_activated:
 		meteors -= 1
+		meteor_power_activated = true
 		#Create a new power cursor
 		var power_cursor = PowerCursor.instance()
 		connect("battle_over", power_cursor, "quit_power_cursor") #Quit the power cursor if the battle is over
 		power_cursor.connect("power_executed", self, "execute_power") 
 		add_child(power_cursor)
+		#Update GUI
+		emit_signal("meteors_amount_changed", meteors)
 
 
 func _on_GUI_meteor_panel_pressed() -> void:
