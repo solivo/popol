@@ -20,7 +20,7 @@ extents = Vector2( 480, 80 )
 
 [sub_resource type="Curve2D" id=5]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 1038.01, 272.092, 0, 0, 0, 0, 1038.01, 51.6887 )
+"points": PoolVector2Array( 0, 0, 0, 0, 1037, 281.15, 0, 0, 0, 0, 1038.84, 98.1157 )
 }
 
 [sub_resource type="RectangleShape2D" id=6]
@@ -29,7 +29,6 @@ extents = Vector2( 471.548, 131.492 )
 [node name="World" type="Node2D"]
 script = ExtResource( 1 )
 round_duration = 1
-meteor_cost = 6
 
 [node name="Background" type="Sprite" parent="."]
 z_index = -100
@@ -91,15 +90,15 @@ position = Vector2( 400.95, 410 )
 position = Vector2( 450, 410 )
 
 [node name="EnemySpawningPosition" type="Position2D" parent="."]
-position = Vector2( 1000, 430 )
+position = Vector2( 1100, 430 )
 
 [node name="CloudsSpawnPath" type="Path2D" parent="."]
 editor/display_folded = true
 curve = SubResource( 5 )
 
 [node name="SpawnLocation" type="PathFollow2D" parent="CloudsSpawnPath"]
-position = Vector2( 1038.01, 272.092 )
-rotation = -1.5708
+position = Vector2( 1037, 281.15 )
+rotation = -1.56071
 
 [node name="CloudSpawnTimer" type="Timer" parent="."]
 
@@ -122,6 +121,12 @@ shape = SubResource( 6 )
 wait_time = 0.2
 
 [node name="MeteorCreationTimer" type="Timer" parent="."]
+
+[node name="ArrowCreationTimer" type="Timer" parent="."]
+
+[node name="ArrowSpawningPosition" type="Position2D" parent="."]
+position = Vector2( 98.3737, 190.401 )
+[connection signal="arrows_amount_changed" from="." to="." method="_on_World_arrows_amount_changed"]
 [connection signal="battle_over" from="." to="Building" method="_on_World_battle_over"]
 [connection signal="battle_started" from="." to="Building" method="_on_World_battle_started"]
 [connection signal="corn_amount_changed" from="." to="." method="_on_World_corn_amount_changed"]
@@ -138,3 +143,4 @@ wait_time = 0.2
 [connection signal="body_exited" from="BattleField" to="." method="_on_BattleField_body_exited"]
 [connection signal="timeout" from="SpawningExpulsionTimer" to="." method="_on_SpawningExpulsionTimer_timeout"]
 [connection signal="timeout" from="MeteorCreationTimer" to="." method="_on_MeteorCreationTimer_timeout"]
+[connection signal="timeout" from="ArrowCreationTimer" to="." method="_on_ArrowCreationTimer_timeout"]

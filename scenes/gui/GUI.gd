@@ -6,9 +6,11 @@ var end_round = 0 #Store the end round
 #Connection to the World Scene
 signal unit_panel_pressed #Attemps to create a new unit 
 signal meteor_panel_pressed #Attemps to create a new meteor power
+signal arrow_panel_pressed #Attemps to create a new arrow power
 signal cloud_area_clicked(mouse_position) 
 signal cloud_area_click_release
 signal meteor_power_clicked
+signal arrow_power_pressed
 signal restart_button_pressed
 
 # Called when the node enters the scene tree for the first time.
@@ -19,12 +21,16 @@ func _ready() -> void:
 #func _process(delta: float) -> void:
 #	pass
 func _input(event: InputEvent) -> void:
-	if event.is_action("shorcut_unit"):
+	if event.is_action_pressed("shortcut_unit"):
 		emit_signal("unit_panel_pressed")
-	elif event.is_action_pressed("shorcut_meteor"):
+	elif event.is_action_pressed("shortcut_arrow"):
+		emit_signal("arrow_panel_pressed")
+	elif event.is_action_pressed("shortcut_meteor"):
 		emit_signal("meteor_panel_pressed")
-	elif event.is_action_pressed("shorcut_meteor_power"):
+	elif event.is_action_pressed("shortcut_meteor_power"):
 		emit_signal("meteor_power_clicked")
+	elif event.is_action_pressed("shorcut_arrow_power"):
+		emit_signal("arrow_power_pressed")
 
 
 func update_corn_amount_panel(corn_amount):
@@ -52,21 +58,37 @@ func disable_unit_panel():
 func enable_unit_panel():
 	$MainPanel/MarginContainer/UnitsPanel.disabled = false
 
+func enable_arrow_power():
+	$PowersPanelContainer/PowersPanel/ArrowPowerButton.disabled = false
+
+func disable_arrow_power():
+	$PowersPanelContainer/PowersPanel/ArrowPowerButton.disabled = true
+
+
 func enable_meteor_power():
-	$PowersPanel/MeteorPowerButton.disabled = false
+	$PowersPanelContainer/PowersPanel/MeteorPowerButton.disabled = false
 
 func disable_meteor_power():
-	$PowersPanel/MeteorPowerButton.disabled  = true
+	$PowersPanelContainer/PowersPanel/MeteorPowerButton.disabled = true
 
 func disable_meteor_panel():
-	$MainPanel/PowersPanelContainer/MeteorPanel.disabled = true
+	$MainPanel/MeteorsPanelContainer/MeteorPanel.disabled = true
 
 func enable_meteor_panel():
-	$MainPanel/PowersPanelContainer/MeteorPanel.disabled = false
+	$MainPanel/MeteorsPanelContainer/MeteorPanel.disabled = false
+
+func disable_arrow_panel():
+	$MainPanel/ArrowsPanelContainer/ArrowsPanel.disabled = true
+
+func enable_arrow_panel():
+	$MainPanel/ArrowsPanelContainer/ArrowsPanel.disabled = false
 
 func update_meteors_amount(current_meteors):
-	$MainPanel/PowersPanelContainer/MeteorPanel/MeteorsAmountLabel.text = str(current_meteors)
+	$MainPanel/MeteorsPanelContainer/MeteorPanel/MeteorsAmountLabel.text = str(current_meteors)
 
+func update_arrows_amount(current_arrows):
+	$MainPanel/ArrowsPanelContainer/ArrowsPanel/ArrowsAmountLabel.text = str(current_arrows)
+	
 func announce_round(current_round):
 	$RoundAnnouncerContainer/RoundAnnouncerLabel.text = "Round " + str(current_round)
 	$RoundAnnouncerContainer/AnimationPlayer.play("round_announcing")
@@ -90,10 +112,6 @@ func _on_CloudsController_gui_input(event: InputEvent) -> void:
 func _on_World_corn_amount_changed(corn_amount) -> void:
 	update_corn_amount_panel(corn_amount)
 
-
-func _on_UnitsPanel_gui_input(event: InputEvent) -> void:
-	if event.is_action_pressed("mouse_click"):
-		emit_signal("unit_panel_pressed")
 
 func _on_World_units_amount_changed(units_amount) -> void:
 	update_units_amount(units_amount)
@@ -149,10 +167,10 @@ func _on_World_meteor_panel_enabled() -> void:
 
 
 func _on_World_progress_meteor_creation_changed(current_time, duration) -> void:
-	$MainPanel/PowersPanelContainer/MeteorPanel/TextureProgress.max_value = duration
-	$MainPanel/PowersPanelContainer/MeteorPanel/TextureProgress.value = current_time
+	$MainPanel/MeteorsPanelContainer/MeteorPanel/TextureProgress.max_value = duration
+	$MainPanel/MeteorsPanelContainer/MeteorPanel/TextureProgress.value = current_time
 	if current_time == duration:
-		$MainPanel/PowersPanelContainer/MeteorPanel/TextureProgress.value = 0
+		$MainPanel/MeteorsPanelContainer/MeteorPanel/TextureProgress.value = 0
 
 
 func _on_World_meteors_amount_changed(current_meteors) -> void:
@@ -175,3 +193,41 @@ func _on_World_game_over_panel_hided() -> void:
 
 func _on_RestartButton_pressed() -> void:
 	emit_signal("restart_button_pressed")
+
+
+func _on_ArrowsPanel_pressed() -> void:
+	emit_signal("arrow_panel_pressed")
+
+
+func _on_World_arrow_panel_disabled() -> void:
+	disable_arrow_panel()
+
+
+func _on_World_arrow_panel_enabled() -> void:
+	enable_arrow_panel()
+
+
+func _on_World_arrows_amount_changed(current_arrows) -> void:
+	update_arrows_amount(current_arrows)
+
+
+func _on_World_progress_arrow_creation_changed(current_time, duration) -> void:
+	$MainPanel/ArrowsPanelContainer/ArrowsPanel/TextureProgress.max_value = duration
+	$MainPanel/ArrowsPanelContainer/ArrowsPanel/TextureProgress.value = current_time
+	if current_time == duration:
+		$MainPanel/ArrowsPanelContainer/ArrowsPanel/TextureProgress.value = 0
+
+func _on_ArrowPowerButton_pressed() -> void:
+		emit_signal("arrow_power_pressed")
+
+
+func _on_World_arrow_button_enabled() -> void:
+	enable_arrow_power()
+
+
+func _on_World_arrow_button_disabled() -> void:
+	disable_arrow_power()
+
+
+func _on_UnitsPanel_pressed() -> void:
+	emit_signal("unit_panel_pressed")

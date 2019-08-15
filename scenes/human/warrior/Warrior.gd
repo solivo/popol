@@ -8,7 +8,7 @@ var current_action := "searching_enemies"  #Default action
 var current_side = "right"
 
 #Determines the probability of winning the next fight
-var winning_factor = [true,false]
+var winning_factor = [false, true, true, true]
 
 var unit_target = "enemy" #Set enemy or warrior
 var unit_type = "ally" #Ally or Enemy
@@ -17,6 +17,7 @@ var default_side = "right"
 #Flags
 var attacking = false
 var leaving = false
+var power_impacted = false setget set_power_impacted
 var enemies_on_right = true
 var enemies_on_left = false
 
@@ -48,6 +49,19 @@ func _process(delta: float) -> void:
 					current_side = "left"
 		search_enemies()
 
+func set_power_impacted(value):
+	if value:
+		if attacking:
+			$FightTimer.stop()
+		attacking = false
+		leaving = true
+		if current_side == "right":
+			$AnimationPlayer.play("warrior_dying_right")
+		else:
+			$AnimationPlayer.play("warrior_dying_left")
+		emit_signal("unit_killed", unit_type)
+	power_impacted = value
+
 func search_enemies():
 	if $RayCastLeft.enabled and $RayCastRight.enabled:
 		if current_side == "right":
@@ -61,7 +75,7 @@ func _on_AttackArea_body_entered(body: PhysicsBody2D) -> void:
 	#Attack the nearest enemy
 	if body.is_in_group(unit_target): #Change for enemy
 		var enemy = body
-		if not enemy.attacking and not attacking:
+		if not enemy.attacking and not attacking and not power_impacted and not enemy.power_impacted:
 			print("attacking!")
 			attacking = true
 			enemy.attacking = true
@@ -86,6 +100,7 @@ func attack_enemy():
 
 #Determine the duration of the fight
 func _on_FightTimer_timeout() -> void:
+	randomize()
 	var fight_result = winning_factor[rand_range(0, winning_factor.size())]
 	end_attack(fight_result)
 	fight_result = !fight_result

@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://world/World.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/gui/GUI.gd" type="Script" id=2]
@@ -13,19 +13,25 @@
 [ext_resource path="res://scenes/gui/assets/fonts/font_panel.tres" type="DynamicFont" id=11]
 [ext_resource path="res://scenes/gui/assets/fonts/font_cost_panel.tres" type="DynamicFont" id=12]
 [ext_resource path="res://scenes/gui/assets/fonts/shorcut_font.tres" type="DynamicFont" id=13]
-[ext_resource path="res://scenes/gui/assets/powers_panel/meteor_button_normal.png" type="Texture" id=14]
-[ext_resource path="res://scenes/gui/assets/powers_panel/meteor_button_pressed.png" type="Texture" id=15]
-[ext_resource path="res://scenes/gui/assets/powers_panel/meteor_button_disabled.png" type="Texture" id=16]
-[ext_resource path="res://scenes/gui/assets/corn_amount_panel/corn_amount_panel.png" type="Texture" id=17]
-[ext_resource path="res://scenes/gui/assets/powers_buttons/meteor_button_normal.png" type="Texture" id=18]
-[ext_resource path="res://scenes/gui/assets/powers_buttons/meteor_button_pressed.png" type="Texture" id=19]
-[ext_resource path="res://scenes/gui/assets/powers_buttons/meteor_button_disabled.png" type="Texture" id=20]
-[ext_resource path="res://scenes/gui/assets/fonts/round_announcer_font.tres" type="DynamicFont" id=21]
-[ext_resource path="res://scenes/gui/assets/fonts/game_over_announcer_font.tres" type="DynamicFont" id=22]
-[ext_resource path="res://scenes/gui/assets/game_over_panel/game_over_panel_background.png" type="Texture" id=23]
-[ext_resource path="res://scenes/gui/assets/game_over_panel/restart_button_normal.png" type="Texture" id=24]
-[ext_resource path="res://scenes/gui/assets/game_over_panel/restart_button_pressed.png" type="Texture" id=25]
-[ext_resource path="res://scenes/gui/assets/fonts/game_over_buttons_font.tres" type="DynamicFont" id=26]
+[ext_resource path="res://scenes/gui/assets/powers_panel/arrow_button_normal.png" type="Texture" id=14]
+[ext_resource path="res://scenes/gui/assets/powers_panel/arrow_button_pressed.png" type="Texture" id=15]
+[ext_resource path="res://scenes/gui/assets/powers_panel/arrow_button_disabled.png" type="Texture" id=16]
+[ext_resource path="res://scenes/gui/assets/powers_panel/meteor_button_normal.png" type="Texture" id=17]
+[ext_resource path="res://scenes/gui/assets/powers_panel/meteor_button_pressed.png" type="Texture" id=18]
+[ext_resource path="res://scenes/gui/assets/powers_panel/meteor_button_disabled.png" type="Texture" id=19]
+[ext_resource path="res://scenes/gui/assets/corn_amount_panel/corn_amount_panel.png" type="Texture" id=20]
+[ext_resource path="res://scenes/gui/assets/powers_buttons/arrow_button_normal.png" type="Texture" id=21]
+[ext_resource path="res://scenes/gui/assets/powers_buttons/arrow_button_pressed.png" type="Texture" id=22]
+[ext_resource path="res://scenes/gui/assets/powers_buttons/arrow_button_disabled.png" type="Texture" id=23]
+[ext_resource path="res://scenes/gui/assets/powers_buttons/meteor_button_normal.png" type="Texture" id=24]
+[ext_resource path="res://scenes/gui/assets/powers_buttons/meteor_button_pressed.png" type="Texture" id=25]
+[ext_resource path="res://scenes/gui/assets/powers_buttons/meteor_button_disabled.png" type="Texture" id=26]
+[ext_resource path="res://scenes/gui/assets/fonts/round_announcer_font.tres" type="DynamicFont" id=27]
+[ext_resource path="res://scenes/gui/assets/fonts/game_over_announcer_font.tres" type="DynamicFont" id=28]
+[ext_resource path="res://scenes/gui/assets/game_over_panel/game_over_panel_background.png" type="Texture" id=29]
+[ext_resource path="res://scenes/gui/assets/game_over_panel/restart_button_normal.png" type="Texture" id=30]
+[ext_resource path="res://scenes/gui/assets/game_over_panel/restart_button_pressed.png" type="Texture" id=31]
+[ext_resource path="res://scenes/gui/assets/fonts/game_over_buttons_font.tres" type="DynamicFont" id=32]
 
 [sub_resource type="DynamicFont" id=1]
 size = 26
@@ -102,7 +108,6 @@ font_data = ExtResource( 4 )
 
 [node name="World" parent="." instance=ExtResource( 1 )]
 z_index = -10
-meteor_cost = 18
 
 [node name="GUI" type="Control" parent="."]
 anchor_right = 1.0
@@ -209,9 +214,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -128.0
+margin_left = -201.0
 margin_top = -116.0
-margin_right = 128.0
+margin_right = 201.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_constants/separation = 36
@@ -222,6 +227,7 @@ margin_bottom = 116.0
 custom_constants/margin_top = 10
 
 [node name="UnitsPanel" type="TextureButton" parent="GUI/MainPanel/MarginContainer"]
+editor/display_folded = true
 margin_top = 10.0
 margin_right = 110.0
 margin_bottom = 116.0
@@ -274,14 +280,14 @@ margin_bottom = 39.0
 custom_fonts/font = ExtResource( 13 )
 text = "1"
 
-[node name="PowersPanelContainer" type="MarginContainer" parent="GUI/MainPanel"]
-editor/display_folded = true
+[node name="ArrowsPanelContainer" type="MarginContainer" parent="GUI/MainPanel"]
 margin_left = 146.0
 margin_right = 256.0
 margin_bottom = 116.0
 custom_constants/margin_top = 10
 
-[node name="MeteorPanel" type="TextureButton" parent="GUI/MainPanel/PowersPanelContainer"]
+[node name="ArrowsPanel" type="TextureButton" parent="GUI/MainPanel/ArrowsPanelContainer"]
+editor/display_folded = true
 margin_top = 10.0
 margin_right = 110.0
 margin_bottom = 116.0
@@ -290,7 +296,7 @@ texture_normal = ExtResource( 14 )
 texture_pressed = ExtResource( 15 )
 texture_disabled = ExtResource( 16 )
 
-[node name="TextureProgress" type="TextureProgress" parent="GUI/MainPanel/PowersPanelContainer/MeteorPanel"]
+[node name="TextureProgress" type="TextureProgress" parent="GUI/MainPanel/ArrowsPanelContainer/ArrowsPanel"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -37.6562
@@ -300,7 +306,7 @@ margin_bottom = 37.5147
 texture_under = ExtResource( 9 )
 texture_progress = ExtResource( 10 )
 
-[node name="MeteorsAmountLabel" type="Label" parent="GUI/MainPanel/PowersPanelContainer/MeteorPanel"]
+[node name="ArrowsAmountLabel" type="Label" parent="GUI/MainPanel/ArrowsPanelContainer/ArrowsPanel"]
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 9.75516
@@ -312,7 +318,7 @@ custom_colors/font_color = Color( 0.278431, 0.0156863, 0.0156863, 1 )
 text = "0"
 align = 1
 
-[node name="MeteorsCostLabel" type="Label" parent="GUI/MainPanel/PowersPanelContainer/MeteorPanel"]
+[node name="ArrowsCostLabel" type="Label" parent="GUI/MainPanel/ArrowsPanelContainer/ArrowsPanel"]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -326,13 +332,72 @@ custom_colors/font_color = Color( 0.278431, 0.0156863, 0.0156863, 1 )
 text = "18"
 align = 1
 
-[node name="ShortcutLabel2" type="Label" parent="GUI/MainPanel/PowersPanelContainer/MeteorPanel"]
+[node name="ShortcutLabel" type="Label" parent="GUI/MainPanel/ArrowsPanelContainer/ArrowsPanel"]
 margin_left = -15.0
 margin_top = -15.0
 margin_right = 22.0
 margin_bottom = 54.0
 custom_fonts/font = ExtResource( 13 )
 text = "2"
+
+[node name="MeteorsPanelContainer" type="MarginContainer" parent="GUI/MainPanel"]
+margin_left = 292.0
+margin_right = 402.0
+margin_bottom = 116.0
+custom_constants/margin_top = 10
+
+[node name="MeteorPanel" type="TextureButton" parent="GUI/MainPanel/MeteorsPanelContainer"]
+margin_top = 10.0
+margin_right = 110.0
+margin_bottom = 116.0
+disabled = true
+texture_normal = ExtResource( 17 )
+texture_pressed = ExtResource( 18 )
+texture_disabled = ExtResource( 19 )
+
+[node name="TextureProgress" type="TextureProgress" parent="GUI/MainPanel/MeteorsPanelContainer/MeteorPanel"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -37.6562
+margin_top = -18.4853
+margin_right = 25.8438
+margin_bottom = 37.5147
+texture_under = ExtResource( 9 )
+texture_progress = ExtResource( 10 )
+
+[node name="MeteorsAmountLabel" type="Label" parent="GUI/MainPanel/MeteorsPanelContainer/MeteorPanel"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 9.75516
+margin_top = -60.6545
+margin_right = 38.7552
+margin_bottom = -11.6545
+custom_fonts/font = ExtResource( 11 )
+custom_colors/font_color = Color( 0.278431, 0.0156863, 0.0156863, 1 )
+text = "0"
+align = 1
+
+[node name="MeteorsCostLabel" type="Label" parent="GUI/MainPanel/MeteorsPanelContainer/MeteorPanel"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -45.4501
+margin_top = -56.663
+margin_right = -19.4501
+margin_bottom = -17.663
+custom_fonts/font = ExtResource( 12 )
+custom_colors/font_color = Color( 0.278431, 0.0156863, 0.0156863, 1 )
+text = "30"
+align = 1
+
+[node name="ShortcutLabel" type="Label" parent="GUI/MainPanel/MeteorsPanelContainer/MeteorPanel"]
+margin_left = -15.0
+margin_top = -15.0
+margin_right = 22.0
+margin_bottom = 54.0
+custom_fonts/font = ExtResource( 13 )
+text = "3"
 
 [node name="ResourcesPanel" type="HBoxContainer" parent="GUI"]
 editor/display_folded = true
@@ -352,7 +417,7 @@ margin_left = 10.0
 margin_top = -10.0
 margin_right = 99.0
 margin_bottom = 121.0
-texture = ExtResource( 17 )
+texture = ExtResource( 20 )
 
 [node name="CornAmountLabel" type="Label" parent="GUI/ResourcesPanel/MarginContainer/CornAmountPanel"]
 anchor_top = 1.0
@@ -366,22 +431,30 @@ custom_colors/font_color = Color( 0.278431, 0.0156863, 0.0156863, 1 )
 text = "0"
 align = 1
 
-[node name="PowersPanel" type="MarginContainer" parent="GUI"]
+[node name="PowersPanelContainer" type="MarginContainer" parent="GUI"]
+editor/display_folded = true
 anchor_top = 0.5
 anchor_bottom = 0.5
 margin_left = 40.0
 margin_top = -240.0
-margin_right = 86.0
-margin_bottom = 42.5
+margin_right = 218.0
+margin_bottom = -155.0
 
-[node name="MeteorPowerButton" type="TextureButton" parent="GUI/PowersPanel"]
-margin_right = 86.0
-margin_bottom = 282.0
-texture_normal = ExtResource( 18 )
-texture_pressed = ExtResource( 19 )
-texture_disabled = ExtResource( 20 )
+[node name="PowersPanel" type="HBoxContainer" parent="GUI/PowersPanelContainer"]
+editor/display_folded = true
+margin_right = 178.0
+margin_bottom = 85.0
+custom_constants/separation = 6
 
-[node name="ShortcutLabel2" type="Label" parent="GUI/PowersPanel/MeteorPowerButton"]
+[node name="ArrowPowerButton" type="TextureButton" parent="GUI/PowersPanelContainer/PowersPanel"]
+editor/display_folded = true
+margin_right = 86.0
+margin_bottom = 85.0
+texture_normal = ExtResource( 21 )
+texture_pressed = ExtResource( 22 )
+texture_disabled = ExtResource( 23 )
+
+[node name="ShortcutLabel2" type="Label" parent="GUI/PowersPanelContainer/PowersPanel/ArrowPowerButton"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -11.0
@@ -390,6 +463,24 @@ margin_right = 11.0
 margin_bottom = 39.0
 custom_fonts/font = ExtResource( 13 )
 text = "Q"
+
+[node name="MeteorPowerButton" type="TextureButton" parent="GUI/PowersPanelContainer/PowersPanel"]
+margin_left = 92.0
+margin_right = 178.0
+margin_bottom = 85.0
+texture_normal = ExtResource( 24 )
+texture_pressed = ExtResource( 25 )
+texture_disabled = ExtResource( 26 )
+
+[node name="ShortcutLabel2" type="Label" parent="GUI/PowersPanelContainer/PowersPanel/MeteorPowerButton"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -11.0
+margin_top = -40.0
+margin_right = 11.0
+margin_bottom = 39.0
+custom_fonts/font = ExtResource( 13 )
+text = "W"
 
 [node name="RoundAnnouncerContainer" type="MarginContainer" parent="GUI"]
 editor/display_folded = true
@@ -408,7 +499,7 @@ self_modulate = Color( 1, 1, 1, 0 )
 margin_top = -90.0
 margin_right = 144.0
 margin_bottom = -32.0
-custom_fonts/font = ExtResource( 21 )
+custom_fonts/font = ExtResource( 27 )
 text = "Round 1"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="GUI/RoundAnnouncerContainer"]
@@ -416,6 +507,7 @@ autoplay = "round_announcing"
 anims/round_announcing = SubResource( 3 )
 
 [node name="GameOverAnnouncer" type="MarginContainer" parent="GUI"]
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -431,7 +523,7 @@ visible = false
 margin_top = -90.0
 margin_right = 198.0
 margin_bottom = -32.0
-custom_fonts/font = ExtResource( 22 )
+custom_fonts/font = ExtResource( 28 )
 custom_colors/font_color = Color( 1, 0.443137, 0.443137, 1 )
 text = "Game Over"
 
@@ -453,7 +545,7 @@ margin_bottom = 26.58
 [node name="Background" type="TextureRect" parent="GUI/GameOverPanel"]
 margin_right = 289.0
 margin_bottom = 206.0
-texture = ExtResource( 23 )
+texture = ExtResource( 29 )
 
 [node name="Menu" type="VBoxContainer" parent="GUI/GameOverPanel/Background"]
 anchor_left = 0.5
@@ -469,15 +561,15 @@ alignment = 1
 [node name="RestartButton" type="TextureButton" parent="GUI/GameOverPanel/Background/Menu"]
 margin_right = 137.0
 margin_bottom = 55.0
-texture_normal = ExtResource( 24 )
-texture_pressed = ExtResource( 25 )
+texture_normal = ExtResource( 30 )
+texture_pressed = ExtResource( 31 )
 
 [node name="Label" type="Label" parent="GUI/GameOverPanel/Background/Menu/RestartButton"]
 margin_left = 24.6471
 margin_top = 11.4433
 margin_right = 114.647
 margin_bottom = 48.4433
-custom_fonts/font = ExtResource( 26 )
+custom_fonts/font = ExtResource( 32 )
 custom_colors/font_color = Color( 0.172549, 0.145098, 0.027451, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 text = "Restart"
@@ -493,6 +585,11 @@ margin_right = 112.5
 margin_bottom = -16.0
 custom_fonts/font = SubResource( 5 )
 text = "Rounds survived: 1"
+[connection signal="arrow_button_disabled" from="World" to="GUI" method="_on_World_arrow_button_disabled"]
+[connection signal="arrow_button_enabled" from="World" to="GUI" method="_on_World_arrow_button_enabled"]
+[connection signal="arrow_panel_disabled" from="World" to="GUI" method="_on_World_arrow_panel_disabled"]
+[connection signal="arrow_panel_enabled" from="World" to="GUI" method="_on_World_arrow_panel_enabled"]
+[connection signal="arrows_amount_changed" from="World" to="GUI" method="_on_World_arrows_amount_changed"]
 [connection signal="corn_amount_changed" from="World" to="GUI" method="_on_World_corn_amount_changed"]
 [connection signal="game_over" from="World" to="GUI" method="_on_World_game_over"]
 [connection signal="game_over_panel_hided" from="World" to="GUI" method="_on_World_game_over_panel_hided"]
@@ -501,6 +598,7 @@ text = "Rounds survived: 1"
 [connection signal="meteor_panel_disabled" from="World" to="GUI" method="_on_World_meteor_panel_disabled"]
 [connection signal="meteor_panel_enabled" from="World" to="GUI" method="_on_World_meteor_panel_enabled"]
 [connection signal="meteors_amount_changed" from="World" to="GUI" method="_on_World_meteors_amount_changed"]
+[connection signal="progress_arrow_creation_changed" from="World" to="GUI" method="_on_World_progress_arrow_creation_changed"]
 [connection signal="progress_meteor_creation_changed" from="World" to="GUI" method="_on_World_progress_meteor_creation_changed"]
 [connection signal="progress_unit_creation_changed" from="World" to="GUI" method="_on_World_progress_unit_creation_changed"]
 [connection signal="round_changed" from="World" to="GUI" method="_on_World_round_changed"]
@@ -509,6 +607,8 @@ text = "Rounds survived: 1"
 [connection signal="unit_panel_disabled" from="World" to="GUI" method="_on_World_unit_panel_disabled"]
 [connection signal="unit_panel_enabled" from="World" to="GUI" method="_on_World_unit_panel_enabled"]
 [connection signal="units_amount_changed" from="World" to="GUI" method="_on_World_units_amount_changed"]
+[connection signal="arrow_panel_pressed" from="GUI" to="World" method="_on_GUI_arrow_panel_pressed"]
+[connection signal="arrow_power_pressed" from="GUI" to="World" method="_on_GUI_arrow_power_pressed"]
 [connection signal="cloud_area_click_release" from="GUI" to="World" method="_on_GUI_cloud_area_click_release"]
 [connection signal="cloud_area_clicked" from="GUI" to="World" method="_on_GUI_cloud_area_clicked"]
 [connection signal="meteor_panel_pressed" from="GUI" to="World" method="_on_GUI_meteor_panel_pressed"]
@@ -516,9 +616,11 @@ text = "Rounds survived: 1"
 [connection signal="restart_button_pressed" from="GUI" to="World" method="_on_GUI_restart_button_pressed"]
 [connection signal="unit_panel_pressed" from="GUI" to="World" method="_on_GUI_unit_panel_pressed"]
 [connection signal="gui_input" from="GUI/CloudsController" to="GUI" method="_on_CloudsController_gui_input"]
-[connection signal="gui_input" from="GUI/MainPanel/MarginContainer/UnitsPanel" to="GUI" method="_on_UnitsPanel_gui_input"]
-[connection signal="pressed" from="GUI/MainPanel/PowersPanelContainer/MeteorPanel" to="GUI" method="_on_MeteorPanel_pressed"]
-[connection signal="pressed" from="GUI/PowersPanel/MeteorPowerButton" to="GUI" method="_on_MeteorPower_pressed"]
+[connection signal="pressed" from="GUI/MainPanel/MarginContainer/UnitsPanel" to="GUI" method="_on_UnitsPanel_pressed"]
+[connection signal="pressed" from="GUI/MainPanel/ArrowsPanelContainer/ArrowsPanel" to="GUI" method="_on_ArrowsPanel_pressed"]
+[connection signal="pressed" from="GUI/MainPanel/MeteorsPanelContainer/MeteorPanel" to="GUI" method="_on_MeteorPanel_pressed"]
+[connection signal="pressed" from="GUI/PowersPanelContainer/PowersPanel/ArrowPowerButton" to="GUI" method="_on_ArrowPowerButton_pressed"]
+[connection signal="pressed" from="GUI/PowersPanelContainer/PowersPanel/MeteorPowerButton" to="GUI" method="_on_MeteorPower_pressed"]
 [connection signal="animation_finished" from="GUI/GameOverAnnouncer/AnimationPlayer" to="GUI" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="pressed" from="GUI/GameOverPanel/Background/Menu/RestartButton" to="GUI" method="_on_RestartButton_pressed"]
 

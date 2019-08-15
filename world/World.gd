@@ -5,9 +5,10 @@ var MediumCloud = preload("res://scenes/cloud/medium_cloud/MediumCloud.tscn")
 var CornPlant = preload("res://scenes/corn_plant/CornPlant.tscn")
 #Powers
 var Meteor = preload("res://scenes/power/meteor/Meteor.tscn")
+var Arrow = preload("res://scenes/power/arrow/Arrow.tscn")
 #Player
 var PowerCursor = preload("res://scenes/player/PowerCursor.tscn")
-
+var ArrowPowerCursor = preload("res://scenes/player/ArrowPowerCursor/ArrowPowerCursor.tscn")
 var EnemyWarrior = preload("res://scenes/human/enemy/warrior/WarriorEnemy.tscn")
 var ExpulsionEffect = preload("res://scenes/player/expulsion_effect/ExpulsionEffect.tscn")
 
@@ -31,9 +32,15 @@ var current_units := 1
 
 #Powers - Meteors
 var meteors := 0
-export var meteor_creation_duration := 6
+export var meteor_creation_duration := 12
 var meteor_creation_current_time := 0
-export var meteor_cost := 18
+export var meteor_cost := 30
+
+#Powers - Arrows
+var arrows := 0
+export var arrow_creation_duration : = 8
+var arrow_creation_current_time := 0
+export var arrow_cost := 18
 
 #Enemies
 export var enemies_peer_round := 5
@@ -52,8 +59,10 @@ var plant_3_created = false
 var enemies_defeated = false
 var creating_unit = false
 var creating_meteor = false
+var creating_arrow = false
 var on_battle = false
 var meteor_power_activated = false
+var arrow_power_activated = false
 #Signals
 #GUI
 signal corn_amount_changed(corn_amount)
@@ -68,8 +77,14 @@ signal meteor_button_enabled
 signal meteor_button_disabled
 signal meteor_panel_disabled
 signal meteor_panel_enabled
+signal arrow_button_enabled
+signal arrow_button_disabled
+signal arrow_panel_disabled
+signal arrow_panel_enabled
 signal progress_meteor_creation_changed(current_time, duration)
+signal progress_arrow_creation_changed(current_time, duration)
 signal meteors_amount_changed(current_meteors)
+signal arrows_amount_changed(current_arrows)
 signal game_over(current_round)
 signal game_over_panel_hided
 signal battlefield_cleaned #Quit all the enemies in the battlefield
@@ -89,6 +104,7 @@ func _ready() -> void:
 	start_round()
 
 func _process(delta: float) -> void:
+
 	if not plant_1_created:
 		create_new_plant(1)
 		plant_1_created = true
@@ -123,7 +139,9 @@ func restart_game():
 	on_battle = false
 	current_units = 1
 	$Building.current_units = current_units
+	emit_signal("battle_over")
 	meteors = 0
+	arrows = 0
 	corn_amount = 0
 	enemies_peer_round = 5
 	total_enemies = enemies_peer_round
@@ -145,6 +163,7 @@ func start_round():
 	emit_signal("round_seconds_changed", current_seconds)
 	emit_signal("round_changed", current_round)
 	emit_signal("meteor_button_disabled")
+	emit_signal("arrow_button_disabled")
 	#Start timer
 	$RoundTimer.start()
 
@@ -155,6 +174,8 @@ func start_battle():
 	emit_signal("unit_panel_disabled")
 	if meteors > 0:
 		emit_signal("meteor_button_enabled")
+	if arrows > 0:
+		emit_signal("arrow_button_enabled")
 #	current_enemies = total_enemies
 	enemies_created = 0
 	$EnemySpawningTimer.start()
@@ -180,8 +201,17 @@ func add_new_meteor():
 	if corn_amount >= meteor_cost and not on_battle:
 		emit_signal("meteor_panel_enabled")
 
+func add_new_arrow():
+	arrows += 1
+	$ArrowCreationTimer.stop()
+	creating_arrow = false
+	#GUI
+	emit_signal("arrows_amount_changed", arrows)
+	if corn_amount >= arrow_cost and not on_battle:
+		emit_signal("arrow_panel_enabled")
+
 func create_enemy():
-	if enemies_created < enemies_peer_round:
+	if enemies_created < enemies_peer_round and on_battle:
 		enemies_created += 1
 		var enemy = EnemyWarrior.instance()
 		enemy.connect("unit_killed", self, "units_changed")
@@ -192,7 +222,9 @@ func create_enemy():
 func units_changed(unit_type):
 	if unit_type == "enemy":
 		total_enemies -= 1
-		if total_enemies <= 0:
+		print("total_enemies: ", total_enemies)
+		print("enemies created: ", enemies_created)
+		if total_enemies <= 0 and current_units > 0:
 			print("Roud Win!!!")
 			end_round()
 	if unit_type == "ally":
@@ -221,13 +253,23 @@ func increase_dificulty():
 func game_over():
 	emit_signal("game_over", current_round)
 
-func execute_power(cursor_position):
-	meteor_power_activated = false
-	#Instance a meteor on the cursor position
-	var meteor = Meteor.instance()
-	meteor.position = cursor_position
-	meteor.position.y = 0
-	add_child(meteor)
+func execute_power(power_type = "meteor"):
+	if power_type == "meteor":
+		meteor_power_activated = false
+		#Instance a meteor on the cursor position
+		var meteor = Meteor.instance()
+		var falling_position = get_global_mouse_position()
+		falling_position.y = -20
+		meteor.position = Vector2(falling_position.x, falling_position.y)
+		add_child(meteor)
+		meteor = Meteor.instance()
+		meteor.position = Vector2(falling_position.x - 10, falling_position.y - 70)
+		add_child(meteor)
+	elif power_type == "arrow":
+		arrow_power_activated = false
+		var arrow = Arrow.instance()
+		arrow.position = $ArrowSpawningPosition.position
+		add_child(arrow)
 
 func _on_Building_corn_stored() -> void:
 	corn_amount += corns_harvested
@@ -323,7 +365,7 @@ func _on_GUI_meteor_power_clicked() -> void:
 		#Create a new power cursor
 		var power_cursor = PowerCursor.instance()
 		connect("battle_over", power_cursor, "quit_power_cursor") #Quit the power cursor if the battle is over
-		power_cursor.connect("power_executed", self, "execute_power") 
+		power_cursor.connect("power_executed", self, "execute_power", ["meteor"]) 
 		add_child(power_cursor)
 		#Update GUI
 		emit_signal("meteors_amount_changed", meteors)
@@ -359,6 +401,12 @@ func _on_World_corn_amount_changed(corn_amount) -> void:
 	
 	if corn_amount < meteor_cost and not on_battle and not creating_meteor:
 		emit_signal("meteor_panel_disabled")
+	
+	if corn_amount >= arrow_cost and not on_battle and not creating_arrow:
+		emit_signal("arrow_panel_enabled")
+		
+	if corn_amount < arrow_cost and not on_battle and not creating_arrow:
+		emit_signal("arrow_panel_disabled")
 
 
 func _on_GUI_restart_button_pressed() -> void:
@@ -370,3 +418,39 @@ func _on_World_meteors_amount_changed(current_meteors) -> void:
 		emit_signal("meteor_button_disabled")
 	elif current_meteors > 0 and on_battle:
 		emit_signal("meteor_button_enabled")
+
+
+func _on_GUI_arrow_panel_pressed() -> void:
+	if corn_amount >= arrow_cost and not creating_arrow:
+		creating_arrow = true
+		arrow_creation_current_time = 0 # Reset
+		corn_amount -= arrow_cost
+		emit_signal("corn_amount_changed", corn_amount)
+		emit_signal("arrow_panel_disabled")
+		$ArrowCreationTimer.start()
+
+
+func _on_ArrowCreationTimer_timeout() -> void:
+	arrow_creation_current_time += 1
+	emit_signal("progress_arrow_creation_changed", arrow_creation_current_time, arrow_creation_duration)
+	if arrow_creation_current_time >= arrow_creation_duration:
+		add_new_arrow()
+
+func _on_GUI_arrow_power_pressed() -> void:
+	if arrows > 0 and on_battle and not arrow_power_activated:
+		arrows -= 1
+		arrow_power_activated = true
+		#Create a new power cursor
+		var power_cursor = ArrowPowerCursor.instance()
+		connect("battle_over", power_cursor, "quit_power_cursor") #Quit the power cursor if the battle is over
+		power_cursor.connect("power_executed", self, "execute_power", ["arrow"]) 
+		add_child(power_cursor)
+		#Update GUI
+		emit_signal("arrows_amount_changed", arrows)
+
+
+func _on_World_arrows_amount_changed(current_arrows) -> void:
+	if current_arrows == 0 and on_battle:
+		emit_signal("arrow_button_disabled")
+	elif current_arrows > 0 and on_battle:
+		emit_signal("arrow_button_enabled")
