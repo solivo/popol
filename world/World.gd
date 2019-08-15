@@ -73,7 +73,6 @@ signal meteors_amount_changed(current_meteors)
 signal game_over(current_round)
 signal game_over_panel_hided
 signal battlefield_cleaned #Quit all the enemies in the battlefield
-
 #Building
 signal unit_created
 signal battle_started
@@ -154,7 +153,8 @@ func start_battle():
 	on_battle = true
 	emit_signal("battle_started") #Preparing the untis for spawninh warriors
 	emit_signal("unit_panel_disabled")
-	emit_signal("meteor_button_enabled")
+	if meteors > 0:
+		emit_signal("meteor_button_enabled")
 #	current_enemies = total_enemies
 	enemies_created = 0
 	$EnemySpawningTimer.start()
@@ -363,3 +363,10 @@ func _on_World_corn_amount_changed(corn_amount) -> void:
 
 func _on_GUI_restart_button_pressed() -> void:
 	restart_game()
+
+
+func _on_World_meteors_amount_changed(current_meteors) -> void:
+	if current_meteors == 0 and on_battle:
+		emit_signal("meteor_button_disabled")
+	elif current_meteors > 0 and on_battle:
+		emit_signal("meteor_button_enabled")
