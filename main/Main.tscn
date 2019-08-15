@@ -390,6 +390,7 @@ autoplay = "round_announcing"
 anims/round_announcing = SubResource( 3 )
 
 [node name="GameOverAnnouncer" type="MarginContainer" parent="GUI"]
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -469,6 +470,7 @@ custom_fonts/font = SubResource( 5 )
 text = "Rounds survived: 1"
 [connection signal="corn_amount_changed" from="World" to="GUI" method="_on_World_corn_amount_changed"]
 [connection signal="game_over" from="World" to="GUI" method="_on_World_game_over"]
+[connection signal="game_over_panel_hided" from="World" to="GUI" method="_on_World_game_over_panel_hided"]
 [connection signal="meteor_button_disabled" from="World" to="GUI" method="_on_World_meteor_button_disabled"]
 [connection signal="meteor_button_enabled" from="World" to="GUI" method="_on_World_meteor_button_enabled"]
 [connection signal="meteor_panel_disabled" from="World" to="GUI" method="_on_World_meteor_panel_disabled"]
@@ -486,11 +488,13 @@ text = "Rounds survived: 1"
 [connection signal="cloud_area_clicked" from="GUI" to="World" method="_on_GUI_cloud_area_clicked"]
 [connection signal="meteor_panel_pressed" from="GUI" to="World" method="_on_GUI_meteor_panel_pressed"]
 [connection signal="meteor_power_clicked" from="GUI" to="World" method="_on_GUI_meteor_power_clicked"]
+[connection signal="restart_button_pressed" from="GUI" to="World" method="_on_GUI_restart_button_pressed"]
 [connection signal="unit_panel_pressed" from="GUI" to="World" method="_on_GUI_unit_panel_pressed"]
 [connection signal="gui_input" from="GUI/CloudsController" to="GUI" method="_on_CloudsController_gui_input"]
 [connection signal="gui_input" from="GUI/MainPanel/MarginContainer/UnitsPanel" to="GUI" method="_on_UnitsPanel_gui_input"]
 [connection signal="pressed" from="GUI/MainPanel/PowersPanelContainer/MeteorPanel" to="GUI" method="_on_MeteorPanel_pressed"]
 [connection signal="pressed" from="GUI/PowersPanel/MeteorPowerButton" to="GUI" method="_on_MeteorPower_pressed"]
 [connection signal="animation_finished" from="GUI/GameOverAnnouncer/AnimationPlayer" to="GUI" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="pressed" from="GUI/GameOverPanel/Background/Menu/RestartButton" to="GUI" method="_on_RestartButton_pressed"]
 
 [editable path="World"]

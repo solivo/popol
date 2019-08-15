@@ -92,7 +92,6 @@ func _on_FightTimer_timeout() -> void:
 	emit_signal("fight_result", fight_result)
 
 func end_attack(win):
-	print(win) 
 	if  win:
 		winning_factor.append("false") #Decreases the probabity of win the next fight
 		attacking = false
@@ -128,3 +127,8 @@ func quit_warrior():
 		$AnimationPlayer.play("warrior_leaving_right")
 	else:
 		$AnimationPlayer.play("warrior_leaving_left")
+
+
+func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
+	if anim_name == "warrior_leaving_right" or anim_name == "warrior_leaving_left"  or anim_name == "warrior_dying_left" or anim_name == "warrior_dying_right":
+		queue_free()

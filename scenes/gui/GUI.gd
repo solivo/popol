@@ -9,6 +9,7 @@ signal meteor_panel_pressed #Attemps to create a new meteor power
 signal cloud_area_clicked(mouse_position) 
 signal cloud_area_click_release
 signal meteor_power_clicked
+signal restart_button_pressed
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -158,3 +159,11 @@ func _on_World_game_over(current_round) -> void:
 func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 	if anim_name == "game_over_announcing":
 		show_game_over_panel()
+
+
+func _on_World_game_over_panel_hided() -> void:
+	hide_game_over_panel()
+
+
+func _on_RestartButton_pressed() -> void:
+	emit_signal("restart_button_pressed")

@@ -71,6 +71,8 @@ signal meteor_panel_enabled
 signal progress_meteor_creation_changed(current_time, duration)
 signal meteors_amount_changed(current_meteors)
 signal game_over(current_round)
+signal game_over_panel_hided
+signal battlefield_cleaned #Quit all the enemies in the battlefield
 
 #Building
 signal unit_created
@@ -114,6 +116,26 @@ func create_new_plant(number_plant_pos) -> void:
 			corn_plant.number_position = 3
 		add_child(corn_plant) 
 
+func restart_game():
+	#Reset variables
+	current_round = 1
+	round_duration = 1 #Replace for a constant
+	current_minutes = round_duration
+	on_battle = false
+	current_units = 1
+	$Building.current_units = current_units
+	meteors = 0
+	corn_amount = 0
+	enemies_peer_round = 5
+	total_enemies = enemies_peer_round
+	enemies_created = 0
+	$EnemySpawningTimer.stop()
+	emit_signal("battlefield_cleaned")
+	#GUI
+	emit_signal("game_over_panel_hided")
+	emit_signal("corn_amount_changed", corn_amount)
+	emit_signal("units_amount_changed", current_units)
+	start_round()
 
 func start_round():
 	#Reset variables
@@ -163,6 +185,7 @@ func create_enemy():
 		enemies_created += 1
 		var enemy = EnemyWarrior.instance()
 		enemy.connect("unit_killed", self, "units_changed")
+		connect("battlefield_cleaned", enemy, "quit_warrior")
 		enemy.position = $EnemySpawningPosition.position
 		add_child(enemy)
 
@@ -249,7 +272,7 @@ func _on_UnitCreationTimer_timeout() -> void:
 
 func _on_RoundTimer_timeout() -> void:
 	if current_seconds  <= 0:
-		current_seconds = 59
+		current_seconds = 5
 		if current_minutes > 0:
 			current_minutes -= 1
 			emit_signal("round_minutes_changed", current_minutes)
@@ -332,3 +355,7 @@ func _on_World_corn_amount_changed(corn_amount) -> void:
 	
 	if corn_amount < meteor_cost and not on_battle and not creating_meteor:
 		emit_signal("meteor_panel_disabled")
+
+
+func _on_GUI_restart_button_pressed() -> void:
+	restart_game()

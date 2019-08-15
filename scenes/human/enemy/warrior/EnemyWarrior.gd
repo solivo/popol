@@ -5,4 +5,4 @@ func _ready() -> void:
 	default_side = "left"
 	current_side = default_side
 	unit_target = "warrior"
-	winning_factor = [true]
+	winning_factor = [false]
