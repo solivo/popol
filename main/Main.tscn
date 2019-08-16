@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=2]
+[gd_scene load_steps=53 format=2]
 
 [ext_resource path="res://world/World.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/gui/GUI.gd" type="Script" id=2]
@@ -32,18 +32,20 @@
 [ext_resource path="res://scenes/gui/assets/game_over_panel/restart_button_normal.png" type="Texture" id=30]
 [ext_resource path="res://scenes/gui/assets/game_over_panel/restart_button_pressed.png" type="Texture" id=31]
 [ext_resource path="res://scenes/gui/assets/fonts/game_over_buttons_font.tres" type="DynamicFont" id=32]
-[ext_resource path="res://main/MainMenu.gd" type="Script" id=33]
-[ext_resource path="res://world/assets/background.png" type="Texture" id=34]
-[ext_resource path="res://scenes/main_menu/assets/main_menu_background.png" type="Texture" id=35]
-[ext_resource path="res://scenes/main_menu/assets/play_button_normal.png" type="Texture" id=36]
-[ext_resource path="res://scenes/main_menu/assets/play_button_pressed.png" type="Texture" id=37]
-[ext_resource path="res://scenes/main_menu/assets/fonts/buttons_font.tres" type="DynamicFont" id=38]
-[ext_resource path="res://scenes/main_menu/assets/exit_button_normal.png" type="Texture" id=39]
-[ext_resource path="res://scenes/main_menu/assets/exit_button_pressed.png" type="Texture" id=40]
-[ext_resource path="res://scenes/main_menu/assets/game_title.png" type="Texture" id=41]
-[ext_resource path="res://scenes/main_menu/assets/checkbox_normal.png" type="Texture" id=42]
-[ext_resource path="res://scenes/main_menu/assets/checkbox_pressed.png" type="Texture" id=43]
-[ext_resource path="res://scenes/main_menu/assets/fonts/options_font.tres" type="DynamicFont" id=44]
+[ext_resource path="res://scenes/gui/assets/pause_panel/pause_button_normal.png" type="Texture" id=33]
+[ext_resource path="res://scenes/gui/assets/pause_panel/pause_button_pressed.png" type="Texture" id=34]
+[ext_resource path="res://main/MainMenu.gd" type="Script" id=35]
+[ext_resource path="res://world/assets/background.png" type="Texture" id=36]
+[ext_resource path="res://scenes/main_menu/assets/main_menu_background.png" type="Texture" id=37]
+[ext_resource path="res://scenes/main_menu/assets/play_button_normal.png" type="Texture" id=38]
+[ext_resource path="res://scenes/main_menu/assets/play_button_pressed.png" type="Texture" id=39]
+[ext_resource path="res://scenes/main_menu/assets/fonts/buttons_font.tres" type="DynamicFont" id=40]
+[ext_resource path="res://scenes/main_menu/assets/exit_button_normal.png" type="Texture" id=41]
+[ext_resource path="res://scenes/main_menu/assets/exit_button_pressed.png" type="Texture" id=42]
+[ext_resource path="res://scenes/main_menu/assets/game_title.png" type="Texture" id=43]
+[ext_resource path="res://scenes/main_menu/assets/checkbox_normal.png" type="Texture" id=44]
+[ext_resource path="res://scenes/main_menu/assets/checkbox_pressed.png" type="Texture" id=45]
+[ext_resource path="res://scenes/main_menu/assets/fonts/options_font.tres" type="DynamicFont" id=46]
 
 [sub_resource type="DynamicFont" id=1]
 size = 26
@@ -151,14 +153,11 @@ visible = false
 z_index = -10
 
 [node name="GUI" type="Control" parent="."]
-editor/display_folded = true
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
 
 [node name="RoundPanelContainer" type="MarginContainer" parent="GUI"]
-editor/display_folded = true
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -87.0
@@ -247,10 +246,10 @@ valign = 1
 editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -2.0
-margin_top = 2.0
-margin_right = -2.0
-margin_bottom = -164.0
+margin_left = -1.40128
+margin_top = 2.59874
+margin_right = -1.40125
+margin_bottom = -163.401
 
 [node name="MainPanel" type="HBoxContainer" parent="GUI"]
 editor/display_folded = true
@@ -476,6 +475,7 @@ text = "0"
 align = 1
 
 [node name="PowersPanelContainer" type="MarginContainer" parent="GUI"]
+editor/display_folded = true
 anchor_top = 0.5
 anchor_bottom = 0.5
 margin_left = 24.0
@@ -594,6 +594,7 @@ text = "Prepare for battle!"
 anims/battle_announcing = SubResource( 5 )
 
 [node name="GameOverPanel" type="MarginContainer" parent="GUI"]
+editor/display_folded = true
 visible = false
 anchor_left = 0.5
 anchor_top = 0.5
@@ -605,6 +606,7 @@ margin_right = 134.287
 margin_bottom = 26.58
 
 [node name="Background" type="TextureRect" parent="GUI/GameOverPanel"]
+editor/display_folded = true
 margin_right = 289.0
 margin_bottom = 206.0
 texture = ExtResource( 29 )
@@ -649,17 +651,91 @@ margin_bottom = -16.0
 custom_fonts/font = SubResource( 6 )
 text = "Rounds survived: 1"
 
+[node name="PauseButtonContainer" type="MarginContainer" parent="GUI"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -40.0
+margin_bottom = 40.0
+custom_constants/margin_top = 10
+custom_constants/margin_left = -10
+
+[node name="PauseButton" type="TextureButton" parent="GUI/PauseButtonContainer"]
+margin_left = -10.0
+margin_top = 10.0
+margin_right = 40.0
+margin_bottom = 50.0
+texture_normal = ExtResource( 33 )
+texture_pressed = ExtResource( 34 )
+
+[node name="PausePanel" type="MarginContainer" parent="GUI"]
+pause_mode = 2
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -154.713
+margin_top = -179.42
+margin_right = 134.287
+margin_bottom = 36.58
+
+[node name="Background" type="TextureRect" parent="GUI/PausePanel"]
+margin_right = 289.0
+margin_bottom = 216.0
+texture = ExtResource( 29 )
+
+[node name="Menu" type="VBoxContainer" parent="GUI/PausePanel/Background"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -66.0
+margin_top = -20.0
+margin_right = 68.5
+margin_bottom = 27.5
+alignment = 1
+
+[node name="ReturnButton" type="TextureButton" parent="GUI/PausePanel/Background/Menu"]
+margin_right = 137.0
+margin_bottom = 55.0
+texture_normal = ExtResource( 30 )
+texture_pressed = ExtResource( 31 )
+
+[node name="Label" type="Label" parent="GUI/PausePanel/Background/Menu/ReturnButton"]
+margin_left = 24.6471
+margin_top = 11.4433
+margin_right = 114.647
+margin_bottom = 48.4433
+custom_fonts/font = ExtResource( 32 )
+custom_colors/font_color = Color( 0.172549, 0.145098, 0.027451, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "Return"
+
+[node name="PauseLabel" type="Label" parent="GUI/PausePanel/Background"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -112.5
+margin_top = -65.0
+margin_right = 112.5
+margin_bottom = -16.0
+custom_fonts/font = SubResource( 6 )
+text = "Pause"
+align = 1
+
 [node name="MainMenu" type="Control" parent="."]
+editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 33 )
+script = ExtResource( 35 )
 
 [node name="Background" type="TextureRect" parent="MainMenu"]
 margin_left = 2.86396
 margin_top = -1.43198
 margin_right = 962.864
 margin_bottom = 638.568
-texture = ExtResource( 34 )
+texture = ExtResource( 36 )
 
 [node name="MainMenuContainer" type="TextureRect" parent="MainMenu"]
 anchor_left = 0.5
@@ -670,7 +746,7 @@ margin_left = -151.0
 margin_top = -108.0
 margin_right = 151.0
 margin_bottom = 108.0
-texture = ExtResource( 35 )
+texture = ExtResource( 37 )
 
 [node name="MainMenu" type="VBoxContainer" parent="MainMenu/MainMenuContainer"]
 editor/display_folded = true
@@ -687,8 +763,8 @@ custom_constants/separation = 10
 [node name="PlayButton" type="TextureButton" parent="MainMenu/MainMenuContainer/MainMenu"]
 margin_right = 177.0
 margin_bottom = 71.0
-texture_normal = ExtResource( 36 )
-texture_pressed = ExtResource( 37 )
+texture_normal = ExtResource( 38 )
+texture_pressed = ExtResource( 39 )
 
 [node name="Label" type="Label" parent="MainMenu/MainMenuContainer/MainMenu/PlayButton"]
 anchor_left = 0.5
@@ -699,7 +775,7 @@ margin_left = -69.5
 margin_top = -19.0
 margin_right = 69.5
 margin_bottom = 19.0
-custom_fonts/font = ExtResource( 38 )
+custom_fonts/font = ExtResource( 40 )
 text = "Start Game"
 align = 1
 
@@ -707,8 +783,8 @@ align = 1
 margin_top = 81.0
 margin_right = 177.0
 margin_bottom = 152.0
-texture_normal = ExtResource( 39 )
-texture_pressed = ExtResource( 40 )
+texture_normal = ExtResource( 41 )
+texture_pressed = ExtResource( 42 )
 
 [node name="Label" type="Label" parent="MainMenu/MainMenuContainer/MainMenu/ExitButton"]
 anchor_left = 0.5
@@ -719,7 +795,7 @@ margin_left = -69.5
 margin_top = -19.0
 margin_right = 69.5
 margin_bottom = 19.0
-custom_fonts/font = ExtResource( 38 )
+custom_fonts/font = ExtResource( 40 )
 text = "Exit"
 align = 1
 
@@ -735,7 +811,7 @@ custom_constants/margin_top = 15
 margin_top = 15.0
 margin_right = 365.0
 margin_bottom = 197.0
-texture = ExtResource( 41 )
+texture = ExtResource( 43 )
 
 [node name="OptionsMenuContainer" type="MarginContainer" parent="MainMenu"]
 anchor_left = 0.5
@@ -760,8 +836,8 @@ margin_bottom = 31.0
 rect_min_size = Vector2( 112, 0 )
 toggle_mode = true
 pressed = true
-texture_normal = ExtResource( 42 )
-texture_pressed = ExtResource( 43 )
+texture_normal = ExtResource( 44 )
+texture_pressed = ExtResource( 45 )
 
 [node name="Label" type="Label" parent="MainMenu/OptionsMenuContainer/OptionsMenu/TutorialCheckbox"]
 anchor_top = 0.5
@@ -770,7 +846,7 @@ margin_left = 32.0
 margin_top = -14.5
 margin_right = 74.0
 margin_bottom = 14.5
-custom_fonts/font = ExtResource( 44 )
+custom_fonts/font = ExtResource( 46 )
 text = "Tutorial"
 
 [node name="SoundCheckbox" type="TextureButton" parent="MainMenu/OptionsMenuContainer/OptionsMenu"]
@@ -780,8 +856,8 @@ margin_right = 267.0
 margin_bottom = 31.0
 rect_min_size = Vector2( 112, 0 )
 toggle_mode = true
-texture_normal = ExtResource( 42 )
-texture_pressed = ExtResource( 43 )
+texture_normal = ExtResource( 44 )
+texture_pressed = ExtResource( 45 )
 
 [node name="Label" type="Label" parent="MainMenu/OptionsMenuContainer/OptionsMenu/SoundCheckbox"]
 anchor_top = 0.5
@@ -790,7 +866,7 @@ margin_left = 32.0
 margin_top = -14.5
 margin_right = 74.0
 margin_bottom = 14.5
-custom_fonts/font = ExtResource( 44 )
+custom_fonts/font = ExtResource( 46 )
 text = "Sounds"
 [connection signal="GUI_displayed" from="World" to="GUI" method="_on_World_GUI_displayed"]
 [connection signal="arrow_button_disabled" from="World" to="GUI" method="_on_World_arrow_button_disabled"]
@@ -832,6 +908,8 @@ text = "Sounds"
 [connection signal="pressed" from="GUI/PowersPanelContainer/PowersPanel/MeteorPowerButton" to="GUI" method="_on_MeteorPower_pressed"]
 [connection signal="animation_finished" from="GUI/GameOverAnnouncer/AnimationPlayer" to="GUI" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="pressed" from="GUI/GameOverPanel/Background/Menu/RestartButton" to="GUI" method="_on_RestartButton_pressed"]
+[connection signal="pressed" from="GUI/PauseButtonContainer/PauseButton" to="GUI" method="_on_PauseButton_pressed"]
+[connection signal="pressed" from="GUI/PausePanel/Background/Menu/ReturnButton" to="GUI" method="_on_ReturnButton_pressed"]
 [connection signal="start_game" from="MainMenu" to="World" method="_on_MainMenu_start_game"]
 [connection signal="pressed" from="MainMenu/MainMenuContainer/MainMenu/PlayButton" to="MainMenu" method="_on_PlayButton_pressed"]
 [connection signal="pressed" from="MainMenu/MainMenuContainer/MainMenu/ExitButton" to="MainMenu" method="_on_ExitButton_pressed"]

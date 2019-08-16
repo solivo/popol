@@ -244,3 +244,11 @@ func _on_World_battle_started() -> void:
 
 func _on_World_GUI_displayed() -> void:
 	show_GUI()
+
+func _on_PauseButton_pressed() -> void:
+	$PausePanel.visible = true
+	get_tree().paused = true
+
+func _on_ReturnButton_pressed() -> void:
+	$PausePanel.visible = false
+	get_tree().paused = false
