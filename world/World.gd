@@ -214,6 +214,7 @@ func create_enemy():
 	if enemies_created < enemies_peer_round and on_battle:
 		enemies_created += 1
 		var enemy = EnemyWarrior.instance()
+		enemy.unit_speed = int(rand_range(enemy.unit_speed, enemy.unit_speed + 15.0))
 		enemy.connect("unit_killed", self, "units_changed")
 		connect("battlefield_cleaned", enemy, "quit_warrior")
 		enemy.position = $EnemySpawningPosition.position
@@ -263,7 +264,7 @@ func execute_power(power_type = "meteor"):
 		meteor.position = Vector2(falling_position.x, falling_position.y)
 		add_child(meteor)
 		meteor = Meteor.instance()
-		meteor.position = Vector2(falling_position.x - 10, falling_position.y - 70)
+		meteor.position = Vector2(falling_position.x - 10, falling_position.y - 120)
 		add_child(meteor)
 	elif power_type == "arrow":
 		arrow_power_activated = false
@@ -440,10 +441,12 @@ func _on_GUI_arrow_power_pressed() -> void:
 	if arrows > 0 and on_battle and not arrow_power_activated:
 		arrows -= 1
 		arrow_power_activated = true
+		$ArrowSpawningPosition/Character.preparing_arrow()
 		#Create a new power cursor
 		var power_cursor = ArrowPowerCursor.instance()
 		connect("battle_over", power_cursor, "quit_power_cursor") #Quit the power cursor if the battle is over
 		power_cursor.connect("power_executed", self, "execute_power", ["arrow"]) 
+		power_cursor.connect("power_executed", $ArrowSpawningPosition/Character, "keep_waiting")
 		add_child(power_cursor)
 		#Update GUI
 		emit_signal("arrows_amount_changed", arrows)

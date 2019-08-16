@@ -66,6 +66,7 @@ func spawn_unit(unit_name):
 	elif unit_name == "warrior":
 		var warrior = Warrior.instance()
 		warrior.position = $SpawningPoint.position
+		warrior.unit_speed = int(rand_range(warrior.unit_speed - 10, warrior.unit_speed))
 		warrior.connect("unit_killed", self, "unit_killed")
 		connect("warrior_exited", warrior, "quit_warrior")
 		add_child(warrior)

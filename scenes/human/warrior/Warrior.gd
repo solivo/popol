@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 class_name Warrior 
 
-export var unit_speed := 120 
+export var unit_speed := 80 
 
 var current_action := "searching_enemies"  #Default action
 var current_side = "right"

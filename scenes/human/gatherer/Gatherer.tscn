@@ -49,7 +49,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 3 ), ExtResource( 7 ), ExtResource( 7 ), ExtResource( 7 ) ]
+"values": [ ExtResource( 7 ), ExtResource( 7 ), ExtResource( 7 ), ExtResource( 7 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("SpriteFarmer:position")

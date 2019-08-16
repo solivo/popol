@@ -259,7 +259,7 @@ tracks/4/keys = {
 "values": [ false, false ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=5]
 resource_name = "warrior_leaving_left"
 length = 0.5
 tracks/0/type = "value"
@@ -313,7 +313,7 @@ tracks/3/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=6]
 resource_name = "warrior_leaving_right"
 length = 0.5
 tracks/0/type = "value"
@@ -367,8 +367,7 @@ tracks/3/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "warrior_walking_left"
+[sub_resource type="Animation" id=7]
 length = 0.5
 loop = true
 tracks/0/type = "value"
@@ -420,8 +419,7 @@ tracks/3/keys = {
 "values": [ true, true ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "warrior_walking_right"
+[sub_resource type="Animation" id=8]
 length = 0.5
 loop = true
 tracks/0/type = "value"
@@ -485,10 +483,10 @@ tracks/4/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=7]
+[sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 8.36797, 31.3509 )
 
-[sub_resource type="RectangleShape2D" id=8]
+[sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 22.4532, 36.4937 )
 
 [node name="WarriorEnemy" type="KinematicBody2D" groups=[
@@ -497,6 +495,7 @@ extents = Vector2( 22.4532, 36.4937 )
 collision_layer = 16
 collision_mask = 32
 script = ExtResource( 1 )
+unit_speed = 100
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -10 )
@@ -509,13 +508,13 @@ anims/warrior_attacking_left_1 = SubResource( 1 )
 anims/warrior_attacking_right_1 = SubResource( 2 )
 anims/warrior_dying_left = SubResource( 3 )
 anims/warrior_dying_right = SubResource( 4 )
-anims/warrior_leaving_left = SubResource( 10 )
-anims/warrior_leaving_right = SubResource( 9 )
-anims/warrior_walking_left = SubResource( 5 )
-anims/warrior_walking_right = SubResource( 6 )
+anims/warrior_leaving_left = SubResource( 5 )
+anims/warrior_leaving_right = SubResource( 6 )
+anims/warrior_walking_left = SubResource( 7 )
+anims/warrior_walking_right = SubResource( 8 )
 
 [node name="CollisionShapeWarrior" type="CollisionShape2D" parent="."]
-shape = SubResource( 7 )
+shape = SubResource( 9 )
 
 [node name="RayCastRight" type="RayCast2D" parent="."]
 enabled = true
@@ -532,7 +531,7 @@ monitorable = false
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
-shape = SubResource( 8 )
+shape = SubResource( 10 )
 
 [node name="FightTimer" type="Timer" parent="."]
 one_shot = true
