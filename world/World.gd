@@ -20,6 +20,8 @@ export var round_duration : = 3 #Rond duration in minutes
 var current_minutes : = round_duration
 var current_seconds : = 0
 
+#Tutorial
+var tutorial_activated = true
 #Current Resources
 var corn_amount := 0  #Initial corn amount
 
@@ -134,7 +136,9 @@ func start_game():
 	start_round()
 	#GUI
 	emit_signal("GUI_displayed")
-	pass
+	if tutorial_activated:
+		$Tutorial.play()
+
 
 func create_new_plant(number_plant_pos) -> void:
 		var corn_plant = CornPlant.instance()
@@ -199,6 +203,9 @@ func start_battle():
 #	current_enemies = total_enemies
 	enemies_created = 0
 	$EnemySpawningTimer.start()
+	if tutorial_activated:
+		$Tutorial.play()
+		tutorial_activated = false 
 
 func create_new_unit():
 	emit_signal("unit_created")
@@ -413,6 +420,8 @@ func _on_MeteorCreationTimer_timeout() -> void:
 func _on_World_corn_amount_changed(corn_amount) -> void:
 	if corn_amount >= unit_cost and not on_battle and not creating_unit:
 		emit_signal("unit_panel_enabled")
+		if tutorial_activated and not $Tutorial.unit_tutorial_displayed:
+			$Tutorial.play()
 
 	if corn_amount >= meteor_cost and not on_battle and not creating_meteor:
 		emit_signal("meteor_panel_enabled")
@@ -425,7 +434,6 @@ func _on_World_corn_amount_changed(corn_amount) -> void:
 	
 	if corn_amount >= arrow_cost and not on_battle and not creating_arrow:
 		emit_signal("arrow_panel_enabled")
-		
 	if corn_amount < arrow_cost and not on_battle and not creating_arrow:
 		emit_signal("arrow_panel_disabled")
 
@@ -479,5 +487,6 @@ func _on_World_arrows_amount_changed(current_arrows) -> void:
 		emit_signal("arrow_button_enabled")
 
 
-func _on_MainMenu_start_game() -> void:
+func _on_MainMenu_start_game(tutorial_enabled) -> void:
+	tutorial_activated = tutorial_enabled
 	start_game()

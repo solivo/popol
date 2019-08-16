@@ -1,11 +1,12 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://world/World.gd" type="Script" id=1]
 [ext_resource path="res://world/assets/background.png" type="Texture" id=2]
 [ext_resource path="res://world/Cloud_border.gd" type="Script" id=3]
 [ext_resource path="res://world/ground.png" type="Texture" id=4]
 [ext_resource path="res://scenes/building/Building.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/player/character/Character.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/tutorial/Tutorial.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/player/character/Character.tscn" type="PackedScene" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 480, 240 )
@@ -81,6 +82,8 @@ texture = ExtResource( 4 )
 [node name="Building" parent="." instance=ExtResource( 5 )]
 position = Vector2( 109.223, 389.312 )
 
+[node name="Tutorial" parent="." instance=ExtResource( 6 )]
+
 [node name="SpawningPlantPosition1" type="Position2D" parent="."]
 position = Vector2( 350, 410 )
 
@@ -111,6 +114,7 @@ rotation = -1.56074
 wait_time = 0.7
 
 [node name="BattleField" type="Area2D" parent="."]
+editor/display_folded = true
 position = Vector2( 480, 500 )
 monitorable = false
 collision_mask = 16
@@ -126,15 +130,16 @@ wait_time = 0.2
 [node name="ArrowCreationTimer" type="Timer" parent="."]
 
 [node name="ArrowSpawningPosition" type="Position2D" parent="."]
+editor/display_folded = true
 position = Vector2( 130, 215 )
 
-[node name="Character" parent="ArrowSpawningPosition" instance=ExtResource( 6 )]
+[node name="Character" parent="ArrowSpawningPosition" instance=ExtResource( 7 )]
 position = Vector2( 35.9363, -5.228 )
 [connection signal="arrows_amount_changed" from="." to="." method="_on_World_arrows_amount_changed"]
-[connection signal="battle_over" from="." to="Building" method="_on_World_battle_over"]
 [connection signal="battle_over" from="." to="ArrowSpawningPosition/Character" method="_on_World_battle_over"]
-[connection signal="battle_started" from="." to="Building" method="_on_World_battle_started"]
+[connection signal="battle_over" from="." to="Building" method="_on_World_battle_over"]
 [connection signal="battle_started" from="." to="ArrowSpawningPosition/Character" method="_on_World_battle_started"]
+[connection signal="battle_started" from="." to="Building" method="_on_World_battle_started"]
 [connection signal="corn_amount_changed" from="." to="." method="_on_World_corn_amount_changed"]
 [connection signal="meteors_amount_changed" from="." to="." method="_on_World_meteors_amount_changed"]
 [connection signal="unit_created" from="." to="Building" method="_on_World_unit_created"]

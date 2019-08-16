@@ -525,7 +525,6 @@ custom_fonts/font = ExtResource( 13 )
 text = "W"
 
 [node name="RoundAnnouncerContainer" type="MarginContainer" parent="GUI"]
-editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -545,11 +544,9 @@ custom_fonts/font = ExtResource( 27 )
 text = "Round 1"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="GUI/RoundAnnouncerContainer"]
-autoplay = "round_announcing"
 anims/round_announcing = SubResource( 3 )
 
 [node name="GameOverAnnouncer" type="MarginContainer" parent="GUI"]
-editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -562,6 +559,7 @@ custom_constants/margin_top = -160
 
 [node name="GameOverAnnouncerLabel" type="Label" parent="GUI/GameOverAnnouncer"]
 visible = false
+self_modulate = Color( 1, 1, 1, 0 )
 margin_top = -90.0
 margin_right = 198.0
 margin_bottom = -32.0
@@ -573,7 +571,6 @@ text = "Game Over"
 anims/game_over_announcing = SubResource( 4 )
 
 [node name="BattleAnnouncer" type="MarginContainer" parent="GUI"]
-editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -597,7 +594,6 @@ text = "Prepare for battle!"
 anims/battle_announcing = SubResource( 5 )
 
 [node name="GameOverPanel" type="MarginContainer" parent="GUI"]
-editor/display_folded = true
 visible = false
 anchor_left = 0.5
 anchor_top = 0.5
@@ -625,6 +621,7 @@ margin_bottom = 27.5
 alignment = 1
 
 [node name="RestartButton" type="TextureButton" parent="GUI/GameOverPanel/Background/Menu"]
+editor/display_folded = true
 margin_right = 137.0
 margin_bottom = 55.0
 texture_normal = ExtResource( 30 )
@@ -676,6 +673,7 @@ margin_bottom = 108.0
 texture = ExtResource( 35 )
 
 [node name="MainMenu" type="VBoxContainer" parent="MainMenu/MainMenuContainer"]
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -837,5 +835,6 @@ text = "Sounds"
 [connection signal="start_game" from="MainMenu" to="World" method="_on_MainMenu_start_game"]
 [connection signal="pressed" from="MainMenu/MainMenuContainer/MainMenu/PlayButton" to="MainMenu" method="_on_PlayButton_pressed"]
 [connection signal="pressed" from="MainMenu/MainMenuContainer/MainMenu/ExitButton" to="MainMenu" method="_on_ExitButton_pressed"]
+[connection signal="toggled" from="MainMenu/OptionsMenuContainer/OptionsMenu/TutorialCheckbox" to="MainMenu" method="_on_TutorialCheckbox_toggled"]
 
 [editable path="World"]

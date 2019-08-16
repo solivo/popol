@@ -1,6 +1,9 @@
 extends Control
 
-signal start_game
+signal start_game(tutorial_enabled)
+
+#Options variables
+var tutorial_enabled = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -19,4 +22,9 @@ func _on_ExitButton_pressed() -> void:
 func _on_PlayButton_pressed() -> void:
 	#Hide the main menu
 	visible = false
-	emit_signal("start_game")
+	print("tutorial_enabled", tutorial_enabled)
+	emit_signal("start_game", tutorial_enabled)
+
+
+func _on_TutorialCheckbox_toggled(button_pressed: bool) -> void:
+	tutorial_enabled = button_pressed
