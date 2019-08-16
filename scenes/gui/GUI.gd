@@ -32,6 +32,11 @@ func _input(event: InputEvent) -> void:
 	elif event.is_action_pressed("shorcut_arrow_power"):
 		emit_signal("arrow_power_pressed")
 
+func show_GUI():
+	visible = true
+
+func hide_GUI():
+	visible = false
 
 func update_corn_amount_panel(corn_amount):
 	$ResourcesPanel/MarginContainer/CornAmountPanel/CornAmountLabel.text = str(corn_amount)
@@ -235,3 +240,7 @@ func _on_UnitsPanel_pressed() -> void:
 
 func _on_World_battle_started() -> void:
 	$BattleAnnouncer/AnimationPlayer.play("battle_announcing")
+
+
+func _on_World_GUI_displayed() -> void:
+	show_GUI()

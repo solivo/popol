@@ -52,6 +52,7 @@ var enemies_created := 0
 export var unit_cost : = 6
 
 #Flags
+var game_started = false
 var plant_1_created = false
 var plant_2_created = false
 var plant_3_created = false
@@ -65,6 +66,7 @@ var meteor_power_activated = false
 var arrow_power_activated = false
 #Signals
 #GUI
+signal GUI_displayed
 signal corn_amount_changed(corn_amount)
 signal units_amount_changed(current_units)
 signal progress_unit_creation_changed(current_time, duration)
@@ -96,25 +98,43 @@ signal battle_over
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	randomize()
-	#Set the initial units to the building
-	$Building.units_avaliable = current_units
-	
-	#Set and start timers
-	$CloudSpawnTimer.start()
-	start_round()
+#	Set the initial units to the building
+#	$Building.units_avaliable = current_units
+#	Set and start timers
+#	$CloudSpawnTimer.start()
+#	start_round()
 
 func _process(delta: float) -> void:
 
-	if not plant_1_created:
-		create_new_plant(1)
-		plant_1_created = true
-		
-	if not plant_2_created:
-		create_new_plant(2)
-		plant_2_created = true
-	if not plant_3_created:
-		create_new_plant(3)
-		plant_3_created = true
+	if game_started:
+		if not plant_1_created:
+			create_new_plant(1)
+			plant_1_created = true
+			
+		if not plant_2_created:
+			create_new_plant(2)
+			plant_2_created = true
+		if not plant_3_created:
+			create_new_plant(3)
+			plant_3_created = true
+
+func start_game():
+	visible = true
+	#Set variables
+	game_started = true
+	current_round = 1
+	round_duration = 1 #Replace for a constant
+	current_minutes = round_duration
+	on_battle = false
+	current_units = 1
+	$Building.current_units = current_units
+	$Building.units_avaliable = current_units
+	#Set timers
+	$CloudSpawnTimer.start()
+	start_round()
+	#GUI
+	emit_signal("GUI_displayed")
+	pass
 
 func create_new_plant(number_plant_pos) -> void:
 		var corn_plant = CornPlant.instance()
@@ -457,3 +477,7 @@ func _on_World_arrows_amount_changed(current_arrows) -> void:
 		emit_signal("arrow_button_disabled")
 	elif current_arrows > 0 and on_battle:
 		emit_signal("arrow_button_enabled")
+
+
+func _on_MainMenu_start_game() -> void:
+	start_game()
