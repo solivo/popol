@@ -1,0 +1,269 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://scenes/tutorial/assets/click_indicator_1.png" type="Texture" id=1]
+[ext_resource path="res://scenes/tutorial/assets/click_indicator_2.png" type="Texture" id=2]
+[ext_resource path="res://scenes/tutorial/assets/click_indicator_3.png" type="Texture" id=3]
+[ext_resource path="res://scenes/tutorial/assets/arrows_indicator.png" type="Texture" id=4]
+[ext_resource path="res://scenes/tutorial/assets/fonts/tutorial_font.tres" type="DynamicFont" id=5]
+[ext_resource path="res://scenes/tutorial/assets/arrow_indicator.png" type="Texture" id=6]
+[ext_resource path="res://scenes/tutorial/assets/circle_indicator.png" type="Texture" id=7]
+
+[sub_resource type="Animation" id=3]
+resource_name = "battle_tutorial_displaying"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("GameScreen/BattleTutorial:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 2.4, 2.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=1]
+resource_name = "clouds_tutorial_displaying"
+length = 6.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("GameScreen/CloudsControllerTutorial/ClickSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3.6, 4.1, 4.6, 5.1, 5.6 ),
+"transitions": PoolRealArray( 23.4254, 1.03526, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("GameScreen/CloudsControllerTutorial/ClickSprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2.2, 3, 5.3, 6.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("GameScreen/CloudsControllerTutorial/ArrowsSprite:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 6.17953 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 4 ), ExtResource( 4 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("GameScreen/CloudsControllerTutorial/ArrowsSprite:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -50, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("GameScreen/CloudsControllerTutorial/ArrowsSprite:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 2.2, 3, 5.3, 6.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("GameScreen/CloudsControllerTutorial/ClickSprite:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 3.6, 6.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -88, -100 ), Vector2( -88, -100 ), Vector2( -20, -100 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("GameScreen/CloudsControllerTutorial/Label:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 2.2, 3, 5.3, 6.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "power_tutorial_displaying"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("GameScreen/PowerTutorial:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6, 2.3, 2.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "units_tutorial_displaying"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("GameScreen/UnitsTutorial:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 2.4, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[node name="Tutorial" type="Node"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "clouds_tutorial_displaying"
+anims/battle_tutorial_displaying = SubResource( 3 )
+anims/clouds_tutorial_displaying = SubResource( 1 )
+anims/power_tutorial_displaying = SubResource( 4 )
+anims/units_tutorial_displaying = SubResource( 2 )
+
+[node name="GameScreen" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="CloudsControllerTutorial" type="Control" parent="GameScreen"]
+editor/display_folded = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -24.5
+margin_top = -7.0
+margin_right = 24.5
+margin_bottom = 7.0
+
+[node name="Label" type="Label" parent="GameScreen/CloudsControllerTutorial"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = -163.99
+margin_top = -208.311
+margin_right = 156.01
+margin_bottom = -153.311
+custom_fonts/font = ExtResource( 5 )
+text = "Direct the clouds to the corn plants 
+by holding  right click on the screen"
+align = 1
+
+[node name="ClickSprite" type="Sprite" parent="GameScreen/CloudsControllerTutorial"]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( -20, -100 )
+texture = ExtResource( 3 )
+
+[node name="ArrowsSprite" type="Sprite" parent="GameScreen/CloudsControllerTutorial"]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( -50, 0 )
+texture = ExtResource( 4 )
+
+[node name="UnitsTutorial" type="Control" parent="GameScreen"]
+editor/display_folded = true
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="ArrowSprite" type="Sprite" parent="GameScreen/UnitsTutorial"]
+position = Vector2( 279.82, 497.914 )
+rotation = 2.02458
+scale = Vector2( 0.612653, 0.703135 )
+texture = ExtResource( 6 )
+
+[node name="CircleSprite" type="Sprite" parent="GameScreen/UnitsTutorial"]
+position = Vector2( 266.632, 542.792 )
+rotation = -0.656902
+scale = Vector2( 0.81855, 0.904972 )
+texture = ExtResource( 7 )
+
+[node name="Label" type="Label" parent="GameScreen/UnitsTutorial"]
+margin_left = 84.3825
+margin_top = 472.004
+margin_right = 268.382
+margin_bottom = 556.004
+custom_fonts/font = ExtResource( 5 )
+text = "Click here 
+or press the shortcut
+to buy units"
+align = 1
+
+[node name="PowerTutorial" type="Control" parent="GameScreen"]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Circle1Sprite" type="Sprite" parent="GameScreen/PowerTutorial"]
+position = Vector2( 563.81, 538.074 )
+texture = ExtResource( 7 )
+
+[node name="Circle2Sprite" type="Sprite" parent="GameScreen/PowerTutorial"]
+position = Vector2( 415.1, 540.605 )
+texture = ExtResource( 7 )
+
+[node name="Label" type="Label" parent="GameScreen/PowerTutorial"]
+margin_left = 684.834
+margin_top = 521.535
+margin_right = 913.834
+margin_bottom = 547.535
+custom_fonts/font = ExtResource( 5 )
+text = "Buy powers to use in battle"
+align = 1
+
+[node name="BattleTutorial" type="Control" parent="GameScreen"]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="ArrowSprite" type="Sprite" parent="GameScreen/BattleTutorial"]
+position = Vector2( 302.025, 101.903 )
+rotation = -1.41465
+texture = ExtResource( 6 )
+
+[node name="Circle1Sprite" type="Sprite" parent="GameScreen/BattleTutorial"]
+position = Vector2( 159.913, 25 )
+texture = ExtResource( 7 )
+
+[node name="Circle2Sprite" type="Sprite" parent="GameScreen/BattleTutorial"]
+position = Vector2( 67.119, 25 )
+texture = ExtResource( 7 )
+
+[node name="Label" type="Label" parent="GameScreen/BattleTutorial"]
+margin_left = 342.157
+margin_top = 96.0412
+margin_right = 613.157
+margin_bottom = 151.041
+custom_fonts/font = ExtResource( 5 )
+text = "Protect your people!
+Use your powers against enemies"
+align = 1
