@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://world/World.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/gui/GUI.gd" type="Script" id=2]
@@ -86,6 +86,34 @@ tracks/0/keys = {
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("GameOverAnnouncerLabel:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.9, 2, 2.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "battle_announcing"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("BattleAnnouncerLabel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BattleAnnouncerLabel:self_modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -506,7 +534,6 @@ autoplay = "round_announcing"
 anims/round_announcing = SubResource( 3 )
 
 [node name="GameOverAnnouncer" type="MarginContainer" parent="GUI"]
-editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -523,14 +550,36 @@ margin_top = -90.0
 margin_right = 198.0
 margin_bottom = -32.0
 custom_fonts/font = ExtResource( 28 )
-custom_colors/font_color = Color( 1, 0.443137, 0.443137, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Game Over"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="GUI/GameOverAnnouncer"]
 anims/game_over_announcing = SubResource( 4 )
 
+[node name="BattleAnnouncer" type="MarginContainer" parent="GUI"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -181.0
+margin_top = -19.5
+margin_right = 181.0
+margin_bottom = 19.5
+custom_constants/margin_top = -160
+
+[node name="BattleAnnouncerLabel" type="Label" parent="GUI/BattleAnnouncer"]
+self_modulate = Color( 1, 1, 1, 0.0245584 )
+margin_top = -90.0
+margin_right = 362.0
+margin_bottom = -32.0
+custom_fonts/font = ExtResource( 28 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Prepare for battle!"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GUI/BattleAnnouncer"]
+anims/battle_announcing = SubResource( 6 )
+
 [node name="GameOverPanel" type="MarginContainer" parent="GUI"]
-editor/display_folded = true
 visible = false
 anchor_left = 0.5
 anchor_top = 0.5
@@ -589,6 +638,7 @@ text = "Rounds survived: 1"
 [connection signal="arrow_panel_disabled" from="World" to="GUI" method="_on_World_arrow_panel_disabled"]
 [connection signal="arrow_panel_enabled" from="World" to="GUI" method="_on_World_arrow_panel_enabled"]
 [connection signal="arrows_amount_changed" from="World" to="GUI" method="_on_World_arrows_amount_changed"]
+[connection signal="battle_started" from="World" to="GUI" method="_on_World_battle_started"]
 [connection signal="corn_amount_changed" from="World" to="GUI" method="_on_World_corn_amount_changed"]
 [connection signal="game_over" from="World" to="GUI" method="_on_World_game_over"]
 [connection signal="game_over_panel_hided" from="World" to="GUI" method="_on_World_game_over_panel_hided"]

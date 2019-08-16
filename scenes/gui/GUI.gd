@@ -231,3 +231,7 @@ func _on_World_arrow_button_disabled() -> void:
 
 func _on_UnitsPanel_pressed() -> void:
 	emit_signal("unit_panel_pressed")
+
+
+func _on_World_battle_started() -> void:
+	$BattleAnnouncer/AnimationPlayer.play("battle_announcing")
