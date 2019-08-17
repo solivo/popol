@@ -53,6 +53,8 @@ func set_power_impacted(value):
 	if value:
 		if attacking:
 			$FightTimer.stop()
+			if $FightAudio.playing:
+				$FightAudio.stop()
 		attacking = false
 		leaving = true
 		if current_side == "right":
@@ -97,6 +99,8 @@ func attack_enemy():
 	else:
 		$AnimationPlayer.play("warrior_attacking_left_1")
 	$FightTimer.start()
+	#Play Audio
+	$FightAudio.play()
 
 #Determine the duration of the fight
 func _on_FightTimer_timeout() -> void:
@@ -105,6 +109,8 @@ func _on_FightTimer_timeout() -> void:
 	end_attack(fight_result)
 	fight_result = !fight_result
 	emit_signal("fight_result", fight_result)
+	if $FightAudio.playing:
+		$FightAudio.stop()
 
 func end_attack(win):
 	if  win:

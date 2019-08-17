@@ -138,6 +138,7 @@ func start_game():
 	emit_signal("GUI_displayed")
 	if tutorial_activated:
 		$Tutorial.play()
+	$BackgroundMusic.play()
 
 
 func create_new_plant(number_plant_pos) -> void:
@@ -177,6 +178,8 @@ func restart_game():
 	emit_signal("corn_amount_changed", corn_amount)
 	emit_signal("units_amount_changed", current_units)
 	start_round()
+	$BackgroundMusic.play()
+	$BattleStartedMusic.stop()
 
 func start_round():
 	#Reset variables
@@ -206,6 +209,9 @@ func start_battle():
 	if tutorial_activated:
 		$Tutorial.play()
 		tutorial_activated = false 
+	$BattleStartedMusic.play()
+	$BackgroundMusic.stop()
+
 
 func create_new_unit():
 	emit_signal("unit_created")
@@ -273,6 +279,8 @@ func end_round():
 #	emit_signal("unit_panel_enabled")
 	increase_dificulty()
 	start_round()
+	$BattleStartedMusic.stop()
+	$BackgroundMusic.play()
 
 func increase_dificulty():
 	enemies_peer_round += 4
@@ -490,3 +498,4 @@ func _on_World_arrows_amount_changed(current_arrows) -> void:
 func _on_MainMenu_start_game(tutorial_enabled) -> void:
 	tutorial_activated = tutorial_enabled
 	start_game()
+

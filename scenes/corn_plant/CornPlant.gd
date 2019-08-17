@@ -16,12 +16,10 @@ func _ready() -> void:
 	$AnimatedSpritePlant.play("growing_plant")
 	$AnimatedSpriteIndicator.play("indicator_off")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-#	pass
 
 func add_water():
 	self.water_amount += 1
+	$WaterAudio.play()
 
 func consume_water():
 	if $AnimatedSpritePlant.animation == "growing_plant" and $AnimatedSpritePlant.is_playing():

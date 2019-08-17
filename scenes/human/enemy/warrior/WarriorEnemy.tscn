@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://scenes/human/enemy/warrior/EnemyWarrior.gd" type="Script" id=1]
 [ext_resource path="res://scenes/human/enemy/warrior/assets/warrior_walking_1.png" type="Texture" id=2]
@@ -21,6 +21,7 @@
 [ext_resource path="res://scenes/human/enemy/warrior/assets/warrior_walking_2.png" type="Texture" id=19]
 [ext_resource path="res://scenes/human/enemy/warrior/assets/warrior_walking_3.png" type="Texture" id=20]
 [ext_resource path="res://scenes/human/enemy/warrior/assets/warrior_walking_4.png" type="Texture" id=21]
+[ext_resource path="res://scenes/human/warrior/assets/audio/fight_1.ogg" type="AudioStream" id=22]
 
 [sub_resource type="Animation" id=1]
 resource_name = "warrior_attacking_left_1"
@@ -535,5 +536,9 @@ shape = SubResource( 10 )
 
 [node name="FightTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="FightAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 22 )
+volume_db = -7.0
 [connection signal="body_entered" from="AttackArea" to="." method="_on_AttackArea_body_entered"]
 [connection signal="timeout" from="FightTimer" to="." method="_on_FightTimer_timeout"]

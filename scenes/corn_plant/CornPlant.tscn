@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://scenes/corn_plant/CornPlant.gd" type="Script" id=1]
 [ext_resource path="res://scenes/corn_plant/assets/mature_plant.png" type="Texture" id=2]
@@ -19,8 +19,9 @@
 [ext_resource path="res://scenes/corn_plant/assets/plant_grow_15.png" type="Texture" id=17]
 [ext_resource path="res://scenes/corn_plant/assets/plant_grow_16.png" type="Texture" id=18]
 [ext_resource path="res://scenes/corn_plant/assets/plant_grow_17.png" type="Texture" id=19]
-[ext_resource path="res://scenes/corn_plant/assets/water_indicator_off.png" type="Texture" id=20]
-[ext_resource path="res://scenes/corn_plant/assets/water_indicator_on.png" type="Texture" id=21]
+[ext_resource path="res://scenes/corn_plant/assets/water_indicator_on.png" type="Texture" id=20]
+[ext_resource path="res://scenes/corn_plant/assets/water_indicator_off.png" type="Texture" id=21]
+[ext_resource path="res://scenes/corn_plant/assets/audio/water.ogg" type="AudioStream" id=22]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 34.7801, 70.3134 )
@@ -42,13 +43,13 @@ animations = [ {
 animations = [ {
 "frames": [ ExtResource( 20 ) ],
 "loop": false,
-"name": "indicator_off",
-"speed": 1.0
+"name": "indicator_on",
+"speed": 2.0
 }, {
 "frames": [ ExtResource( 21 ) ],
 "loop": false,
-"name": "indicator_on",
-"speed": 2.0
+"name": "indicator_off",
+"speed": 1.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=4]
@@ -84,6 +85,10 @@ collision_mask = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FarnerDetection"]
 shape = SubResource( 4 )
+
+[node name="WaterAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 22 )
+volume_db = -10.0
 [connection signal="tree_exited" from="." to="." method="_on_CornPlant_tree_exited"]
 [connection signal="frame_changed" from="AnimatedSpritePlant" to="." method="_on_AnimatedSprite_frame_changed"]
 [connection signal="timeout" from="GrowTimer" to="." method="_on_GrowTimer_timeout"]

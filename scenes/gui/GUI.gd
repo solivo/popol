@@ -23,14 +23,19 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("shortcut_unit"):
 		emit_signal("unit_panel_pressed")
+		$ClickAudio.play()
 	elif event.is_action_pressed("shortcut_arrow"):
 		emit_signal("arrow_panel_pressed")
+		$ClickAudio.play()
 	elif event.is_action_pressed("shortcut_meteor"):
 		emit_signal("meteor_panel_pressed")
+		$ClickAudio.play()
 	elif event.is_action_pressed("shortcut_meteor_power"):
 		emit_signal("meteor_power_clicked")
+		$ClickAudio.play()
 	elif event.is_action_pressed("shorcut_arrow_power"):
 		emit_signal("arrow_power_pressed")
+		$ClickAudio.play()
 
 func show_GUI():
 	visible = true
@@ -198,10 +203,12 @@ func _on_World_game_over_panel_hided() -> void:
 
 func _on_RestartButton_pressed() -> void:
 	emit_signal("restart_button_pressed")
+	$ClickAudio.play()
 
 
 func _on_ArrowsPanel_pressed() -> void:
 	emit_signal("arrow_panel_pressed")
+	$ClickAudio.play()
 
 
 func _on_World_arrow_panel_disabled() -> void:
@@ -224,6 +231,7 @@ func _on_World_progress_arrow_creation_changed(current_time, duration) -> void:
 
 func _on_ArrowPowerButton_pressed() -> void:
 		emit_signal("arrow_power_pressed")
+		$ClickAudio.play()
 
 
 func _on_World_arrow_button_enabled() -> void:
@@ -236,6 +244,7 @@ func _on_World_arrow_button_disabled() -> void:
 
 func _on_UnitsPanel_pressed() -> void:
 	emit_signal("unit_panel_pressed")
+	$ClickAudio.play()
 
 
 func _on_World_battle_started() -> void:
@@ -248,7 +257,9 @@ func _on_World_GUI_displayed() -> void:
 func _on_PauseButton_pressed() -> void:
 	$PausePanel.visible = true
 	get_tree().paused = true
+	$ClickAudio.play()
 
 func _on_ReturnButton_pressed() -> void:
 	$PausePanel.visible = false
 	get_tree().paused = false
+	$ClickAudio.play()

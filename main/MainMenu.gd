@@ -24,7 +24,9 @@ func _on_PlayButton_pressed() -> void:
 	visible = false
 	print("tutorial_enabled", tutorial_enabled)
 	emit_signal("start_game", tutorial_enabled)
+	$ClickAudio.play()
 
 
 func _on_TutorialCheckbox_toggled(button_pressed: bool) -> void:
 	tutorial_enabled = button_pressed
+	$ClickAudio.play()
