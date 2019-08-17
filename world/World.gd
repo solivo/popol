@@ -256,10 +256,7 @@ func create_enemy():
 func units_changed(unit_type):
 	if unit_type == "enemy":
 		total_enemies -= 1
-		print("total_enemies: ", total_enemies)
-		print("enemies created: ", enemies_created)
 		if total_enemies <= 0 and current_units > 0:
-			print("Roud Win!!!")
 			end_round()
 	if unit_type == "ally":
 		current_units -= 1
@@ -267,7 +264,6 @@ func units_changed(unit_type):
 		#Update GUI
 		emit_signal("units_amount_changed", current_units)
 		if current_units == 0:
-			print("Game Over!!!!")
 			game_over()
 
 func end_round():
@@ -361,7 +357,6 @@ func _on_RoundTimer_timeout() -> void:
 	emit_signal("round_seconds_changed", current_seconds)
 	#Check if the round time is end
 	if current_seconds == 0 and current_minutes == 0:
-		print("Battle Started!")
 		start_battle()
 
 

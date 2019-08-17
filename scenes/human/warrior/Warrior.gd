@@ -78,7 +78,6 @@ func _on_AttackArea_body_entered(body: PhysicsBody2D) -> void:
 	if body.is_in_group(unit_target): #Change for enemy
 		var enemy = body
 		if not enemy.attacking and not attacking and not power_impacted and not enemy.power_impacted:
-			print("attacking!")
 			attacking = true
 			enemy.attacking = true
 			current_action = "attacking"

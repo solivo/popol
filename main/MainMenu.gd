@@ -22,7 +22,6 @@ func _on_ExitButton_pressed() -> void:
 func _on_PlayButton_pressed() -> void:
 	#Hide the main menu
 	visible = false
-	print("tutorial_enabled", tutorial_enabled)
 	emit_signal("start_game", tutorial_enabled)
 	$ClickAudio.play()
 	$BackgroundMusic.stop()
