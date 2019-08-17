@@ -852,7 +852,6 @@ margin_bottom = 76.0
 custom_constants/separation = 10
 
 [node name="PlayButton" type="TextureButton" parent="MainMenu/MainMenuContainer/MainMenu"]
-editor/display_folded = true
 margin_right = 177.0
 margin_bottom = 71.0
 texture_normal = ExtResource( 46 )
@@ -969,6 +968,7 @@ stream = ExtResource( 51 )
 
 [node name="BackgroundMusic" type="AudioStreamPlayer2D" parent="MainMenu"]
 stream = ExtResource( 52 )
+volume_db = -4.0
 autoplay = true
 
 [node name="CreditsContainer" type="MarginContainer" parent="MainMenu"]
@@ -980,9 +980,10 @@ custom_constants/margin_top = -11
 custom_constants/margin_left = 7
 
 [node name="Credits" type="HBoxContainer" parent="MainMenu/CreditsContainer"]
+editor/display_folded = true
 margin_left = 7.0
 margin_top = -11.0
-margin_right = 250.0
+margin_right = 229.0
 margin_bottom = 70.0
 
 [node name="Label" type="Label" parent="MainMenu/CreditsContainer/Credits"]

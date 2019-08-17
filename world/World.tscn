@@ -96,7 +96,7 @@ position = Vector2( 400.95, 410 )
 position = Vector2( 450, 410 )
 
 [node name="EnemySpawningPosition" type="Position2D" parent="."]
-position = Vector2( 1100, 430 )
+position = Vector2( 1100, 440 )
 
 [node name="CloudsSpawnPath" type="Path2D" parent="."]
 editor/display_folded = true
@@ -140,16 +140,16 @@ position = Vector2( 35.9363, -5.228 )
 
 [node name="BattleStartedMusic" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 8 )
-volume_db = -3.0
+volume_db = -4.0
 
 [node name="BackgroundMusic" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 9 )
-volume_db = -3.0
+volume_db = -4.0
 [connection signal="arrows_amount_changed" from="." to="." method="_on_World_arrows_amount_changed"]
-[connection signal="battle_over" from="." to="ArrowSpawningPosition/Character" method="_on_World_battle_over"]
 [connection signal="battle_over" from="." to="Building" method="_on_World_battle_over"]
-[connection signal="battle_started" from="." to="ArrowSpawningPosition/Character" method="_on_World_battle_started"]
+[connection signal="battle_over" from="." to="ArrowSpawningPosition/Character" method="_on_World_battle_over"]
 [connection signal="battle_started" from="." to="Building" method="_on_World_battle_started"]
+[connection signal="battle_started" from="." to="ArrowSpawningPosition/Character" method="_on_World_battle_started"]
 [connection signal="corn_amount_changed" from="." to="." method="_on_World_corn_amount_changed"]
 [connection signal="meteors_amount_changed" from="." to="." method="_on_World_meteors_amount_changed"]
 [connection signal="unit_created" from="." to="Building" method="_on_World_unit_created"]

@@ -86,8 +86,8 @@ texture = ExtResource( 3 )
 [node name="CPUParticlesSmoke" type="CPUParticles2D" parent="Sanctuary"]
 position = Vector2( 0, -161.61 )
 emitting = false
-amount = 2
-lifetime = 2.0
+amount = 1
+lifetime = 2.5
 texture = ExtResource( 4 )
 gravity = Vector2( 0, -98.8 )
 
@@ -103,6 +103,7 @@ shape = SubResource( 3 )
 position = Vector2( 0, 50 )
 
 [node name="UnitSpawningTimer" type="Timer" parent="."]
+wait_time = 0.8
 autostart = true
 
 [node name="BuildingDoorArea" type="Area2D" parent="."]

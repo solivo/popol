@@ -47,6 +47,8 @@ func update_corn_amount_panel(corn_amount):
 	$ResourcesPanel/MarginContainer/CornAmountPanel/CornAmountLabel.text = str(corn_amount)
 	
 func update_units_amount(current_units):
+	if current_units < 0:
+		current_units = 0
 	$MainPanel/MarginContainer/UnitsPanel/UnitsAmountLabel.text = str(current_units)
 
 func update_round_seconds(current_seconds):

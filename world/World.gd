@@ -45,7 +45,7 @@ var arrow_creation_current_time := 0
 export var arrow_cost := 18
 
 #Enemies
-export var enemies_peer_round := 5
+export var enemies_peer_round := 3
 var total_enemies = enemies_peer_round # Total enemies peer round
 #var current_enemies : int
 var enemies_created := 0
@@ -283,7 +283,7 @@ func end_round():
 	$BackgroundMusic.play()
 
 func increase_dificulty():
-	enemies_peer_round += 4
+	enemies_peer_round += 5
 	total_enemies = enemies_peer_round #Increase the enemy numbers
 
 func game_over():
@@ -299,7 +299,7 @@ func execute_power(power_type = "meteor"):
 		meteor.position = Vector2(falling_position.x, falling_position.y)
 		add_child(meteor)
 		meteor = Meteor.instance()
-		meteor.position = Vector2(falling_position.x - 10, falling_position.y - 120)
+		meteor.position = Vector2(falling_position.x + 15, falling_position.y - 140)
 		add_child(meteor)
 	elif power_type == "arrow":
 		arrow_power_activated = false
