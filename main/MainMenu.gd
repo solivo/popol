@@ -25,8 +25,17 @@ func _on_PlayButton_pressed() -> void:
 	print("tutorial_enabled", tutorial_enabled)
 	emit_signal("start_game", tutorial_enabled)
 	$ClickAudio.play()
+	$BackgroundMusic.stop()
 
 
 func _on_TutorialCheckbox_toggled(button_pressed: bool) -> void:
 	tutorial_enabled = button_pressed
 	$ClickAudio.play()
+
+
+func _on_SoundCheckbox_toggled(button_pressed: bool) -> void:
+	$ClickAudio.play()
+	if not button_pressed:
+		AudioServer.set_bus_mute(0,true)
+	else:
+		AudioServer.set_bus_mute(0,false)

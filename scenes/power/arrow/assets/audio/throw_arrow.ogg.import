@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/throw_arrow.ogg-5591eaa30c7ca2b8b8940c943ec723a8.oggstr"
+
+[deps]
+
+source_file="res://scenes/power/arrow/assets/audio/throw_arrow.ogg"
+dest_files=[ "res://.import/throw_arrow.ogg-5591eaa30c7ca2b8b8940c943ec723a8.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

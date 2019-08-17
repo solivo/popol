@@ -263,3 +263,4 @@ func _on_ReturnButton_pressed() -> void:
 	$PausePanel.visible = false
 	get_tree().paused = false
 	$ClickAudio.play()
+

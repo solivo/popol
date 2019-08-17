@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scenes/power/meteor/Meteor.gd" type="Script" id=1]
 [ext_resource path="res://scenes/power/meteor/assets/meteor_2.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://scenes/power/meteor/assets/meteor_impact_5.png" type="Texture" id=9]
 [ext_resource path="res://scenes/power/meteor/assets/meteor_impact_6.png" type="Texture" id=10]
 [ext_resource path="res://scenes/power/meteor/assets/particles_meteor.png" type="Texture" id=11]
+[ext_resource path="res://scenes/power/meteor/assets/audio/impact.ogg" type="AudioStream" id=12]
 
 [sub_resource type="Animation" id=1]
 resource_name = "meteor_falling"
@@ -144,5 +145,8 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GroundDetector"]
 shape = SubResource( 5 )
+
+[node name="ImpactAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 12 )
 [connection signal="body_entered" from="ImpactArea" to="." method="_on_ImpactArea_body_entered"]
 [connection signal="body_entered" from="GroundDetector" to="." method="_on_GroundDetector_body_entered"]

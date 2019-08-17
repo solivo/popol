@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scenes/power/arrow/Arrow.gd" type="Script" id=1]
 [ext_resource path="res://scenes/power/arrow/assets/arrow_1.png" type="Texture" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://scenes/power/arrow/assets/arrow_impact_6.png" type="Texture" id=8]
 [ext_resource path="res://scenes/power/arrow/assets/arrow_2.png" type="Texture" id=9]
 [ext_resource path="res://scenes/power/arrow/assets/arrow_3.png" type="Texture" id=10]
+[ext_resource path="res://scenes/power/arrow/assets/audio/impact.ogg" type="AudioStream" id=11]
+[ext_resource path="res://scenes/power/arrow/assets/audio/throw_arrow.ogg" type="AudioStream" id=12]
 
 [sub_resource type="Animation" id=1]
 resource_name = "arrow_impacting"
@@ -58,7 +60,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="CircleShape2D" id=3]
-radius = 18.0
+radius = 20.6726
 
 [sub_resource type="CapsuleShape2D" id=4]
 
@@ -79,7 +81,8 @@ anims/arrow_impacting = SubResource( 1 )
 anims/arrow_traveling = SubResource( 2 )
 
 [node name="ImpactArea" type="Area2D" parent="."]
-position = Vector2( 40.34, 0 )
+editor/display_folded = true
+position = Vector2( 38.34, 0 )
 monitoring = false
 monitorable = false
 collision_layer = 0
@@ -102,6 +105,13 @@ shape = SubResource( 5 )
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 position = Vector2( 1.13237, 0 )
 scale = Vector2( 5.70743, 1 )
+
+[node name="ImpactAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 11 )
+
+[node name="ThrowArrowAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 12 )
+pitch_scale = 2.0
 [connection signal="body_entered" from="ImpactArea" to="." method="_on_ImpactArea_body_entered"]
 [connection signal="body_entered" from="GroundDetector" to="." method="_on_GroundDetector_body_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
