@@ -82,5 +82,5 @@ shorcut_arrow_power={
 quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
-environment/default_clear_color=Color( 0.427451, 0.419608, 0.247059, 1 )
+environment/default_clear_color=Color( 0.513726, 0.505882, 0.329412, 1 )
 environment/default_environment="res://default_env.tres"

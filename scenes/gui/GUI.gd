@@ -157,7 +157,7 @@ func _on_World_unit_panel_enabled() -> void:
 
 func _on_MeteorPower_pressed() -> void:
 	emit_signal("meteor_power_clicked")
-
+	$ClickAudio.play()
 
 func _on_World_meteor_button_enabled() -> void:
 	enable_meteor_power()
@@ -168,6 +168,7 @@ func _on_World_meteor_button_disabled() -> void:
 
 func _on_MeteorPanel_pressed() -> void:
 	emit_signal("meteor_panel_pressed")
+	$ClickAudio.play()
 
 
 func _on_World_meteor_panel_disabled() -> void:
