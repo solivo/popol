@@ -12,7 +12,8 @@ signal cloud_area_click_release
 signal meteor_power_clicked
 signal arrow_power_pressed
 signal restart_button_pressed
-
+signal cloud_area_entered #Trigger when the cursor is over the cloud area
+signal cloud_area_exited
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -114,13 +115,14 @@ func show_game_over_panel():
 
 func hide_game_over_panel():
 	$GameOverPanel.visible = false
-
+	
+"""
 func _on_CloudsController_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("mouse_click"):
 		emit_signal("cloud_area_clicked", get_global_mouse_position()) 
 	elif event.is_action_released("mouse_click"):
 		emit_signal("cloud_area_click_release")
-
+"""
 func _on_World_corn_amount_changed(corn_amount) -> void:
 	update_corn_amount_panel(corn_amount)
 
@@ -267,3 +269,11 @@ func _on_ReturnButton_pressed() -> void:
 	get_tree().paused = false
 	$ClickAudio.play()
 
+
+
+func _on_CloudsController_mouse_entered() -> void:
+	emit_signal("cloud_area_entered")
+
+
+func _on_CloudsController_mouse_exited() -> void:
+	emit_signal("cloud_area_exited")

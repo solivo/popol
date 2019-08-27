@@ -146,10 +146,10 @@ volume_db = -4.0
 stream = ExtResource( 9 )
 volume_db = -4.0
 [connection signal="arrows_amount_changed" from="." to="." method="_on_World_arrows_amount_changed"]
-[connection signal="battle_over" from="." to="Building" method="_on_World_battle_over"]
 [connection signal="battle_over" from="." to="ArrowSpawningPosition/Character" method="_on_World_battle_over"]
-[connection signal="battle_started" from="." to="Building" method="_on_World_battle_started"]
+[connection signal="battle_over" from="." to="Building" method="_on_World_battle_over"]
 [connection signal="battle_started" from="." to="ArrowSpawningPosition/Character" method="_on_World_battle_started"]
+[connection signal="battle_started" from="." to="Building" method="_on_World_battle_started"]
 [connection signal="corn_amount_changed" from="." to="." method="_on_World_corn_amount_changed"]
 [connection signal="meteors_amount_changed" from="." to="." method="_on_World_meteors_amount_changed"]
 [connection signal="unit_created" from="." to="Building" method="_on_World_unit_created"]

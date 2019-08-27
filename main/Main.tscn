@@ -184,6 +184,7 @@ anchor_bottom = 1.0
 script = ExtResource( 2 )
 
 [node name="RoundPanelContainer" type="MarginContainer" parent="GUI"]
+editor/display_folded = true
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -87.0
@@ -272,12 +273,13 @@ valign = 1
 editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -1.40128
-margin_top = 2.59874
-margin_right = -1.40125
-margin_bottom = -163.401
+margin_left = -1.0
+margin_top = 3.0
+margin_right = -1.0
+margin_bottom = -277.0
 
 [node name="MainPanel" type="HBoxContainer" parent="GUI"]
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -290,6 +292,7 @@ size_flags_vertical = 0
 custom_constants/separation = 36
 
 [node name="MarginContainer" type="MarginContainer" parent="GUI/MainPanel"]
+editor/display_folded = true
 margin_right = 110.0
 margin_bottom = 116.0
 custom_constants/margin_top = 10
@@ -349,6 +352,7 @@ custom_fonts/font = ExtResource( 13 )
 text = "1"
 
 [node name="ArrowsPanelContainer" type="MarginContainer" parent="GUI/MainPanel"]
+editor/display_folded = true
 margin_left = 146.0
 margin_right = 256.0
 margin_bottom = 116.0
@@ -409,6 +413,7 @@ custom_fonts/font = ExtResource( 13 )
 text = "2"
 
 [node name="MeteorsPanelContainer" type="MarginContainer" parent="GUI/MainPanel"]
+editor/display_folded = true
 margin_left = 292.0
 margin_right = 402.0
 margin_bottom = 116.0
@@ -550,6 +555,7 @@ custom_fonts/font = ExtResource( 13 )
 text = "W"
 
 [node name="RoundAnnouncerContainer" type="MarginContainer" parent="GUI"]
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -572,6 +578,7 @@ text = "Round 1"
 anims/round_announcing = SubResource( 3 )
 
 [node name="GameOverAnnouncer" type="MarginContainer" parent="GUI"]
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -595,6 +602,7 @@ text = "Game Over"
 anims/game_over_announcing = SubResource( 4 )
 
 [node name="BattleAnnouncer" type="MarginContainer" parent="GUI"]
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -819,6 +827,7 @@ stream = SubResource( 7 )
 pitch_scale = 1.2
 
 [node name="MainMenu" type="Control" parent="."]
+editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 43 )
@@ -829,6 +838,7 @@ anchor_bottom = 1.0
 texture = ExtResource( 44 )
 
 [node name="MainMenuContainer" type="TextureRect" parent="MainMenu"]
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -891,6 +901,7 @@ text = "Exit"
 align = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MainMenu"]
+editor/display_folded = true
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -182.5
@@ -905,6 +916,7 @@ margin_bottom = 197.0
 texture = ExtResource( 50 )
 
 [node name="OptionsMenuContainer" type="MarginContainer" parent="MainMenu"]
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -971,6 +983,7 @@ volume_db = -4.0
 autoplay = true
 
 [node name="CreditsContainer" type="MarginContainer" parent="MainMenu"]
+editor/display_folded = true
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_top = -70.0
@@ -999,6 +1012,7 @@ margin_bottom = 81.0
 texture = ExtResource( 53 )
 
 [node name="VersionContainer" type="MarginContainer" parent="MainMenu"]
+editor/display_folded = true
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_top = -137.0
@@ -1015,6 +1029,7 @@ custom_fonts/font = SubResource( 9 )
 text = "Popol  V 0. 1"
 
 [node name="GameJamContainer" type="MarginContainer" parent="MainMenu"]
+editor/display_folded = true
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -1054,11 +1069,15 @@ texture = ExtResource( 54 )
 [connection signal="arrow_power_pressed" from="GUI" to="World" method="_on_GUI_arrow_power_pressed"]
 [connection signal="cloud_area_click_release" from="GUI" to="World" method="_on_GUI_cloud_area_click_release"]
 [connection signal="cloud_area_clicked" from="GUI" to="World" method="_on_GUI_cloud_area_clicked"]
+[connection signal="cloud_area_entered" from="GUI" to="World" method="_on_GUI_cloud_area_entered"]
+[connection signal="cloud_area_exited" from="GUI" to="World" method="_on_GUI_cloud_area_exited"]
 [connection signal="meteor_panel_pressed" from="GUI" to="World" method="_on_GUI_meteor_panel_pressed"]
 [connection signal="meteor_power_clicked" from="GUI" to="World" method="_on_GUI_meteor_power_clicked"]
 [connection signal="restart_button_pressed" from="GUI" to="World" method="_on_GUI_restart_button_pressed"]
 [connection signal="unit_panel_pressed" from="GUI" to="World" method="_on_GUI_unit_panel_pressed"]
 [connection signal="gui_input" from="GUI/CloudsController" to="GUI" method="_on_CloudsController_gui_input"]
+[connection signal="mouse_entered" from="GUI/CloudsController" to="GUI" method="_on_CloudsController_mouse_entered"]
+[connection signal="mouse_exited" from="GUI/CloudsController" to="GUI" method="_on_CloudsController_mouse_exited"]
 [connection signal="pressed" from="GUI/MainPanel/MarginContainer/UnitsPanel" to="GUI" method="_on_UnitsPanel_pressed"]
 [connection signal="pressed" from="GUI/MainPanel/ArrowsPanelContainer/ArrowsPanel" to="GUI" method="_on_ArrowsPanel_pressed"]
 [connection signal="pressed" from="GUI/MainPanel/MeteorsPanelContainer/MeteorPanel" to="GUI" method="_on_MeteorPanel_pressed"]

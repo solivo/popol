@@ -1,6 +1,7 @@
 extends RigidBody2D
 
 class_name Cloud
+var ExpulsionWaves = preload("res://scenes/expulsion_waves/ExpulsionWaves.tscn")
 
 var wind_direction = Vector2(-1,0)
 export var WATER_AMOUNT := 6
@@ -67,6 +68,11 @@ func stop_rain():
 	$WaterDurationTimer.stop()
 	$CPUParticles2D.emitting = false
 
+func create_expulsion_waves(expulsion_position):
+	var expulsion_waves = ExpulsionWaves.instance()
+	expulsion_waves.position = expulsion_position
+	get_parent().add_child(expulsion_waves)
+	expulsion_waves.play()
 
 func _on_PlantsDetection_body_entered(body: PhysicsBody2D) -> void:
 	if body.is_in_group("corn_plant"):

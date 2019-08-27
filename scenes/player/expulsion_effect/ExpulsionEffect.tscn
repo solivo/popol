@@ -1,51 +1,13 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/player/expulsion_effect/ExpulsionEffect.gd" type="Script" id=1]
-[ext_resource path="res://scenes/player/expulsion_effect/assets/expulsion_5.png" type="Texture" id=2]
-[ext_resource path="res://scenes/player/expulsion_effect/assets/expulsion_1.png" type="Texture" id=3]
-[ext_resource path="res://scenes/player/expulsion_effect/assets/expulsion_2.png" type="Texture" id=4]
-[ext_resource path="res://scenes/player/expulsion_effect/assets/expulsion_3.png" type="Texture" id=5]
-[ext_resource path="res://scenes/player/expulsion_effect/assets/expulsion_4.png" type="Texture" id=6]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 48.3069
 
-[sub_resource type="Animation" id=2]
-resource_name = "clicking"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
-"transitions": PoolRealArray( 1, 7.72749, 1, 1, 1 ),
-"update": 0,
-"values": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 2 ) ]
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.5 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "queue_free"
-} ]
-}
-
 [node name="ExpulsionEffect" type="Area2D"]
 collision_mask = 2
 script = ExtResource( 1 )
-
-[node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -53,8 +15,6 @@ shape = SubResource( 1 )
 [node name="LifeTimer" type="Timer" parent="."]
 wait_time = 0.7
 one_shot = true
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/clicking = SubResource( 2 )
+autostart = true
 [connection signal="body_entered" from="." to="." method="_on_ExpulsionEffect_body_entered"]
 [connection signal="timeout" from="LifeTimer" to="." method="_on_LifeTimer_timeout"]

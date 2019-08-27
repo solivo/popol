@@ -494,3 +494,15 @@ func _on_MainMenu_start_game(tutorial_enabled) -> void:
 	tutorial_activated = tutorial_enabled
 	start_game()
 
+#Clouds controller:
+
+func _on_GUI_cloud_area_entered() -> void:
+	#Instantiate a expulsion effect
+	var expulsion_effect = ExpulsionEffect.instance()
+	expulsion_effect.position = get_global_mouse_position()
+	add_child(expulsion_effect)
+	$SpawningExpulsionTimer.start()
+
+
+func _on_GUI_cloud_area_exited() -> void:
+	$SpawningExpulsionTimer.stop()
