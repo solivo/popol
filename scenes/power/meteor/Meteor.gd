@@ -20,7 +20,7 @@ func _on_GroundDetector_body_entered(body: PhysicsBody2D) -> void:
 		impacting = true
 		$ImpactArea.monitoring = true
 		$AnimationPlayer.play("meteor_impacting")
-		$ImpactAudio.play()
+		SoundManager.play_se("impact")
 
 
 func _on_ImpactArea_body_entered(body: PhysicsBody2D) -> void:

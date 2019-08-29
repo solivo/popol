@@ -1,12 +1,12 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/cloud/Cloud.gd" type="Script" id=1]
-[ext_resource path="res://scenes/cloud/medium_cloud/rain_particles.png" type="Texture" id=2]
-[ext_resource path="res://scenes/cloud/medium_cloud/normal_cloud_medium.png" type="Texture" id=3]
-[ext_resource path="res://scenes/cloud/medium_cloud/empty_cloud_medium_1.png" type="Texture" id=4]
-[ext_resource path="res://scenes/cloud/medium_cloud/empty_cloud_medium_2.png" type="Texture" id=5]
-[ext_resource path="res://scenes/cloud/medium_cloud/empty_cloud_medium_3.png" type="Texture" id=6]
-[ext_resource path="res://scenes/cloud/medium_cloud/fill_cloud_medium.png" type="Texture" id=7]
+[ext_resource path="res://scenes/cloud/medium_cloud/assets/rain_particles.png" type="Texture" id=2]
+[ext_resource path="res://scenes/cloud/medium_cloud/assets/normal_cloud_medium.png" type="Texture" id=3]
+[ext_resource path="res://scenes/cloud/medium_cloud/assets/empty_cloud_medium_1.png" type="Texture" id=4]
+[ext_resource path="res://scenes/cloud/medium_cloud/assets/empty_cloud_medium_2.png" type="Texture" id=5]
+[ext_resource path="res://scenes/cloud/medium_cloud/assets/empty_cloud_medium_3.png" type="Texture" id=6]
+[ext_resource path="res://scenes/cloud/medium_cloud/assets/fill_cloud_medium.png" type="Texture" id=7]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -28,9 +28,6 @@ animations = [ {
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 74.7692, 32.7008 )
-
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 82.8031, 36.8573 )
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 82.3807, 93.958 )
@@ -63,13 +60,6 @@ shape = SubResource( 2 )
 [node name="WaterDurationTimer" type="Timer" parent="."]
 wait_time = 0.6
 
-[node name="CloudsDetection" type="Area2D" parent="."]
-monitorable = false
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CloudsDetection"]
-shape = SubResource( 3 )
-
 [node name="PlantsDetection" type="Area2D" parent="."]
 position = Vector2( 0, 126.45 )
 collision_layer = 2
@@ -83,8 +73,6 @@ position = Vector2( 0.463295, 0.694936 )
 scale = Vector2( 7.2081, 2.87633 )
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="timeout" from="WaterDurationTimer" to="." method="_on_WaterDurationTimer_timeout"]
-[connection signal="body_entered" from="CloudsDetection" to="." method="_on_CloudsDetection_body_entered"]
-[connection signal="body_exited" from="CloudsDetection" to="." method="_on_CloudsDetection_body_exited"]
 [connection signal="body_entered" from="PlantsDetection" to="." method="_on_PlantsDetection_body_entered"]
 [connection signal="body_exited" from="PlantsDetection" to="." method="_on_PlantsDetection_body_exited"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

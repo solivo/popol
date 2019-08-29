@@ -7,8 +7,6 @@ var end_round = 0 #Store the end round
 signal unit_panel_pressed #Attemps to create a new unit 
 signal meteor_panel_pressed #Attemps to create a new meteor power
 signal arrow_panel_pressed #Attemps to create a new arrow power
-signal cloud_area_clicked(mouse_position) 
-signal cloud_area_click_release
 signal meteor_power_clicked
 signal arrow_power_pressed
 signal restart_button_pressed
@@ -24,19 +22,19 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("shortcut_unit"):
 		emit_signal("unit_panel_pressed")
-		$ClickAudio.play()
+		SoundManager.play_se("click")
 	elif event.is_action_pressed("shortcut_arrow"):
 		emit_signal("arrow_panel_pressed")
-		$ClickAudio.play()
+		SoundManager.play_se("click")
 	elif event.is_action_pressed("shortcut_meteor"):
 		emit_signal("meteor_panel_pressed")
-		$ClickAudio.play()
+		SoundManager.play_se("click")
 	elif event.is_action_pressed("shortcut_meteor_power"):
 		emit_signal("meteor_power_clicked")
-		$ClickAudio.play()
+		SoundManager.play_se("click")
 	elif event.is_action_pressed("shorcut_arrow_power"):
 		emit_signal("arrow_power_pressed")
-		$ClickAudio.play()
+		SoundManager.play_se("click")
 
 func show_GUI():
 	visible = true
@@ -116,13 +114,7 @@ func show_game_over_panel():
 func hide_game_over_panel():
 	$GameOverPanel.visible = false
 	
-"""
-func _on_CloudsController_gui_input(event: InputEvent) -> void:
-	if event.is_action_pressed("mouse_click"):
-		emit_signal("cloud_area_clicked", get_global_mouse_position()) 
-	elif event.is_action_released("mouse_click"):
-		emit_signal("cloud_area_click_release")
-"""
+
 func _on_World_corn_amount_changed(corn_amount) -> void:
 	update_corn_amount_panel(corn_amount)
 
@@ -159,7 +151,7 @@ func _on_World_unit_panel_enabled() -> void:
 
 func _on_MeteorPower_pressed() -> void:
 	emit_signal("meteor_power_clicked")
-	$ClickAudio.play()
+	SoundManager.play_se("click")
 
 func _on_World_meteor_button_enabled() -> void:
 	enable_meteor_power()
@@ -170,7 +162,7 @@ func _on_World_meteor_button_disabled() -> void:
 
 func _on_MeteorPanel_pressed() -> void:
 	emit_signal("meteor_panel_pressed")
-	$ClickAudio.play()
+	SoundManager.play_se("click")
 
 
 func _on_World_meteor_panel_disabled() -> void:
@@ -208,12 +200,12 @@ func _on_World_game_over_panel_hided() -> void:
 
 func _on_RestartButton_pressed() -> void:
 	emit_signal("restart_button_pressed")
-	$ClickAudio.play()
+	SoundManager.play_se("click")
 
 
 func _on_ArrowsPanel_pressed() -> void:
 	emit_signal("arrow_panel_pressed")
-	$ClickAudio.play()
+	SoundManager.play_se("click")
 
 
 func _on_World_arrow_panel_disabled() -> void:
@@ -236,7 +228,7 @@ func _on_World_progress_arrow_creation_changed(current_time, duration) -> void:
 
 func _on_ArrowPowerButton_pressed() -> void:
 		emit_signal("arrow_power_pressed")
-		$ClickAudio.play()
+		SoundManager.play_se("click")
 
 
 func _on_World_arrow_button_enabled() -> void:
@@ -249,7 +241,7 @@ func _on_World_arrow_button_disabled() -> void:
 
 func _on_UnitsPanel_pressed() -> void:
 	emit_signal("unit_panel_pressed")
-	$ClickAudio.play()
+	SoundManager.play_se("click")
 
 
 func _on_World_battle_started() -> void:
@@ -262,12 +254,12 @@ func _on_World_GUI_displayed() -> void:
 func _on_PauseButton_pressed() -> void:
 	$PausePanel.visible = true
 	get_tree().paused = true
-	$ClickAudio.play()
+	SoundManager.play_se("click")
 
 func _on_ReturnButton_pressed() -> void:
 	$PausePanel.visible = false
 	get_tree().paused = false
-	$ClickAudio.play()
+	SoundManager.play_se("click")
 
 
 

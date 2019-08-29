@@ -20,7 +20,7 @@
 [ext_resource path="res://scenes/human/warrior/assets/warrior_walking_2.png" type="Texture" id=18]
 [ext_resource path="res://scenes/human/warrior/assets/warrior_walking_3.png" type="Texture" id=19]
 [ext_resource path="res://scenes/human/warrior/assets/warrior_walking_4.png" type="Texture" id=20]
-[ext_resource path="res://scenes/human/warrior/assets/audio/fight_1.ogg" type="AudioStream" id=21]
+[ext_resource path="res://main/assets/audio/sfx/fight_1.ogg" type="AudioStream" id=21]
 
 [sub_resource type="Animation" id=1]
 resource_name = "warrior_attacking_left_1"

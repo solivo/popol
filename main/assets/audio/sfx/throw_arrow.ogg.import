@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/throw_arrow.ogg-cc8f15262d92c21dfaef099576876d01.oggstr"
+
+[deps]
+
+source_file="res://main/assets/audio/sfx/throw_arrow.ogg"
+dest_files=[ "res://.import/throw_arrow.ogg-cc8f15262d92c21dfaef099576876d01.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

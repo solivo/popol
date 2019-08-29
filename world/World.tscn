@@ -1,14 +1,12 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://world/World.gd" type="Script" id=1]
 [ext_resource path="res://world/assets/background.png" type="Texture" id=2]
 [ext_resource path="res://world/Cloud_border.gd" type="Script" id=3]
-[ext_resource path="res://world/ground.png" type="Texture" id=4]
+[ext_resource path="res://world/assets/ground.png" type="Texture" id=4]
 [ext_resource path="res://scenes/building/Building.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/tutorial/Tutorial.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/player/character/Character.tscn" type="PackedScene" id=7]
-[ext_resource path="res://world/assets/audio/battle_started.ogg" type="AudioStream" id=8]
-[ext_resource path="res://world/assets/audio/background_music.ogg" type="AudioStream" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 480, 240 )
@@ -137,14 +135,6 @@ position = Vector2( 130, 215 )
 
 [node name="Character" parent="ArrowSpawningPosition" instance=ExtResource( 7 )]
 position = Vector2( 35.9363, -5.228 )
-
-[node name="BattleStartedMusic" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 8 )
-volume_db = -4.0
-
-[node name="BackgroundMusic" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 9 )
-volume_db = -4.0
 [connection signal="arrows_amount_changed" from="." to="." method="_on_World_arrows_amount_changed"]
 [connection signal="battle_over" from="." to="ArrowSpawningPosition/Character" method="_on_World_battle_over"]
 [connection signal="battle_over" from="." to="Building" method="_on_World_battle_over"]

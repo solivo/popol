@@ -138,7 +138,7 @@ func start_game():
 	emit_signal("GUI_displayed")
 	if tutorial_activated:
 		$Tutorial.play()
-	$BackgroundMusic.play()
+	SoundManager.play_bgm("main_music")
 
 
 func create_new_plant(number_plant_pos) -> void:
@@ -178,10 +178,12 @@ func restart_game():
 	emit_signal("corn_amount_changed", corn_amount)
 	emit_signal("units_amount_changed", current_units)
 	start_round()
-	$BackgroundMusic.play()
-	$BattleStartedMusic.stop()
+	SoundManager.play_bgm("main_music")
 
 func start_round():
+	print("round:", current_round)
+	print("enemies_created:", enemies_created)
+	print("total enemies:", total_enemies)
 	#Reset variables
 	current_minutes = round_duration
 	current_seconds = 0
@@ -209,8 +211,7 @@ func start_battle():
 	if tutorial_activated:
 		$Tutorial.play()
 		tutorial_activated = false 
-	$BattleStartedMusic.play()
-	$BackgroundMusic.stop()
+	SoundManager.play_bgm("battle_music")
 
 
 func create_new_unit():
@@ -275,8 +276,7 @@ func end_round():
 #	emit_signal("unit_panel_enabled")
 	increase_dificulty()
 	start_round()
-	$BattleStartedMusic.stop()
-	$BackgroundMusic.play()
+	SoundManager.play_bgm("main_music")
 
 func increase_dificulty():
 	enemies_peer_round += 5
@@ -318,14 +318,6 @@ func _on_CloudSpawnTimer_timeout() -> void:
 	add_child(cloud)
 
 
-func _on_GUI_cloud_area_clicked(mouse_position) -> void:
-	#Instantiate a expulsion effect
-	var expulsion_effect = ExpulsionEffect.instance()
-	expulsion_effect.position = mouse_position
-	add_child(expulsion_effect)
-	$SpawningExpulsionTimer.start()
-
-
 func _on_GUI_unit_panel_pressed() -> void:
 	if corn_amount >= unit_cost and not creating_unit:
 		creating_unit = true
@@ -341,8 +333,6 @@ func _on_UnitCreationTimer_timeout() -> void:
 	emit_signal("progress_unit_creation_changed", unit_creation_current_time, unit_creation_duration)
 	if unit_creation_current_time >= unit_creation_duration:
 		create_new_unit()
-#		if not on_battle:
-#			emit_signal("unit_panel_enabled")
 
 
 func _on_RoundTimer_timeout() -> void:
@@ -384,11 +374,6 @@ func _on_SpawningExpulsionTimer_timeout() -> void:
 	expulsion_effect.position = get_global_mouse_position()
 	add_child(expulsion_effect)
 
-
-func _on_GUI_cloud_area_click_release() -> void:
-	$SpawningExpulsionTimer.stop()
-
-
 func _on_GUI_meteor_power_clicked() -> void:
 	if meteors > 0 and on_battle and not meteor_power_activated:
 		meteors -= 1
@@ -416,8 +401,6 @@ func _on_MeteorCreationTimer_timeout() -> void:
 	emit_signal("progress_meteor_creation_changed", meteor_creation_current_time, meteor_creation_duration)
 	if meteor_creation_current_time >= meteor_creation_duration:
 		add_new_meteor()
-#		if not on_battle:
-#			emit_signal("meteor_panel_enabled")
 
 
 func _on_World_corn_amount_changed(corn_amount) -> void:

@@ -10,8 +10,9 @@
 [ext_resource path="res://scenes/power/arrow/assets/arrow_impact_6.png" type="Texture" id=8]
 [ext_resource path="res://scenes/power/arrow/assets/arrow_2.png" type="Texture" id=9]
 [ext_resource path="res://scenes/power/arrow/assets/arrow_3.png" type="Texture" id=10]
-[ext_resource path="res://scenes/power/arrow/assets/audio/impact.ogg" type="AudioStream" id=11]
-[ext_resource path="res://scenes/power/arrow/assets/audio/throw_arrow.ogg" type="AudioStream" id=12]
+[ext_resource path="res://main/assets/audio/sfx/impact.ogg" type="AudioStream" id=11]
+[ext_resource path="res://main/assets/audio/sfx/throw_arrow.ogg" type="AudioStream" id=12]
+
 
 [sub_resource type="Animation" id=1]
 resource_name = "arrow_impacting"

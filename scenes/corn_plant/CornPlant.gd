@@ -9,7 +9,6 @@ signal plant_collected(number_position)
 #Flags
 var mature_plant = false
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	water_amount = 0
 	#Set the initial state of the plant and water indicator
@@ -19,7 +18,7 @@ func _ready() -> void:
 
 func add_water():
 	self.water_amount += 1
-	$WaterAudio.play()
+	SoundManager.play_se("water", true , false)
 
 func consume_water():
 	if $AnimatedSpritePlant.animation == "growing_plant" and $AnimatedSpritePlant.is_playing():
@@ -37,7 +36,6 @@ func ready_to_harvest():
 	emit_signal("ready_for_harvest")
 	$AnimatedSpritePlant.play("mature_plant")
 	mature_plant = true
-
 
 
 func _on_GrowTimer_timeout() -> void:

@@ -6,7 +6,7 @@ var current_action := "harvesting"
 
 var plant_collected = false
 
-#signal plant_collected(number_position)
+
 signal plant_not_collected #Trigger the signal when the farmer disappear before collect the plant
 # Called when the node enters the scene tree for the first time.
 #Flags

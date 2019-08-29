@@ -16,7 +16,7 @@ var default_side = "right"
 
 #Flags
 var attacking = false
-var leaving = false
+#var leaving = false
 var power_impacted = false setget set_power_impacted
 var enemies_on_right = true
 var enemies_on_left = false
@@ -36,7 +36,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	#Handle unit movement
-	if current_action == "searching_enemies" and not leaving:
+	if current_action == "searching_enemies":
 		if $RayCastRight.is_colliding():
 			var enemy = $RayCastRight.get_collider()
 			if enemy.is_in_group(unit_target):
@@ -53,14 +53,14 @@ func set_power_impacted(value):
 	if value:
 		if attacking:
 			$FightTimer.stop()
-			if $FightAudio.playing:
-				$FightAudio.stop()
-		attacking = false
-		leaving = true
+			if SoundManager.is_se_playing("fight_1"):
+				SoundManager.stop_se()
+			attacking = false
 		if current_side == "right":
 			$AnimationPlayer.play("warrior_dying_right")
 		else:
 			$AnimationPlayer.play("warrior_dying_left")
+		current_action = ""
 		emit_signal("unit_killed", unit_type)
 	power_impacted = value
 
@@ -99,7 +99,7 @@ func attack_enemy():
 		$AnimationPlayer.play("warrior_attacking_left_1")
 	$FightTimer.start()
 	#Play Audio
-	$FightAudio.play()
+	SoundManager.play_se("fight_1")
 
 #Determine the duration of the fight
 func _on_FightTimer_timeout() -> void:
@@ -108,8 +108,8 @@ func _on_FightTimer_timeout() -> void:
 	end_attack(fight_result)
 	fight_result = !fight_result
 	emit_signal("fight_result", fight_result)
-	if $FightAudio.playing:
-		$FightAudio.stop()
+	if SoundManager.is_se_playing("fight_1"):
+		SoundManager.stop_se()
 
 func end_attack(win):
 	if  win:
@@ -135,19 +135,18 @@ func receive_attack(side):
 
 func kill_warrior():
 	emit_signal("unit_killed", unit_type)
-	leaving = true
 	if current_side == "right":
 		$AnimationPlayer.play("warrior_dying_right")
 	else:
 		$AnimationPlayer.play("warrior_dying_left")
+	current_action = ""
 
 func quit_warrior():
-	leaving = true
 	if current_side == "right":
 		$AnimationPlayer.play("warrior_leaving_right")
 	else:
 		$AnimationPlayer.play("warrior_leaving_left")
-
+	current_action = ""
 
 func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 	if anim_name == "warrior_leaving_right" or anim_name == "warrior_leaving_left"  or anim_name == "warrior_dying_left" or anim_name == "warrior_dying_right":
