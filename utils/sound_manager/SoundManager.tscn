@@ -6,16 +6,6 @@
 [node name="SoundManager" type="Node"]
 pause_mode = 2
 script = ExtResource( 1 )
-Audio_Files_Dictionary = {
-"SoundName": "sound_file_name.extension",
-"battle_music": "battle_started.ogg",
-"click": "click_button.ogg",
-"fight_1": "fight_1.ogg",
-"impact": "impact.ogg",
-"main_music": "background_music.ogg",
-"throw_arrow": "throw_arror.ogg",
-"water": "water.ogg"
-}
 BGM_DIR_PATH = "res://main/assets/audio/bgm"
 SFX_DIR_PATH = "res://main/assets/audio/sfx"
 
@@ -24,6 +14,7 @@ SFX_DIR_PATH = "res://main/assets/audio/sfx"
 [node name="BGS" type="AudioStreamPlayer" parent="."]
 
 [node name="SoundEffects" type="Node" parent="."]
+editor/display_folded = true
 
 [node name="SE0" type="AudioStreamPlayer" parent="SoundEffects"]
 script = ExtResource( 2 )

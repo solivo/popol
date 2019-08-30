@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=2]
+[gd_scene load_steps=62 format=2]
 
 [ext_resource path="res://world/World.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/gui/GUI.gd" type="Script" id=2]
@@ -43,14 +43,15 @@
 [ext_resource path="res://scenes/main_menu/assets/checkbox_pressed.png" type="Texture" id=41]
 [ext_resource path="res://scenes/main_menu/assets/fonts/options_font.tres" type="DynamicFont" id=42]
 [ext_resource path="res://main/MainMenu.gd" type="Script" id=43]
-[ext_resource path="res://scenes/main_menu/assets/main_menu_background.png" type="Texture" id=44]
-[ext_resource path="res://scenes/main_menu/assets/play_button_normal.png" type="Texture" id=45]
-[ext_resource path="res://scenes/main_menu/assets/play_button_pressed.png" type="Texture" id=46]
-[ext_resource path="res://scenes/main_menu/assets/exit_button_normal.png" type="Texture" id=47]
-[ext_resource path="res://scenes/main_menu/assets/exit_button_pressed.png" type="Texture" id=48]
-[ext_resource path="res://scenes/main_menu/assets/game_title.png" type="Texture" id=49]
-[ext_resource path="res://scenes/main_menu/assets/sarturobot.png" type="Texture" id=50]
-[ext_resource path="res://scenes/main_menu/assets/godot_wild_jam.png" type="Texture" id=51]
+[ext_resource path="res://world/assets/background.png" type="Texture" id=44]
+[ext_resource path="res://scenes/main_menu/assets/main_menu_background.png" type="Texture" id=45]
+[ext_resource path="res://scenes/main_menu/assets/play_button_normal.png" type="Texture" id=46]
+[ext_resource path="res://scenes/main_menu/assets/play_button_pressed.png" type="Texture" id=47]
+[ext_resource path="res://scenes/main_menu/assets/exit_button_normal.png" type="Texture" id=48]
+[ext_resource path="res://scenes/main_menu/assets/exit_button_pressed.png" type="Texture" id=49]
+[ext_resource path="res://scenes/main_menu/assets/game_title.png" type="Texture" id=50]
+[ext_resource path="res://scenes/main_menu/assets/sarturobot.png" type="Texture" id=51]
+[ext_resource path="res://scenes/main_menu/assets/godot_wild_jam.png" type="Texture" id=52]
 
 [sub_resource type="DynamicFont" id=1]
 size = 26
@@ -824,12 +825,17 @@ stream = SubResource( 7 )
 pitch_scale = 1.2
 
 [node name="MainMenu" type="Control" parent="."]
+editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 43 )
 
+[node name="Background" type="TextureRect" parent="MainMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 44 )
+
 [node name="MainMenuContainer" type="TextureRect" parent="MainMenu"]
-editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -838,7 +844,7 @@ margin_left = -151.0
 margin_top = -108.0
 margin_right = 151.0
 margin_bottom = 108.0
-texture = ExtResource( 44 )
+texture = ExtResource( 45 )
 
 [node name="MainMenu" type="VBoxContainer" parent="MainMenu/MainMenuContainer"]
 anchor_left = 0.5
@@ -854,8 +860,8 @@ custom_constants/separation = 10
 [node name="PlayButton" type="TextureButton" parent="MainMenu/MainMenuContainer/MainMenu"]
 margin_right = 177.0
 margin_bottom = 71.0
-texture_normal = ExtResource( 45 )
-texture_pressed = ExtResource( 46 )
+texture_normal = ExtResource( 46 )
+texture_pressed = ExtResource( 47 )
 
 [node name="Label" type="Label" parent="MainMenu/MainMenuContainer/MainMenu/PlayButton"]
 anchor_left = 0.5
@@ -871,12 +877,11 @@ text = "Start Game"
 align = 1
 
 [node name="ExitButton" type="TextureButton" parent="MainMenu/MainMenuContainer/MainMenu"]
-editor/display_folded = true
 margin_top = 81.0
 margin_right = 177.0
 margin_bottom = 152.0
-texture_normal = ExtResource( 47 )
-texture_pressed = ExtResource( 48 )
+texture_normal = ExtResource( 48 )
+texture_pressed = ExtResource( 49 )
 
 [node name="Label" type="Label" parent="MainMenu/MainMenuContainer/MainMenu/ExitButton"]
 anchor_left = 0.5
@@ -904,7 +909,7 @@ custom_constants/margin_top = 15
 margin_top = 15.0
 margin_right = 365.0
 margin_bottom = 197.0
-texture = ExtResource( 49 )
+texture = ExtResource( 50 )
 
 [node name="OptionsMenuContainer" type="MarginContainer" parent="MainMenu"]
 editor/display_folded = true
@@ -992,7 +997,7 @@ text = "Created by:  SARTURO"
 margin_left = 166.0
 margin_right = 222.0
 margin_bottom = 81.0
-texture = ExtResource( 50 )
+texture = ExtResource( 51 )
 
 [node name="VersionContainer" type="MarginContainer" parent="MainMenu"]
 editor/display_folded = true
@@ -1023,7 +1028,7 @@ margin_top = -195.0
 [node name="TextureRect" type="TextureRect" parent="MainMenu/GameJamContainer"]
 margin_right = 162.0
 margin_bottom = 195.0
-texture = ExtResource( 51 )
+texture = ExtResource( 52 )
 [connection signal="GUI_displayed" from="World" to="GUI" method="_on_World_GUI_displayed"]
 [connection signal="arrow_button_disabled" from="World" to="GUI" method="_on_World_arrow_button_disabled"]
 [connection signal="arrow_button_enabled" from="World" to="GUI" method="_on_World_arrow_button_enabled"]
@@ -1056,7 +1061,6 @@ texture = ExtResource( 51 )
 [connection signal="meteor_power_clicked" from="GUI" to="World" method="_on_GUI_meteor_power_clicked"]
 [connection signal="restart_button_pressed" from="GUI" to="World" method="_on_GUI_restart_button_pressed"]
 [connection signal="unit_panel_pressed" from="GUI" to="World" method="_on_GUI_unit_panel_pressed"]
-[connection signal="gui_input" from="GUI/CloudsController" to="GUI" method="_on_CloudsController_gui_input"]
 [connection signal="mouse_entered" from="GUI/CloudsController" to="GUI" method="_on_CloudsController_mouse_entered"]
 [connection signal="mouse_exited" from="GUI/CloudsController" to="GUI" method="_on_CloudsController_mouse_exited"]
 [connection signal="pressed" from="GUI/MainPanel/MarginContainer/UnitsPanel" to="GUI" method="_on_UnitsPanel_pressed"]

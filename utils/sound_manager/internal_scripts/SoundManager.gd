@@ -2,7 +2,7 @@ extends SoundManager
 
 ####################################################################
 #	SOUND MANAGER MODULE FOR GODOT 3.1
-#			Version 1.4
+#			Version 1.6
 #			© Xecestel
 ####################################################################
 #
@@ -39,8 +39,8 @@ func play_bgm(bgm : String, reset_to_defaults : bool = true) -> void:
 		return;
 	if (self.is_bgm_playing(bgm)):
 		return;
-			
-	var bgm_file_name = Audio_Files_Dictionary.get(bgm);
+	
+	var bgm_file_name = bgm if (bgm.get_extension() != "") else Audio_Files_Dictionary.get(bgm);
 	if (bgm_file_name == null):
 		print_debug("Error: file not found " + bgm);
 		return;
@@ -117,7 +117,7 @@ func play_bgs(bgs : String, reset_to_defaults : bool = true) -> void:
 	if (self.is_bgs_playing(bgs)):
 		return;
 			
-	var bgs_file_name = Audio_Files_Dictionary.get(bgs);
+	var bgs_file_name = bgs if (bgs.get_extension() != "") else Audio_Files_Dictionary.get(bgs);
 	if (bgs_file_name == null):
 		print_debug("Error: file not found " + bgs);
 		return;
@@ -192,7 +192,7 @@ func play_se(sound_effect : String, reset_to_defaults : bool = true, override_cu
 		if (self.is_se_playing(sound_effect)):
 			return;
 		
-	var sound_effect_file_name = Audio_Files_Dictionary.get(sound_effect);
+	var sound_effect_file_name = sound_effect if (sound_effect.get_extension() != "") else Audio_Files_Dictionary.get(sound_effect);
 	if (sound_effect_file_name == null):
 		print_debug("Error: file not found " + sound_effect);
 		return;
@@ -218,14 +218,7 @@ func play_se(sound_effect : String, reset_to_defaults : bool = true, override_cu
 			self.set_se_pitch_scale(1.0, sound_to_override);
 			self.set_se_volume_db(0.0, sound_to_override);
 	else:
-		var new_audiostream = AudioStreamPlayer.new();
-		$SoundEffects.add_child(new_audiostream);
-		var sound_effect_script = load(soundmgr_dir_rel_path + "/SoundEffects.gd");
-		new_audiostream.set_script(sound_effect_script);
-		new_audiostream.set_bus($SoundEffects.get_child(0).get_bus());
-		se_index = new_audiostream.get_index();
-		se_playing.append(sound_effect);
-		SE_Audiostreams.append(new_audiostream);
+		se_index = self.add_sound_effect(sound_effect);
 		
 	SE_Audiostreams[se_index].set_stream(Stream);
 	SE_Audiostreams[se_index].play();
@@ -325,7 +318,7 @@ func play_me(music_effect : String, reset_to_defaults : bool = true) -> void:
 	if (self.is_me_playing(music_effect)):
 		return;
 	
-	var music_effect_file_name = Audio_Files_Dictionary.get(music_effect);
+	var music_effect_file_name = music_effect if (music_effect.get_extension() != "") else Audio_Files_Dictionary.get(music_effect);
 	if (music_effect_file_name == null):
 		print_debug("Error: file not found " + music_effect);
 		return;
@@ -431,11 +424,36 @@ func set_config_key(new_stream_name : String, new_stream_file : String) -> void:
 #end
 
 func _on_SE_finished(sound_name):
+	self.erase_sound_effect(sound_name);
+#end
+
+
+#############################
+#	INTERNAL METHODS		#
+#############################
+
+func add_sound_effect(sound_name : String) -> int:
+	var se_index;
+	var new_audiostream = AudioStreamPlayer.new();
+	var sound_effect_script = load(soundmgr_dir_rel_path + "/SoundEffects.gd");
+	
+	$SoundEffects.add_child(new_audiostream);
+	new_audiostream.set_script(sound_effect_script);
+	new_audiostream.set_bus($SoundEffects.get_child(0).get_bus());
+	se_index = new_audiostream.get_index();
+	se_playing.append(sound_name);
+	SE_Audiostreams.append(new_audiostream);
+	
+	return se_index;
+#end
+
+func erase_sound_effect(sound_name : String) -> void:
 	var se_index = se_playing.find(sound_name);
 	
-	if (se_index == 0):
+	if (se_index <= 0):
 		return;
 		
 	se_playing.erase(sound_name);
+	SE_Audiostreams.remove(se_index);
 	$SoundEffects.get_children()[se_index].queue_free();
 #end

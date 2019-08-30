@@ -14,4 +14,11 @@ extends Node
 
 export var Audio_Files_Dictionary : Dictionary = {
 	"SoundName" : "sound_file_name.extension",
+	"main_music": "background_music.ogg", #BGM
+	"battle_music": "battle_started.ogg",
+	"click": "click_button.ogg", #SFX
+	"fight_1": "fight_1.ogg",
+	"impact": "impact.ogg",
+	"throw_arrow": "throw_arrow.ogg",
+	"water": "water.ogg"
 	}

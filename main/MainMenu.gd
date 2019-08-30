@@ -7,7 +7,7 @@ var tutorial_enabled = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	SoundManager.play_bgm("main_music")
+	SoundManager.play_bgm("background_music.ogg")
 
 
 func _on_ExitButton_pressed() -> void:

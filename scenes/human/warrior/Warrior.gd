@@ -115,7 +115,8 @@ func end_attack(win):
 	if  win:
 		winning_factor.append("false") #Decreases the probabity of win the next fight
 		attacking = false
-		current_action = "searching_enemies"
+		if current_action != "":
+			current_action = "searching_enemies"
 		current_side = default_side
 		$CollisionShapeWarrior.disabled = false
 		$RayCastLeft.enabled = true
@@ -142,11 +143,11 @@ func kill_warrior():
 	current_action = ""
 
 func quit_warrior():
+	current_action = ""
 	if current_side == "right":
 		$AnimationPlayer.play("warrior_leaving_right")
 	else:
 		$AnimationPlayer.play("warrior_leaving_left")
-	current_action = ""
 
 func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 	if anim_name == "warrior_leaving_right" or anim_name == "warrior_leaving_left"  or anim_name == "warrior_dying_left" or anim_name == "warrior_dying_right":
